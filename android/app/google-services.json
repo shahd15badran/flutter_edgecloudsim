@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067153016223",
+    "project_id": "ecs-app-fab32",
+    "storage_bucket": "ecs-app-fab32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067153016223:android:724c228c3c7e09fb28e9aa",
+        "android_client_info": {
+          "package_name": "com.shahd.flutter_edgecloudsim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067153016223-7pub55dp18esvcusr6h7lc8b6s2hd4l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLE6ZAiSHz_19jQ9E8AIWbEgQNkOBd0Wg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067153016223-7pub55dp18esvcusr6h7lc8b6s2hd4l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
