@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-class OrchestratorScreen extends StatelessWidget {
+class AddAppScreen extends StatelessWidget {
   AuthBase authBase = AuthBase();
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,8 @@ class OrchestratorScreen extends StatelessWidget {
                 left: 270,
               ),
               child: SizedBox(
-                height: 20,
                 width: 20,
+                height: 20,
                 child: RaisedButton(
                   color: Colors.blue,
                   onPressed: () async {
@@ -46,7 +46,7 @@ class OrchestratorScreen extends StatelessWidget {
               color: Colors.white70,
               child: Padding(
                 padding: const EdgeInsets.only(
-                    top: 60,
+                    top: 50,
                     right: 16,
                     left: 16
                 ),
@@ -54,14 +54,14 @@ class OrchestratorScreen extends StatelessWidget {
                   children:<Widget> [
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 60
+                          bottom: 20
                       ),
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 200,
-                            child: Text('orchestrator_policies :',style: TextStyle(
-                              fontSize: 18,
+                            width: 160,
+                            child: Text('application name :',style: TextStyle(
+                              fontSize: 16,
                               color: Colors.blue,
                               fontWeight: FontWeight.w800,
                             ),
@@ -69,14 +69,17 @@ class OrchestratorScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 20,
+                              left: 2,
                             ),
                             child: SizedBox(
-                              width: 120,
+                              width: 190,
                               height: 40,
                               child: TextFormField(
                                 decoration: textInputDecoration,
-                                initialValue: "NEXT_FIT",
+                                initialValue: "AUGMENTED_REALITY",
+                                style: TextStyle(
+                                  fontSize: 15
+                                ),
                               ),
                             ),
                           )
@@ -90,9 +93,9 @@ class OrchestratorScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 100,
-                            child: Text('simulation_scenarios=>',style: TextStyle(
-                              fontSize: 18,
+                            width: 160,
+                            child: Text('usage_percentage :',style: TextStyle(
+                              fontSize: 16,
                               color: Colors.blue,
                               fontWeight: FontWeight.w800,
                             ),
@@ -100,17 +103,14 @@ class OrchestratorScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 90,
+                              left: 2,
                             ),
                             child: SizedBox(
-                              width: 160,
+                              width: 190,
                               height: 40,
                               child: TextFormField(
                                 decoration: textInputDecoration,
-                                initialValue: "SINGLE_TIER",
-                                style: TextStyle(
-                                    fontSize: 13
-                                ),
+                                initialValue: "30",
                               ),
                             ),
                           )
@@ -124,21 +124,88 @@ class OrchestratorScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 100,
+                            width: 160,
+                            child: Text('prob_cloud_selection:',style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 90,
+                              left: 2,
                             ),
                             child: SizedBox(
-                              width: 160,
+                              width: 190,
                               height: 40,
                               child: TextFormField(
                                 decoration: textInputDecoration,
-                                initialValue: "TWO_TIER",
-                                style: TextStyle(
-                                    fontSize: 13
-                                ),
+                                initialValue: "20",
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 20
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 160,
+                            child: Text('poisson_interarrival :',style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 2,
+                            ),
+                            child: SizedBox(
+                              width: 190,
+                              height: 40,
+                              child: TextFormField(
+                                decoration: textInputDecoration,
+                                initialValue: "5",
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 20
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 160,
+                            child: Text('delay_sensitivity :',style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 2,
+                            ),
+                            child: SizedBox(
+                              width: 190,
+                              height: 40,
+                              child: TextFormField(
+                                decoration: textInputDecoration,
+                                initialValue: "0",
                               ),
                             ),
                           )
@@ -152,21 +219,24 @@ class OrchestratorScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 100,
+                            width: 160,
+                            child: Text('active_period :',style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 90,
+                              left: 2,
                             ),
                             child: SizedBox(
-                              width: 160,
+                              width: 190,
                               height: 40,
                               child: TextFormField(
                                 decoration: textInputDecoration,
-                                initialValue: "TWO_TIER_WITH_EO",
-                                style: TextStyle(
-                                  fontSize: 13
-                                ),
+                                initialValue: "45",
                               ),
                             ),
                           )
@@ -181,18 +251,20 @@ class OrchestratorScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 50,
+                              top: 30,
                               left: 70,
                             ),
                             child: SizedBox(
                               height: 60,
                               width: 200,
                               child: OriginalButton(
-                                text:'Submit',
+                                text:'Continue Editing',
                                 textColor: Colors.white,
                                 color: Colors.blue,
                                 onPressed: (){
+
                                   //edit data in firebase
+                                  Navigator.of(context).pushNamed('cont add application');
                                 },
                               ),
                             ),
@@ -200,57 +272,30 @@ class OrchestratorScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-//////////////////////////////////////////////////////////////////
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 20
+                        top: 10,
+                        left: 250,
                       ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 40,
-                              left: 5,
-                            ),
-                            child: SizedBox(
-                              height: 50,
-                              width: 200,
-                              child: OriginalButton(
-                                text:'Edit Basic Sim Setting',
-                                textColor: Colors.white,
-                                color: Colors.blueGrey,
-                                onPressed: (){
-                                  Navigator.of(context).pushNamed('basic setting');
-                                },
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 40,
-                              left: 30,
-                            ),
-                            child: SizedBox(
-                              height: 50,
-                              width: 100,
-                              child: OriginalButton(
-                                text:'Back',
-                                textColor: Colors.white,
-                                color: Colors.blueGrey,
-                                onPressed: (){
-                                  Navigator.of(context).pushNamed('graphical');
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: SizedBox(
+                        height: 50,
+                        width: 100,
+                        child: OriginalButton(
+                          text:'Back',
+                          textColor: Colors.white,
+                          color: Colors.blueGrey,
+                          onPressed: (){
+                            Navigator.of(context).pushNamed('graphical');
+                          },
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
             ),
-          ),
+          )
+
       ),
     );
   }

@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'dart:io'show Platform;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -21,8 +20,6 @@ class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
   String _email = '', _password = '';
   AuthBase authBase = AuthBase();
-
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -125,7 +122,7 @@ class _AuthFormState extends State<AuthForm> {
               },
             ),
             SizedBox(height: 6),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 if (widget.authType == AuthType.login) {
                   Navigator.of(context).pushReplacementNamed('register');

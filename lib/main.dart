@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_edgecloudsim/screens/add_app_screen.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
+import 'package:flutter_edgecloudsim/screens/basic_setting_screen.dart';
+import 'package:flutter_edgecloudsim/screens/cont_app_screen.dart';
+import 'package:flutter_edgecloudsim/screens/data_center_screen.dart';
+import 'package:flutter_edgecloudsim/screens/edge_users_screen.dart';
+import 'package:flutter_edgecloudsim/screens/global_cloud_screen.dart';
 import 'package:flutter_edgecloudsim/screens/graphical_screen.dart';
+import 'package:flutter_edgecloudsim/screens/internet_screen.dart';
 import 'package:flutter_edgecloudsim/screens/intro_screen.dart';
 import 'package:flutter_edgecloudsim/screens/manually_screen.dart';
 import 'package:flutter_edgecloudsim/screens/orchestrator_screen.dart';
 import 'package:flutter_edgecloudsim/screens/simulation_screen.dart';
 import 'package:flutter_edgecloudsim/screens/startup_screen.dart';
 
-
-void main() {
+void main() async {
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -48,6 +53,13 @@ class MyApp extends StatelessWidget {
         'startup':(context) =>StartupScreen(),
         'simulation':(context)=>SimulationScreen(),
         'orchestrator':(context)=>OrchestratorScreen(),
+        'internet':(context) =>InternetScreen(),
+        'global cloud':(context)=> GlobalCloudScreen(),
+        'basic setting':(context)=> SettingScreen(),
+        'add application':(context)=> AddAppScreen(),
+        'cont add application':(context)=> ContAddAppScreen(),
+        'edge users':(context) =>EdgeUserScreen(),
+        'data center':(context) =>DataCenterScreen(),
       },
     );
   }

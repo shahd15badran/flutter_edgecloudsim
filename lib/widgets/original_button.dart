@@ -16,10 +16,10 @@ class OriginalButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(color: textColor, fontSize: 18),
+          style: TextStyle(color: textColor, fontSize: 16),
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
         ),
         color: color,
       ),
