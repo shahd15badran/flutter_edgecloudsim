@@ -15,10 +15,9 @@ class AddAppScreen extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 270,
               ),
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: RaisedButton(
+               child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
                   color: Colors.blue,
                   onPressed: () async {
                     await authBase.logout();
@@ -31,7 +30,6 @@ class AddAppScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
