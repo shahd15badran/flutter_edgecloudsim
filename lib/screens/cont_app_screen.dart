@@ -2,8 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-class ContAddAppScreen extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+class ContAddAppScreen extends StatefulWidget {
+  @override
+  _ContAddAppScreenState createState() => _ContAddAppScreenState();
+}
+
+class _ContAddAppScreenState extends State<ContAddAppScreen> {
   AuthBase authBase = AuthBase();
+  final idle_period_controller=TextEditingController(text:"15");
+  final data_upload_controller=TextEditingController(text: '1500');
+  final data_download_controller=TextEditingController(text: '25');
+  final task_length_controller=TextEditingController(text: '2000');
+  final required_core_controller=TextEditingController(text: '1');
+  final vm_utilization_on_edge_controller=TextEditingController(text: '20');
+  final vm_utilization_on_cloud_controller=TextEditingController(text: '2');
+  final vm_utilization_on_mobile_controller=TextEditingController(text: '0');
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +89,12 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller:idle_period_controller ,
                                 decoration: textInputDecoration,
-                                initialValue: "15",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('idle_period', idle_period_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -104,8 +124,12 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: data_upload_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "1500",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('data_upload', data_upload_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -135,8 +159,12 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: data_download_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "25",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('data_download', data_download_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -166,8 +194,12 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: task_length_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "2000",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('task_length', task_length_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -197,8 +229,12 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: required_core_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "1",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('required_core', required_core_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -228,8 +264,12 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: vm_utilization_on_edge_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "20",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('vm_utilization_on_edge', vm_utilization_on_edge_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -260,8 +300,13 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: vm_utilization_on_cloud_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "2",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('vm_utilization_on_cloud', vm_utilization_on_cloud_controller.text);
+                                  }
+
                               ),
                             ),
                           )
@@ -291,8 +336,12 @@ class ContAddAppScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: vm_utilization_on_mobile_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "0",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('vm_utilization_on_mobile', vm_utilization_on_mobile_controller.text);
+                                  }
                               ),
                             ),
                           )
