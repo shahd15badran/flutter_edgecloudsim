@@ -5,6 +5,7 @@ import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
 import 'package:flutter_edgecloudsim/screens/basic_setting_screen.dart';
 import 'package:flutter_edgecloudsim/screens/cont_app_screen.dart';
 import 'package:flutter_edgecloudsim/screens/data_center_screen.dart';
+import 'package:flutter_edgecloudsim/screens/edge_devices_xml.dart';
 import 'package:flutter_edgecloudsim/screens/edge_users_screen.dart';
 import 'package:flutter_edgecloudsim/screens/global_cloud_screen.dart';
 import 'package:flutter_edgecloudsim/screens/graphical_screen.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: AddAppScreen(),
+      home: DataCenterScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
         'edge users':(context) =>EdgeUserScreen(),
         'data center':(context) =>DataCenterScreen(),
         'app xml':(context) =>AppXML(),
+        'edge xml':(context) =>EdgeXML(),
       },
     );
   }

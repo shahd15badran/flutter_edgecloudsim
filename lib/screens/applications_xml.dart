@@ -45,9 +45,6 @@ class _State extends State<AppXML> {
       if(prefs.getString('vm_utilization_on_edge')!=null)   vm_utilization_on_edge=prefs.getString('vm_utilization_on_edge');
       if(prefs.getString('vm_utilization_on_cloud')!=null)   vm_utilization_on_cloud=prefs.getString('vm_utilization_on_cloud');
       if(prefs.getString('vm_utilization_on_mobile')!=null)   vm_utilization_on_mobile=prefs.getString('vm_utilization_on_mobile');
-
-
-
     });
   }
 

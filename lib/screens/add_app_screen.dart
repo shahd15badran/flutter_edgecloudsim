@@ -14,15 +14,10 @@ class _AddAppScreenState extends State<AddAppScreen> {
   AuthBase authBase = AuthBase();
 
   final application_name_controller=TextEditingController(text:"AUGMENTED");
-
   final usage_percentage_controller=TextEditingController(text: "30");
-
   final prob_cloud_selection_controller=TextEditingController(text: "20");
-
   final poisson_interarrival_controller=TextEditingController(text: "5");
-
   final delay_sensitivity_controller=TextEditingController(text: "0");
-
   final active_period_controller=TextEditingController(text: "45");
 
   @override
@@ -304,7 +299,7 @@ class _AddAppScreenState extends State<AddAppScreen> {
                                 onPressed: (){
 
                                   //edit data in firebase
-                                  Navigator.of(context).pushNamed('app xml');
+                                  Navigator.of(context).pushNamed('cont add application');
                                 },
                               ),
                             ),

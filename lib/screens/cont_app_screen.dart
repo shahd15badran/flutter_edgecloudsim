@@ -367,6 +367,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                                 textColor: Colors.white,
                                 color: Colors.blue,
                                 onPressed: (){
+                                  Navigator.of(context).pushNamed('app xml');
 
                                   //edit data in firebase
                                 },
