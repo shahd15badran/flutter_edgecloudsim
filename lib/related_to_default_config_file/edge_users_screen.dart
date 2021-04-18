@@ -2,8 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-class EdgeUserScreen extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+class EdgeUserScreen extends StatefulWidget {
+  @override
+  _EdgeUserScreenState createState() => _EdgeUserScreenState();
+}
+
+class _EdgeUserScreenState extends State<EdgeUserScreen> {
   AuthBase authBase = AuthBase();
+  final min_number_of_mobile_devices_controller=TextEditingController(text: "100");
+  final max_number_of_mobile_devices_controller=TextEditingController(text: "1000");
+  final mobile_device_counter_size_controller=TextEditingController(text: "100");
+  final core_for_mobile_vm_controller=TextEditingController(text: "0");
+  final mips_for_mobile_vm_controller=TextEditingController(text: "0");
+  final ram_for_mobile_vm_controller=TextEditingController(text: "0");
+  final storage_for_mobile_vm_controller=TextEditingController(text: "0");
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,8 +90,12 @@ class EdgeUserScreen extends StatelessWidget {
                               width: 80,
                               height: 40,
                               child: TextFormField(
+                                controller: min_number_of_mobile_devices_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "100",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('min_number_of_mobile_devices', min_number_of_mobile_devices_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -106,8 +125,12 @@ class EdgeUserScreen extends StatelessWidget {
                               width: 80,
                               height: 40,
                               child: TextFormField(
+                                controller: max_number_of_mobile_devices_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "1000",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('max_number_of_mobile_devices', max_number_of_mobile_devices_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -137,8 +160,12 @@ class EdgeUserScreen extends StatelessWidget {
                               width: 80,
                               height: 40,
                               child: TextFormField(
+                                controller:mobile_device_counter_size_controller ,
                                 decoration: textInputDecoration,
-                                initialValue: "100",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('mobile_device_counter_size', mobile_device_counter_size_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -189,8 +216,12 @@ class EdgeUserScreen extends StatelessWidget {
                               width: 80,
                               height: 40,
                               child: TextFormField(
+                                controller: core_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "0",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('core_for_mobile_vm', core_for_mobile_vm_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -222,8 +253,12 @@ class EdgeUserScreen extends StatelessWidget {
                               width: 80,
                               height: 40,
                               child: TextFormField(
+                                controller: mips_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "0",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('mips_for_mobile_vm', mips_for_mobile_vm_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -255,8 +290,12 @@ class EdgeUserScreen extends StatelessWidget {
                               width: 80,
                               height: 40,
                               child: TextFormField(
+                                controller: ram_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "0",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('ram_for_mobile_vm', ram_for_mobile_vm_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -288,9 +327,12 @@ class EdgeUserScreen extends StatelessWidget {
                               width: 80,
                               height: 40,
                               child: TextFormField(
+                                controller: storage_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "0",
-                              ),
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('storage_for_mobile_vm', storage_for_mobile_vm_controller.text);
+                                  }                              ),
                             ),
                           )
                         ],

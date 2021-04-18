@@ -2,8 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-    class InternetScreen extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+    class InternetScreen extends StatefulWidget {
+  @override
+  _InternetScreenState createState() => _InternetScreenState();
+}
+
+class _InternetScreenState extends State<InternetScreen> {
       AuthBase authBase = AuthBase();
+      final wan_propagation_delay_controller=TextEditingController(text: "0.1");
+      final lan_internal_delay_controller=TextEditingController(text: "0.005");
+      final wlan_bandwidth_controller=TextEditingController(text: "200");
+      final wan_bandwidth_controller=TextEditingController(text: "15");
+      final gsm_bandwidth_controller=TextEditingController(text: "0");
+
       @override
       Widget build(BuildContext context) {
         return Scaffold(
@@ -73,8 +85,12 @@ import 'package:flutter_edgecloudsim/widgets/original_button.dart';
                                 width: 120,
                                 height: 40,
                                 child: TextFormField(
+                                  controller: wan_bandwidth_controller,
                                   decoration: textInputDecoration,
-                                  initialValue: "0.1",
+                                    onChanged: (text)async{
+                                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      prefs.setString('wan_propagation_delay', wan_bandwidth_controller.text);
+                                    }
                                 ),
                               ),
                             )
@@ -104,8 +120,12 @@ import 'package:flutter_edgecloudsim/widgets/original_button.dart';
                                 width: 120,
                                 height: 40,
                                 child: TextFormField(
+                                  controller: lan_internal_delay_controller,
                                   decoration: textInputDecoration,
-                                  initialValue: "0.005",
+                                    onChanged: (text)async{
+                                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      prefs.setString('lan_internal_delay', lan_internal_delay_controller.text);
+                                    }
                                 ),
                               ),
                             )
@@ -135,8 +155,12 @@ import 'package:flutter_edgecloudsim/widgets/original_button.dart';
                                 width: 120,
                                 height: 40,
                                 child: TextFormField(
+                                  controller: wlan_bandwidth_controller,
                                   decoration: textInputDecoration,
-                                  initialValue: "200",
+                                    onChanged: (text)async{
+                                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      prefs.setString('wlan_bandwidth', wlan_bandwidth_controller.text);
+                                    }
                                 ),
                               ),
                             )
@@ -167,8 +191,12 @@ import 'package:flutter_edgecloudsim/widgets/original_button.dart';
                                 width: 120,
                                 height: 40,
                                 child: TextFormField(
+                                  controller: wan_bandwidth_controller,
                                   decoration: textInputDecoration,
-                                  initialValue: "15",
+                                    onChanged: (text)async{
+                                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      prefs.setString('wan_bandwidth', wan_bandwidth_controller.text);
+                                    }
                                 ),
                               ),
                             )
@@ -199,8 +227,12 @@ import 'package:flutter_edgecloudsim/widgets/original_button.dart';
                                 width: 120,
                                 height: 40,
                                 child: TextFormField(
+                                  controller: gsm_bandwidth_controller,
                                   decoration: textInputDecoration,
-                                  initialValue: "0",
+                                    onChanged: (text)async{
+                                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      prefs.setString('gsm_bandwidth', gsm_bandwidth_controller.text);
+                                    }
                                 ),
                               ),
                             )
@@ -261,4 +293,4 @@ import 'package:flutter_edgecloudsim/widgets/original_button.dart';
         ),
         );
       }
-    }
+}

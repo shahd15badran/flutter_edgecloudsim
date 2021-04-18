@@ -2,8 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-class GlobalCloudScreen extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+class GlobalCloudScreen extends StatefulWidget {
+  @override
+  _GlobalCloudScreenState createState() => _GlobalCloudScreenState();
+}
+
+class _GlobalCloudScreenState extends State<GlobalCloudScreen> {
   AuthBase authBase = AuthBase();
+  final number_of_host_on_cloud_datacenter_controller=TextEditingController(text: "1");
+  final number_of_vm_on_cloud_host_controller=TextEditingController(text: "4");
+  final core_for_cloud_vm_controller=TextEditingController(text: "4");
+  final mips_for_cloud_vm_controller=TextEditingController(text: "10000");
+  final ram_for_cloud_vm_controller=TextEditingController(text: "32000");
+  final storage_for_cloud_vm_controller=TextEditingController(text: "1000000");
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +87,12 @@ class GlobalCloudScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: number_of_host_on_cloud_datacenter_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "1",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('number_of_host_on_cloud_datacenter', number_of_host_on_cloud_datacenter_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -104,8 +122,12 @@ class GlobalCloudScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: number_of_vm_on_cloud_host_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "4",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('number_of_vm_on_cloud_host', number_of_vm_on_cloud_host_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -135,8 +157,12 @@ class GlobalCloudScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: core_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "4",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('core_for_cloud_vm', core_for_cloud_vm_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -167,8 +193,12 @@ class GlobalCloudScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: mips_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "10000",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('mips_for_cloud_vm', mips_for_cloud_vm_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -199,8 +229,12 @@ class GlobalCloudScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: ram_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "32000",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('ram_for_cloud_vm', ram_for_cloud_vm_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -230,8 +264,12 @@ class GlobalCloudScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: storage_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "1000000",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('storage_for_cloud_vm', storage_for_cloud_vm_controller.text);
+                                  }
                               ),
                             ),
                           )

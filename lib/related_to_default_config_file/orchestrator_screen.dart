@@ -2,8 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-class OrchestratorScreen extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+class OrchestratorScreen extends StatefulWidget {
+  @override
+  _OrchestratorScreenState createState() => _OrchestratorScreenState();
+}
+
+class _OrchestratorScreenState extends State<OrchestratorScreen> {
   AuthBase authBase = AuthBase();
+
+  final orchestrator_policies_controller=TextEditingController(text: "NEXT_FIT");
+
+  final simulation_scenarios1_controller=TextEditingController(text: "SINGLE_TIER");
+  final simulation_scenarios2_controller=TextEditingController(text: "TWO_TIER");
+  final simulation_scenarios3_controller=TextEditingController(text: "TWO_TIER_WITH_EO");
+
+
+  final attractiveness_L1_mean_waiting_time_controller=TextEditingController(text: "500");
+  final attractiveness_L2_mean_waiting_time_controller=TextEditingController(text: "300");
+  final attractiveness_L3_mean_waiting_time_controller=TextEditingController(text: "120");
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,9 +92,12 @@ class OrchestratorScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: orchestrator_policies_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "NEXT_FIT",
-                              ),
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('orchestrator_policies', orchestrator_policies_controller.text);
+                                  }                              ),
                             ),
                           )
                         ],
@@ -104,11 +126,12 @@ class OrchestratorScreen extends StatelessWidget {
                               width: 160,
                               height: 40,
                               child: TextFormField(
+                                controller: simulation_scenarios1_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "SINGLE_TIER",
-                                style: TextStyle(
-                                    fontSize: 13
-                                ),
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('simulation_scenarios', simulation_scenarios1_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -132,14 +155,15 @@ class OrchestratorScreen extends StatelessWidget {
                               width: 160,
                               height: 40,
                               child: TextFormField(
+                                controller: simulation_scenarios2_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "TWO_TIER",
-                                style: TextStyle(
-                                    fontSize: 13
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('simulation_scenarios', simulation_scenarios2_controller.text);
+                                  }
                                 ),
                               ),
                             ),
-                          )
                         ],
                       ),
                     ),
@@ -160,11 +184,12 @@ class OrchestratorScreen extends StatelessWidget {
                               width: 160,
                               height: 40,
                               child: TextFormField(
-                                decoration: textInputDecoration,
-                                initialValue: "TWO_TIER_WITH_EO",
-                                style: TextStyle(
-                                  fontSize: 13
-                                ),
+                                  controller: simulation_scenarios3_controller,
+                                  decoration: textInputDecoration,
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('simulation_scenarios', simulation_scenarios3_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -173,28 +198,112 @@ class OrchestratorScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 20
+                          top: 20,
+                          bottom: 1,
+                          left: 50
                       ),
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 50,
-                              left: 70,
+                          SizedBox(
+                            width: 200,
+                            child: Text('attractiveness_L1 :',style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
                             ),
-                            child: SizedBox(
-                              height: 60,
-                              width: 200,
-                              child: OriginalButton(
-                                text:'Submit',
-                                textColor: Colors.white,
-                                color: Colors.blue,
-                                onPressed: (){
-                                  //edit data in firebase
-                                },
-                              ),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+
+                            ),
+                            child: SizedBox(
+                              width: 80,
+                              height: 40,
+                              child: TextFormField(
+                                  controller: attractiveness_L1_mean_waiting_time_controller,
+                                  decoration: textInputDecoration,
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('attractiveness_L1_mean_waiting_time', attractiveness_L1_mean_waiting_time_controller.text);
+                                  }
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 2,
+                          bottom: 1,
+                          left: 50
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            child: Text('attractiveness_L2 :',style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+
+                            ),
+                            child: SizedBox(
+                              width: 80,
+                              height: 40,
+                              child: TextFormField(
+                                  controller: attractiveness_L1_mean_waiting_time_controller,
+                                  decoration: textInputDecoration,
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('attractiveness_L2_mean_waiting_time', attractiveness_L2_mean_waiting_time_controller.text);
+                                  }
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 2,
+                          bottom: 1,
+                          left: 50
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            child: Text('attractiveness_L3 :',style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+
+                            ),
+                            child: SizedBox(
+                              width: 80,
+                              height: 40,
+                              child: TextFormField(
+                                  controller: attractiveness_L1_mean_waiting_time_controller,
+                                  decoration: textInputDecoration,
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('attractiveness_L3_mean_waiting_time', attractiveness_L3_mean_waiting_time_controller.text);
+                                  }
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),

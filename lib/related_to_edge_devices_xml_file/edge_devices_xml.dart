@@ -82,7 +82,7 @@ class _State extends State<EdgeXML> {
           builder.element('costPerSec', nest: costPerSec);
           builder.element('costPerMem', nest: costPerMem);
           builder.element('costPerStorage', nest: costPerStorage);
-          
+
           builder.element('location', nest: (){
             builder.element('x_pos', nest: x_pos);
             builder.element('y_pos', nest: y_pos);

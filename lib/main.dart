@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/screens/add_app_screen.dart';
-import 'package:flutter_edgecloudsim/screens/applications_xml.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_application_xml_file/add_app_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_application_xml_file/applications_xml.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
-import 'package:flutter_edgecloudsim/screens/basic_setting_screen.dart';
-import 'package:flutter_edgecloudsim/screens/cont_app_screen.dart';
-import 'package:flutter_edgecloudsim/screens/data_center_screen.dart';
-import 'package:flutter_edgecloudsim/screens/edge_devices_xml.dart';
-import 'package:flutter_edgecloudsim/screens/edge_users_screen.dart';
-import 'package:flutter_edgecloudsim/screens/global_cloud_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_default_config_file/basic_setting_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_application_xml_file/cont_app_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_edge_devices_xml_file/data_center_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_edge_devices_xml_file/edge_devices_xml.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_default_config_file/edge_users_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_default_config_file/global_cloud_screen.dart';
 import 'package:flutter_edgecloudsim/screens/graphical_screen.dart';
-import 'package:flutter_edgecloudsim/screens/internet_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_default_config_file/internet_screen.dart';
 import 'package:flutter_edgecloudsim/screens/intro_screen.dart';
 import 'package:flutter_edgecloudsim/screens/manually_screen.dart';
-import 'package:flutter_edgecloudsim/screens/orchestrator_screen.dart';
+import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_default_config_file/orchestrator_screen.dart';
 import 'package:flutter_edgecloudsim/screens/simulation_screen.dart';
 import 'package:flutter_edgecloudsim/screens/startup_screen.dart';
 
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: DataCenterScreen(),
+      home: OrchestratorScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),

@@ -2,8 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-class SettingScreen extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+class SettingScreen extends StatefulWidget {
+  @override
+  _SettingScreenState createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
   AuthBase authBase = AuthBase();
+final simulation_time_controller=TextEditingController(text: "30");
+final warm_up_period_controller=TextEditingController(text: "3");
+final vm_load_check_interval_controller=TextEditingController(text: "0.1");
+final location_check_interval_controller=TextEditingController(text: "0.1");
+final file_log_enabled_controller=TextEditingController(text: "true");
+final deep_file_log_enabled_controller=TextEditingController(text: "false");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +85,14 @@ class SettingScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: simulation_time_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "30",
+                                onChanged: (text)async {
+                                  SharedPreferences prefs = await SharedPreferences
+                                      .getInstance();
+                                  prefs.setString('simulation_time',
+                                      simulation_time_controller.text);
+                                }
                               ),
                             ),
                           )
@@ -104,8 +122,12 @@ class SettingScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: warm_up_period_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "3",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('warm_up_period', warm_up_period_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -135,8 +157,12 @@ class SettingScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: vm_load_check_interval_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "0.1",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('vm_load_check_interval', vm_load_check_interval_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -167,8 +193,12 @@ class SettingScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: location_check_interval_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "0.1",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('application_name', location_check_interval_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -199,8 +229,12 @@ class SettingScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: file_log_enabled_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "True",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('file_log_enabled', file_log_enabled_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -230,8 +264,12 @@ class SettingScreen extends StatelessWidget {
                               width: 120,
                               height: 40,
                               child: TextFormField(
+                                controller: deep_file_log_enabled_controller,
                                 decoration: textInputDecoration,
-                                initialValue: "False",
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('deep_file_log_enabled', deep_file_log_enabled_controller.text);
+                                  }
                               ),
                             ),
                           )
