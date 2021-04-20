@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: OrchestratorScreen(),
+      home: AddAppScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),

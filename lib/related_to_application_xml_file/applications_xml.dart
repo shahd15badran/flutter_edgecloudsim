@@ -1,6 +1,9 @@
+
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
+import 'package:flutter/services.dart';
 
 class AppXML extends StatefulWidget {
   @override
@@ -8,6 +11,25 @@ class AppXML extends StatefulWidget {
 }
 
 class _State extends State<AppXML> {
+  static const Platform =const MethodChannel("com.flutter.epic/epic");
+  // Get battery level.
+  String _batteryLevel = 'Unknown battery level.';
+ // var doc=new XmlDocument();
+ // get bookshelfXml => doc;
+  //get xml_doc=>xmldoc;
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final String result = await Platform.invokeMethod('getBatteryLevel',display());
+      batteryLevel = 'Battery level at $result  .';
+    } on PlatformException catch (e) {
+      print(e);
+    }
+
+    setState(() {
+      _batteryLevel = batteryLevel;
+    });
+  }
   @override
   String application_name="AUGMENTED_REALITY";
   String usage_percentage="30";
@@ -49,36 +71,55 @@ class _State extends State<AppXML> {
   }
 
   Widget build(BuildContext context) {
-    display(){
-      final builder = XmlBuilder();
-      builder.processing('xml', 'version="1.0"');
-        builder.element('applications', nest: () {
-          builder.element('application', nest: () {
-            builder.attribute('name', application_name);
-            builder.element('usage_percentage', nest: usage_percentage);
-            builder.element('prob_cloud_selection', nest: prob_cloud_selection);
-            builder.element('poisson_interarrival', nest: poisson_interarrival);
-            builder.element('delay_sensitivity', nest: delay_sensitivity);
-            builder.element('active_period', nest: active_period);
-            builder.element('idle_period', nest: idle_period);
-            builder.element('data_upload', nest: data_upload);
-            builder.element('data_download', nest: data_download);
-            builder.element('task_length', nest: task_length);
-            builder.element('required_core', nest: required_core);
-            builder.element('vm_utilization_on_edge', nest: vm_utilization_on_edge);
-            builder.element('vm_utilization_on_cloud', nest: vm_utilization_on_cloud);
-            builder.element('vm_utilization_on_mobile', nest: vm_utilization_on_mobile);
-            // builder.text('Growing a Language');
-          });
-        });
-      final bookshelfXml = builder.buildDocument();
-
-        return Text(bookshelfXml.toXmlString(pretty: true, indent: '\t'));
-    }
     return Scaffold(
       body: Center(
-        child: display(),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              RaisedButton(
+                child: Text("display"),
+                onPressed: (){
+                  _getBatteryLevel();
+                },
+              ),
+              Text(_batteryLevel),
+              //display(),
+            ],
+          ),
+
+        ),
       ),
     );
+  }
+ display(){
+    final builder = XmlBuilder();
+    builder.processing('xml', 'version="1.0"');
+    builder.element('applications', nest: () {
+      builder.element('application', nest: () {
+        builder.attribute('name', application_name);
+        builder.element('usage_percentage', nest: usage_percentage);
+        builder.element('prob_cloud_selection', nest: prob_cloud_selection);
+        builder.element('poisson_interarrival', nest: poisson_interarrival);
+        builder.element('delay_sensitivity', nest: delay_sensitivity);
+        builder.element('active_period', nest: active_period);
+        builder.element('idle_period', nest: idle_period);
+        builder.element('data_upload', nest: data_upload);
+        builder.element('data_download', nest: data_download);
+        builder.element('task_length', nest: task_length);
+        builder.element('required_core', nest: required_core);
+        builder.element('vm_utilization_on_edge', nest: vm_utilization_on_edge);
+        builder.element('vm_utilization_on_cloud', nest: vm_utilization_on_cloud);
+        builder.element('vm_utilization_on_mobile', nest: vm_utilization_on_mobile);
+        // builder.text('Growing a Language');
+      });
+    });
+    final bookshelfXml = builder.buildDocument();
+    // sendXml(bookshelfXml);
+    //final document = XmlDocument.parse(bookshelfXml);
+    final String xmlDoc = (bookshelfXml.toXmlString(pretty: true, indent: '\t'));
+
+    //return Text(bookshelfXml.toXmlString(pretty: true, indent: '\t'));
+    return xmlDoc;
   }
 }

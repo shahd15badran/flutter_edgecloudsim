@@ -34,7 +34,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth:
   shared_preferences:
-  file_picker:
   xml:
 
 

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
@@ -8,6 +9,7 @@ class DefaultConfig extends StatefulWidget {
 }
 
 class _State extends State<DefaultConfig> {
+  static const Platform =const MethodChannel("com.flutter.epic/epic");
   @override
   String simulation_time="30";
   String warm_up_period="3";
@@ -98,18 +100,40 @@ class _State extends State<DefaultConfig> {
 
   Widget build(BuildContext context) {
     display(){
-      final builder = XmlBuilder();
-      builder.processing('xml', 'version="1.0"');
-      builder.element('edge_devices', nest: () {
-        builder.element('datacenter', nest: () {
-          builder.attribute('arch', 'x86');
-          builder.attribute('os', 'Linux');
-          builder.attribute('vmm', 'Xen');
-        });
-      });
-      final bookshelfXml = builder.buildDocument();
+     //31 items
+      var arr = new List(31);
+      arr[0] = simulation_time;
+      arr[1] = warm_up_period;
+      arr[2] = vm_load_check_interval;
+      arr[3] = location_check_interval;
+      arr[4] = file_log_enabled;
+      arr[5] = deep_file_log_enabled;
+      arr[6] = min_number_of_mobile_devices;
+      arr[7] = max_number_of_mobile_devices;
+      arr[8] = mobile_device_counter_size;
+      arr[9] = wan_propagation_delay;
+      arr[10] = lan_internal_delay;
+      arr[11] = wlan_bandwidth;
+      arr[12] = wan_bandwidth;
+      arr[13] = gsm_bandwidth;
+      arr[14] = number_of_host_on_cloud_datacenter;
+      arr[15] = number_of_vm_on_cloud_host;
+      arr[16] = core_for_cloud_vm;
+      arr[17] = mips_for_cloud_vm;
+      arr[18] = ram_for_cloud_vm;
+      arr[19] = storage_for_cloud_vm;
+      arr[20] = core_for_mobile_vm;
+      arr[21] = mips_for_mobile_vm;
+      arr[22] = ram_for_mobile_vm;
+      arr[23] = storage_for_mobile_vm;
+      arr[24] = orchestrator_policies;
+      arr[25] = simulation_scenarios1;
+      arr[26] = simulation_scenarios2;
+      arr[27] = simulation_scenarios3;
+      arr[28] = attractiveness_L1_mean_waiting_time;
+      arr[29] = attractiveness_L2_mean_waiting_time;
+      arr[30] = attractiveness_L3_mean_waiting_time;
 
-      return Text(bookshelfXml.toXmlString(pretty: true, indent: '\t'));
     }
     return Scaffold(
       body: Center(
@@ -118,3 +142,4 @@ class _State extends State<DefaultConfig> {
     );
   }
 }
+
