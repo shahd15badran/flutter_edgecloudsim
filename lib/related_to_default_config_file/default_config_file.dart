@@ -65,10 +65,13 @@ class _State extends State<DefaultConfig> {
   String attractiveness_L2_mean_waiting_time="300";
   String attractiveness_L3_mean_waiting_time="120";
 
-
   void initState (){
     getData();
   }
+
+   //getDefaultConfigProp(){ //getter
+    //return
+   //}
   getData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState((){
