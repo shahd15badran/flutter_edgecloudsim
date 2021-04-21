@@ -258,7 +258,7 @@ class _InternetScreenState extends State<InternetScreen> {
                                   textColor: Colors.white,
                                   color: Colors.blue,
                                   onPressed: (){
-                                    //edit data in firebase
+                                    Navigator.of(context).pushNamed('default_config_file');
                                   },
                                 ),
                               ),

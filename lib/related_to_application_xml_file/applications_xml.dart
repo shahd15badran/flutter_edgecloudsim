@@ -12,16 +12,12 @@ class AppXML extends StatefulWidget {
 
 class _State extends State<AppXML> {
   static const Platform =const MethodChannel("com.flutter.epic/epic");
-  // Get battery level.
-  String _batteryLevel = 'Unknown battery level.';
- // var doc=new XmlDocument();
- // get bookshelfXml => doc;
-  //get xml_doc=>xmldoc;
+  String _batteryLevel = '';
   Future<void> _getBatteryLevel() async {
     String batteryLevel;
     try {
-      final String result = await Platform.invokeMethod('getBatteryLevel',display());
-      batteryLevel = 'Battery level at $result  .';
+      final String result = await Platform.invokeMethod('getAppXML',display());
+      batteryLevel = ' $result  ';
     } on PlatformException catch (e) {
       print(e);
     }

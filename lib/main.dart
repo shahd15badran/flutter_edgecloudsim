@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_edgecloudsim/related_to_default_config_file/default_config_file.dart';
 import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_application_xml_file/add_app_screen.dart';
 import 'file:///C:/Users/asus/AndroidStudioProjects/flutter_edgecloudsim/lib/related_to_application_xml_file/applications_xml.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: AddAppScreen(),
+      home: InternetScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
         'data center':(context) =>DataCenterScreen(),
         'app xml':(context) =>AppXML(),
         'edge xml':(context) =>EdgeXML(),
+        'default_config_file':(context)=>DefaultConfig(),
       },
     );
   }
