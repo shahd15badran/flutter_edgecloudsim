@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: InternetScreen(),
+      home: ManuallyScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),

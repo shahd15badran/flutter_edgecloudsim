@@ -75,6 +75,7 @@ class ManuallyScreen extends StatelessWidget {
                             color: Colors.white,
                             textColor: Colors.lightBlue,
                             onPressed: () {
+                              Navigator.of(context).pushNamed('app xml');
                             },
                           ),
 
@@ -90,6 +91,7 @@ class ManuallyScreen extends StatelessWidget {
                             color: Colors.white,
                             textColor: Colors.lightBlue,
                             onPressed: () {
+                              Navigator.of(context).pushNamed('default_config_file');
                             },
                           ),
 
@@ -104,6 +106,7 @@ class ManuallyScreen extends StatelessWidget {
                             color: Colors.white,
                             textColor: Colors.lightBlue,
                             onPressed: () {
+                              Navigator.of(context).pushNamed('edge xml');
                             },
                           ),
                         ),
