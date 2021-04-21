@@ -136,7 +136,7 @@ class _State extends State<DefaultConfig> {
   }
   display(){
     //31 items
-    var arr = new List(31);
+    var arr = new List(35);
     arr[0] = simulation_time;
     arr[1] = warm_up_period;
     arr[2] = vm_load_check_interval;
@@ -162,12 +162,16 @@ class _State extends State<DefaultConfig> {
     arr[22] = ram_for_mobile_vm;
     arr[23] = storage_for_mobile_vm;
     arr[24] = orchestrator_policies;
-    arr[25] = simulation_scenarios1;
-    arr[26] = simulation_scenarios2;
-    arr[27] = simulation_scenarios3;
-    arr[28] = attractiveness_L1_mean_waiting_time;
-    arr[29] = attractiveness_L2_mean_waiting_time;
-    arr[30] = attractiveness_L3_mean_waiting_time;
+    arr[25] = simulation_scenarios1+','+simulation_scenarios2+','+simulation_scenarios3;
+    arr[26] = attractiveness_L1_mean_waiting_time;
+    arr[27] = attractiveness_L2_mean_waiting_time;
+    arr[28] = attractiveness_L3_mean_waiting_time;
+    arr[29] ="#default config file";
+    arr[30] ="#all the host on cloud runs on a single datacenter";
+    arr[31] ="#mobile devices has no processing unit in this scenario";
+    arr[32]="#use ',' for multiple values";
+    arr[33]="#use ',' for multiple values";
+    arr[34]="#mean waiting time in seconds";
 
     return arr;
   }

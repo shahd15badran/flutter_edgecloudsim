@@ -111,11 +111,7 @@ class _State extends State<AppXML> {
       });
     });
     final bookshelfXml = builder.buildDocument();
-    // sendXml(bookshelfXml);
-    //final document = XmlDocument.parse(bookshelfXml);
     final String xmlDoc = (bookshelfXml.toXmlString(pretty: true, indent: '\t'));
-
-    //return Text(bookshelfXml.toXmlString(pretty: true, indent: '\t'));
     return xmlDoc;
   }
 }

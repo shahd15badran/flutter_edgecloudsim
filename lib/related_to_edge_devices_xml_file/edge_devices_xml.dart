@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
@@ -8,6 +9,21 @@ class EdgeXML extends StatefulWidget {
 }
 
 class _State extends State<EdgeXML> {
+  static const Platform =const MethodChannel("com.flutter.epic/epic");
+  String _batteryLevel = '';
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final String result = await Platform.invokeMethod('getEdgeDeviceXML',display());
+      batteryLevel = ' $result  ';
+    } on PlatformException catch (e) {
+      print(e);
+    }
+
+    setState(() {
+      _batteryLevel = batteryLevel;
+    });
+  }
   @override
   String costPerBw="0.1";
   String costPerSec="3.0";
@@ -69,64 +85,80 @@ class _State extends State<EdgeXML> {
   }
 
   Widget build(BuildContext context) {
-    display(){
-      final builder = XmlBuilder();
-      builder.processing('xml', 'version="1.0"');
-      builder.element('edge_devices', nest: () {
-        builder.element('datacenter', nest: () {
-          builder.attribute('arch', 'x86');
-          builder.attribute('os', 'Linux');
-          builder.attribute('vmm', 'Xen');
 
-          builder.element('costPerBw', nest: costPerBw);
-          builder.element('costPerSec', nest: costPerSec);
-          builder.element('costPerMem', nest: costPerMem);
-          builder.element('costPerStorage', nest: costPerStorage);
-
-          builder.element('location', nest: (){
-            builder.element('x_pos', nest: x_pos);
-            builder.element('y_pos', nest: y_pos);
-            builder.element('wlan_id', nest: wlan_id);
-            builder.element('attractiveness', nest: attractiveness);
-          });
-          builder.element('hosts', nest: (){
-            builder.element('host', nest: (){
-              builder.element('core', nest: core);
-              builder.element('mips', nest: mips);
-              builder.element('ram', nest: ram);
-              builder.element('storage', nest: storage);
-              builder.element('VMs', nest: (){
-                builder.element('VM', nest: (){
-                  builder.attribute('vmm', 'Xen');
-                  builder.element('core_vm1', nest: core_vm1);
-                  builder.element('mips_vm1', nest: mips_vm1);
-                  builder.element('ram_vm1', nest: ram_vm1);
-                  builder.element('storage_vm1', nest: storage_vm1);
-
-                });
-                builder.element('VM', nest: (){
-                  builder.attribute('vmm', 'Xen');
-                  builder.element('core_vm2', nest: core_vm2);
-                  builder.element('mips_vm2', nest: mips_vm2);
-                  builder.element('ram_vm2', nest: ram_vm2);
-                  builder.element('storage_vm2', nest: storage_vm2);
-
-                });
-              });
-
-            });
-          });
-          // builder.text('Growing a Language');
-        });
-      });
-      final bookshelfXml = builder.buildDocument();
-
-      return Text(bookshelfXml.toXmlString(pretty: true, indent: '\t'));
-    }
     return Scaffold(
       body: Center(
-        child: display(),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              RaisedButton(
+                child: Text("display"),
+                onPressed: (){
+                  _getBatteryLevel();
+                },
+              ),
+              Text(_batteryLevel),
+              //display(),
+            ],
+          ),
+
+        ),
       ),
     );
+  }
+  display(){
+    final builder = XmlBuilder();
+    builder.processing('xml', 'version="1.0"');
+    builder.element('edge_devices', nest: () {
+      builder.element('datacenter', nest: () {
+        builder.attribute('arch', 'x86');
+        builder.attribute('os', 'Linux');
+        builder.attribute('vmm', 'Xen');
+
+        builder.element('costPerBw', nest: costPerBw);
+        builder.element('costPerSec', nest: costPerSec);
+        builder.element('costPerMem', nest: costPerMem);
+        builder.element('costPerStorage', nest: costPerStorage);
+
+        builder.element('location', nest: (){
+          builder.element('x_pos', nest: x_pos);
+          builder.element('y_pos', nest: y_pos);
+          builder.element('wlan_id', nest: wlan_id);
+          builder.element('attractiveness', nest: attractiveness);
+        });
+        builder.element('hosts', nest: (){
+          builder.element('host', nest: (){
+            builder.element('core', nest: core);
+            builder.element('mips', nest: mips);
+            builder.element('ram', nest: ram);
+            builder.element('storage', nest: storage);
+            builder.element('VMs', nest: (){
+              builder.element('VM', nest: (){
+                builder.attribute('vmm', 'Xen');
+                builder.element('core_vm1', nest: core_vm1);
+                builder.element('mips_vm1', nest: mips_vm1);
+                builder.element('ram_vm1', nest: ram_vm1);
+                builder.element('storage_vm1', nest: storage_vm1);
+
+              });
+              builder.element('VM', nest: (){
+                builder.attribute('vmm', 'Xen');
+                builder.element('core_vm2', nest: core_vm2);
+                builder.element('mips_vm2', nest: mips_vm2);
+                builder.element('ram_vm2', nest: ram_vm2);
+                builder.element('storage_vm2', nest: storage_vm2);
+
+              });
+            });
+
+          });
+        });
+        // builder.text('Growing a Language');
+      });
+    });
+    final bookshelfXml = builder.buildDocument();
+    final String xmlDoc = (bookshelfXml.toXmlString(pretty: true, indent: '\t'));
+    return xmlDoc;
   }
 }
