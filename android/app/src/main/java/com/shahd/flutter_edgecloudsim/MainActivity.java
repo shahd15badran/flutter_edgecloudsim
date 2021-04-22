@@ -95,7 +95,10 @@ public class MainActivity extends FlutterActivity {
 
                     new SendFileToServer("3" +stringFile);
                     result.success(stringFile);
-
+                }
+                else if(call.method.equals("Start Sim")){
+                    new SendFileToServer("@");
+                    result.success(SendFileToServer.getSimMsg());
                 }
             }
         });

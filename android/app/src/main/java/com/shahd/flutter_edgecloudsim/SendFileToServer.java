@@ -4,11 +4,13 @@ package com.shahd.flutter_edgecloudsim;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.Socket;
 
 public class SendFileToServer {
-    String file = " ";
+    static String SimMsg = "";
+    String file = "";
     public SendFileToServer(String file_to_send) {
         Thread thread = new Thread(() -> {
             try  {
@@ -19,14 +21,14 @@ public class SendFileToServer {
                 e.printStackTrace();
             }
         });
-
         thread.start();
     }
     public void Start(String file) throws Exception {
-        String server = "192.168.0.103";
+        String server = "192.168.0.102";
         int port = 1988;
         try{
             Socket s = new Socket(server, port);
+            //send files
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
             InputStream fileStream = new ByteArrayInputStream(file.getBytes());
             DataInputStream fis = new DataInputStream(fileStream);
@@ -35,11 +37,29 @@ public class SendFileToServer {
             while ((read = fis.read(buffer)) > 0) {
                 dos.write(buffer, 0, read);
             }
+            //recieve
+            DataInputStream disMsg = new DataInputStream(s.getInputStream());
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = disMsg.readLine()) != null) {
+                inputLine.append(tmp);
+                System.out.println(tmp);
+            }
+            SimMsg = inputLine.toString();
+
             fis.close();
             dos.close();
+            fileStream.close();
+            disMsg.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static String getSimMsg(){
+        if(SimMsg != null)
+            return SimMsg;
+        else
+            return "There's a problem with connecting to server. Please try again later.";
     }
 }
 

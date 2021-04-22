@@ -73,6 +73,7 @@ class _State extends State<DefaultConfig> {
     //return
    //}
   getData() async{
+    SharedPreferences.setMockInitialValues({});
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState((){
       if(prefs.getString('simulation_time')!=null)  simulation_time=prefs.getString('simulation_time');

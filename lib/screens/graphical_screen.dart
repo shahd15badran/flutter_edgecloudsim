@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-class GraphicalScreen extends StatelessWidget {
+class GraphicalScreen extends StatefulWidget {
+  @override
+  _GraphicalScreenState createState() => _GraphicalScreenState();
+}
+
+class _GraphicalScreenState extends State<GraphicalScreen> {
+  static const Platform =const MethodChannel("com.flutter.epic/epic");
+  String _batteryLevel = '';
+  Future<void> _getBatteryLevel() async {
+    String simRes;
+    try {
+      final String result = await Platform.invokeMethod('Start Sim');
+      simRes = ' $result';
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    setState(() {
+      _batteryLevel = simRes; //TODO put it in small text box
+    });
+  }
   AuthBase authBase = AuthBase();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -307,11 +328,11 @@ class GraphicalScreen extends StatelessWidget {
                             height: 60,
                             width: 150,
                             child: OriginalButton(
-                              text:'Continue',
+                              text:'Start Simulation',
                               textColor: Colors.white,
                               color: Colors.blue,
-                              onPressed: (){
-                                Navigator.of(context).pushNamed('simulation');
+                              onPressed: ()async{
+                                _getBatteryLevel();
                               },
                             ),
                           ),
