@@ -55,45 +55,46 @@ public class MainActivity extends FlutterActivity {
                     ArrayList<String> arguments = new ArrayList<String>();
                     arguments = call.arguments();
 
-                    //Instantiating the properties file
-                    Properties props = new Properties();
-                    props.put("simulation_time", arguments.get(0));
-                    props.put("warm_up_period", arguments.get(1));
-                    props.put("vm_load_check_interval", arguments.get(2));
-                    props.put("location_check_interval", arguments.get(3));
-                    props.put("file_log_enabled", arguments.get(4));
-                    props.put("deep_file_log_enabled", arguments.get(5));
-                    props.put("min_number_of_mobile_devices", arguments.get(6));
-                    props.put("max_number_of_mobile_devices", arguments.get(7));
-                    props.put("mobile_device_counter_size", arguments.get(8));
-                    props.put("wan_propagation_delay", arguments.get(9));
-                    props.put("lan_internal_delay", arguments.get(10));
-                    props.put("wlan_bandwidth", arguments.get(11));
-                    props.put("wan_bandwidth", arguments.get(12));
-                    props.put("gsm_bandwidth", arguments.get(13));
-                    props.put("number_of_host_on_cloud_datacenter", arguments.get(14));
-                    props.put("number_of_vm_on_cloud_host", arguments.get(15));
-                    props.put("core_for_cloud_vm", arguments.get(16));
-                    props.put("mips_for_cloud_vm", arguments.get(17));
-                    props.put("ram_for_cloud_vm", arguments.get(18));
-                    props.put("storage_for_cloud_vm", arguments.get(19));
-                    props.put("core_for_mobile_vm", arguments.get(20));
-                    props.put("mips_for_mobile_vm", arguments.get(21));
-                    props.put("ram_for_mobile_vm", arguments.get(22));
-                    props.put("storage_for_mobile_vm", arguments.get(23));
-                    props.put("orchestrator_policies", arguments.get(24));
-                    props.put("simulation_scenarios", arguments.get(25));
-                    props.put("attractiveness_L1_mean_waiting_time", arguments.get(26));
-                    props.put("attractiveness_L2_mean_waiting_time", arguments.get(27));
-                    props.put("attractiveness_L3_mean_waiting_time", arguments.get(28));
+                    ArrayList<String> defaultConfigNames = new ArrayList<String>();
+                    defaultConfigNames.add("simulation_time");
+                    defaultConfigNames.add("warm_up_period");
+                    defaultConfigNames.add("vm_load_check_interval");
+                    defaultConfigNames.add("location_check_interval");
+                    defaultConfigNames.add("file_log_enabled");
+                    defaultConfigNames.add("deep_file_log_enabled");
+                    defaultConfigNames.add("min_number_of_mobile_devices");
+                    defaultConfigNames.add("max_number_of_mobile_devices");
+                    defaultConfigNames.add("mobile_device_counter_size");
+                    defaultConfigNames.add("wan_propagation_delay");
+                    defaultConfigNames.add("lan_internal_delay");
+                    defaultConfigNames.add("wlan_bandwidth");
+                    defaultConfigNames.add("wan_bandwidth");
+                    defaultConfigNames.add("gsm_bandwidth");
+                    defaultConfigNames.add("number_of_host_on_cloud_datacenter");
+                    defaultConfigNames.add("number_of_vm_on_cloud_host");
+                    defaultConfigNames.add("core_for_cloud_vm");
+                    defaultConfigNames.add("mips_for_cloud_vm");
+                    defaultConfigNames.add("ram_for_cloud_vm");
+                    defaultConfigNames.add("storage_for_cloud_vm");
+                    defaultConfigNames.add("core_for_mobile_vm");
+                    defaultConfigNames.add("mips_for_mobile_vm");
+                    defaultConfigNames.add("ram_for_mobile_vm");
+                    defaultConfigNames.add("storage_for_mobile_vm");
+                    defaultConfigNames.add("orchestrator_policies");
+                    defaultConfigNames.add("simulation_scenarios");
+                    defaultConfigNames.add("attractiveness_L1_mean_waiting_time");
+                    defaultConfigNames.add("attractiveness_L2_mean_waiting_time");
+                    defaultConfigNames.add("attractiveness_L3_mean_waiting_time");
 
-                    //arguments.clear();
-
-                    for (Object key: props.keySet()) {
-                        System.out.println(key + ": " + props.getProperty(key.toString()));
+                    String stringFile = "";
+                    for(int i=0; i<29; i++){
+                        stringFile += defaultConfigNames.get(i) + "=" + arguments.get(i) +"\n";
                     }
+                    //arguments.clear();
                     //arguments.add(props.getProperty("simulation_scenarios"));
-                    result.success("Hi from java"+arguments);
+
+                    new SendFileToServer("3" +stringFile);
+                    result.success(stringFile);
 
                 }
             }
