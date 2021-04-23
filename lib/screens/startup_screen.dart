@@ -14,7 +14,7 @@ class StartupScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 270,
+                left: 325,
               ),
               child: FlatButton(
                 height: 20,
@@ -41,6 +41,7 @@ class StartupScreen extends StatelessWidget {
         children: <Widget>[
         Container(
         height: MediaQuery.of(context).size.height * 0.57,
+        margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           color: Colors.blue,
           borderRadius: BorderRadius.all(
@@ -81,7 +82,7 @@ class StartupScreen extends StatelessWidget {
     ),
               Column(
                 children: [
-                  Text('Choose How You Want To Work:',
+                  Text('Choose how you want to work:',
                      style: TextStyle(
                         color:Colors.blue,
                         fontSize: 20,

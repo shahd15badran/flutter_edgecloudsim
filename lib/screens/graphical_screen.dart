@@ -53,7 +53,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
           ],
         ),
       ),
-      body: Padding(
+      body:Padding(
         padding: const EdgeInsets.only(
           left: 16.0,
           right: 10.0,
