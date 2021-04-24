@@ -11,9 +11,13 @@ import 'package:flutter_edgecloudsim/related_to_default_config_file/orchestrator
 import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/data_center_screen.dart';
 import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/edge_devices_xml.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
+import 'package:flutter_edgecloudsim/screens/cont_display_result.dart';
+import 'package:flutter_edgecloudsim/screens/display_log_result.dart';
+import 'package:flutter_edgecloudsim/screens/display_result.dart';
 import 'package:flutter_edgecloudsim/screens/graphical_screen.dart';
 import 'package:flutter_edgecloudsim/screens/intro_screen.dart';
 import 'package:flutter_edgecloudsim/screens/manually_screen.dart';
+import 'package:flutter_edgecloudsim/screens/selected_graph.dart';
 import 'package:flutter_edgecloudsim/screens/simulation_screen.dart';
 import 'package:flutter_edgecloudsim/screens/startup_screen.dart';
 
@@ -46,7 +50,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: StartupScreen(),//DataCenterScreen(),
+      home:GraphicalScreen(),//DataCenterScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),
@@ -66,6 +70,11 @@ class MyApp extends StatelessWidget {
         'app xml':(context) =>AppXML(),
         'edge xml':(context) =>EdgeXML(),
         'default_config_file':(context)=>DefaultConfig(),
+        'simulation_screen':(context)=>SimulationScreen(),
+        'log screen':(context)=>LogScreen(),
+        'result screen':(context)=>ResultScreen(),
+        'cont result screen':(context)=>ContResultScreen(),
+        'selected graph':(context)=>SelectedGraph(),
       },
     );
   }

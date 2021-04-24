@@ -5,6 +5,8 @@ import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+
 class AddAppScreen extends StatefulWidget {
   @override
   _AddAppScreenState createState() => _AddAppScreenState();
@@ -12,40 +14,75 @@ class AddAppScreen extends StatefulWidget {
 
 class _AddAppScreenState extends State<AddAppScreen> {
   AuthBase authBase = AuthBase();
+  List <String> application_name;
+  List <String> usage_percentage=['30','20','20','30'];
+  List <String> prob_cloud_selection=['20','20','40','15'];
+  List <String> poisson_interarrival=['5','30','60','7'];
+  List <String> delay_sensitivity =['0','0','0','0'];
+  List <String> active_period =['45','10','60','15'];
+  List <String> idle_period=['15','20','60','45'];
+  var application_name_controller;
+  var usage_percentage_controller;
+  var prob_cloud_selection_controller;
+  var poisson_interarrival_controller;
+  var delay_sensitivity_controller;
+  var active_period_controller;
+_AddAppScreenState(){
+   application_name_controller=TextEditingController(text:"AUGMENTED");
+   usage_percentage_controller=TextEditingController(text: "30");
+   prob_cloud_selection_controller=TextEditingController(text: "20");
+   poisson_interarrival_controller=TextEditingController(text: "5");
+   delay_sensitivity_controller=TextEditingController(text: "0");
+   active_period_controller=TextEditingController(text: "45");
+}
 
-  final application_name_controller=TextEditingController(text:"AUGMENTED");
-  final usage_percentage_controller=TextEditingController(text: "30");
-  final prob_cloud_selection_controller=TextEditingController(text: "20");
-  final poisson_interarrival_controller=TextEditingController(text: "5");
-  final delay_sensitivity_controller=TextEditingController(text: "0");
-  final active_period_controller=TextEditingController(text: "45");
 
   @override
+  int counter=1;
+  void initState (){
+    getData();
+  }
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState((){
+      counter= prefs.getInt('counter');
+      //application_name = prefs.getStringList('application_name');
+    });
+
+
+  }
   Widget build(BuildContext context) {
+    //final rcvdData = ModalRoute.withName('cont add application').toString();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black12,
         title: Row(
           children: [
+            Padding(padding: const EdgeInsets.only(
+              left: 30,
+            ),
+              child: Text('Application'+counter.toString()),
+            ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 270,
+                left: 100,
               ),
-               child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.blue,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.white,size: 20),
-                    ],
-                  ),
+              child: FlatButton(
+                height: 20,
+                minWidth: 20,
+                color: Colors.blue,
+                onPressed: () async {
+                  await authBase.logout();
+                  Navigator.of(context).pushReplacementNamed('login');
+                },
+                child:Row(
+                  children:<Widget>[
+                    Icon(Icons.logout,color: Colors.white,size: 20),
+                  ],
                 ),
               ),
+            ),
+
           ],
         ),
       ),
@@ -91,10 +128,10 @@ class _AddAppScreenState extends State<AddAppScreen> {
                               child: TextFormField  (
                                   controller: application_name_controller,
                                   decoration: textInputDecoration,
-                                 onChanged: (text)async{
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('application_name', application_name_controller.text);
-                                }
+                                  onChanged: (text)async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('application_name', application_name_controller.text);
+                                  }
                               ),
                             ),
                           )
@@ -124,8 +161,8 @@ class _AddAppScreenState extends State<AddAppScreen> {
                               width: 190,
                               height: 40,
                               child: TextFormField(
-                                controller: usage_percentage_controller,
-                                decoration: textInputDecoration,
+                                  controller: usage_percentage_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('usage_percentage', usage_percentage_controller.text);
@@ -159,8 +196,8 @@ class _AddAppScreenState extends State<AddAppScreen> {
                               width: 190,
                               height: 40,
                               child: TextFormField(
-                                controller: prob_cloud_selection_controller,
-                                decoration: textInputDecoration,
+                                  controller: prob_cloud_selection_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('prob_cloud_selection', prob_cloud_selection_controller.text);
@@ -195,8 +232,8 @@ class _AddAppScreenState extends State<AddAppScreen> {
                               width: 190,
                               height: 40,
                               child: TextFormField(
-                                controller: poisson_interarrival_controller,
-                                decoration: textInputDecoration,
+                                  controller: poisson_interarrival_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('poisson_interarrival', poisson_interarrival_controller.text);
@@ -231,8 +268,8 @@ class _AddAppScreenState extends State<AddAppScreen> {
                               width: 190,
                               height: 40,
                               child: TextFormField(
-                                controller: delay_sensitivity_controller,
-                                decoration: textInputDecoration,
+                                  controller: delay_sensitivity_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('delay_sensitivity', delay_sensitivity_controller.text);
@@ -266,8 +303,8 @@ class _AddAppScreenState extends State<AddAppScreen> {
                               width: 190,
                               height: 40,
                               child: TextFormField(
-                               controller: active_period_controller,
-                                decoration: textInputDecoration,
+                                  controller: active_period_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('active_period', active_period_controller.text);
@@ -286,20 +323,21 @@ class _AddAppScreenState extends State<AddAppScreen> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 30,
-                              left: 70,
+                              top: 10,
+                              left: 195,
                             ),
                             child: SizedBox(
-                              height: 60,
-                              width: 200,
+                              height: 40,
+                              width: 120,
                               child: OriginalButton(
-                                text:'Continue Editing',
+                                text:'Save',
                                 textColor: Colors.white,
                                 color: Colors.blue,
-                                onPressed: (){
-
+                                onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('save_app', 'true');
                                   //edit data in firebase
-                                  Navigator.of(context).pushNamed('cont add application');
+                                  //change flag
                                 },
                               ),
                             ),
@@ -309,22 +347,52 @@ class _AddAppScreenState extends State<AddAppScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 10,
-                        left: 250,
+                        top: 30,
                       ),
-                      child: SizedBox(
-                        height: 50,
-                        width: 100,
-                        child: OriginalButton(
-                          text:'Back',
-                          textColor: Colors.white,
-                          color: Colors.blueGrey,
-                          onPressed: (){
-                            Navigator.of(context).pushNamed('graphical');
-                          },
-                        ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 160,
+                            height: 60,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 40
+                              ),
+                              child: OriginalButton(
+                                text:'try',
+                                textColor: Colors.white,
+                                color: Colors.blueGrey,
+                                onPressed: (){
+                                  Navigator.of(context).pushNamed('app xml');
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 2,
+                            ),
+                            child: SizedBox(
+                              width: 160,
+                              height: 60,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10
+                                ),
+                                child: OriginalButton(
+                                  text:'Continue Editing',
+                                  textColor: Colors.white,
+                                  color: Colors.blueGrey,
+                                  onPressed: (){
+                                    Navigator.of(context).pushNamed('cont add application');
+                                  },
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

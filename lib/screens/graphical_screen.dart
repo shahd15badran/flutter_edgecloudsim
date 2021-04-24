@@ -2,26 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class GraphicalScreen extends StatefulWidget {
   @override
   _GraphicalScreenState createState() => _GraphicalScreenState();
 }
 
 class _GraphicalScreenState extends State<GraphicalScreen> {
-  static const Platform =const MethodChannel("com.flutter.epic/epic");
-  String _batteryLevel = '';
-  Future<void> _getBatteryLevel() async {
-    String simRes;
-    try {
-      final String result = await Platform.invokeMethod('Start Sim');
-      simRes = ' $result';
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    setState(() {
-      _batteryLevel = simRes; //TODO put it in small text box
-    });
-  }
+
   AuthBase authBase = AuthBase();
 
   @override
@@ -328,11 +316,11 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             height: 60,
                             width: 150,
                             child: OriginalButton(
-                              text:'Start Simulation',
+                              text:'Continue',
                               textColor: Colors.white,
                               color: Colors.blue,
-                              onPressed: ()async{
-                                _getBatteryLevel();
+                              onPressed:(){
+                                Navigator.of(context).pushNamed('simulation_screen');
                               },
                             ),
                           ),
@@ -349,7 +337,9 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               text:'Add App',
                               textColor: Colors.white,
                               color: Colors.grey,
-                              onPressed: (){
+                              onPressed: ()async{
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                prefs.setInt('counter', 1);
                                 Navigator.of(context).pushNamed('add application');
                               },
                             ),

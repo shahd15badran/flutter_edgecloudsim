@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
@@ -9,43 +11,89 @@ class ContAddAppScreen extends StatefulWidget {
 }
 
 class _ContAddAppScreenState extends State<ContAddAppScreen> {
+  void initState (){
+    getData();
+  }
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState((){
+      counter= prefs.getInt('counter');});
+  }
+
   AuthBase authBase = AuthBase();
-  final idle_period_controller=TextEditingController(text:"15");
-  final data_upload_controller=TextEditingController(text: '1500');
-  final data_download_controller=TextEditingController(text: '25');
-  final task_length_controller=TextEditingController(text: '2000');
-  final required_core_controller=TextEditingController(text: '1');
-  final vm_utilization_on_edge_controller=TextEditingController(text: '20');
-  final vm_utilization_on_cloud_controller=TextEditingController(text: '2');
-  final vm_utilization_on_mobile_controller=TextEditingController(text: '0');
+  int counter=1;
+  List <String> idle_period=['15','20','60','45'];//60
+  List <String> data_upload=['1500','1250','2500','25'];
+  List <String> data_download=['25','20','250','2000'];
+  List <String> task_length=['2000','400','3000','750'];
+  List <String> required_core=['1','1','1','1'];
+  List <String> vm_utilization_on_edge=['20','5','30','10'];
+  List <String> vm_utilization_on_cloud=['2','0.5','3','1'];
+  List <String> vm_utilization_on_mobile=['0','0','0','1'];
+  var idle_period_controller;
+  var data_upload_controller;
+  var data_download_controller;
+  var task_length_controller;
+  var required_core_controller;
+  var vm_utilization_on_edge_controller;
+  var vm_utilization_on_cloud_controller;
+  var vm_utilization_on_mobile_controller;
+
+  _ContAddAppScreenState(){
+
+    getData() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState((){
+        counter= prefs.getInt('counter');});
+      idle_period_controller=TextEditingController(text:idle_period[counter-1]);
+      data_upload_controller=TextEditingController(text: data_upload[counter-1]);
+      data_download_controller=TextEditingController(text: data_download[counter-1]);
+      task_length_controller=TextEditingController(text: task_length[counter-1]);
+      required_core_controller=TextEditingController(text: required_core[counter-1]);
+      vm_utilization_on_edge_controller=TextEditingController(text: vm_utilization_on_edge[counter-1]);
+      vm_utilization_on_cloud_controller=TextEditingController(text: vm_utilization_on_cloud[counter-1]);
+      vm_utilization_on_mobile_controller=TextEditingController(text: vm_utilization_on_mobile[counter-1]);
+    }
+    getData();
+  }
+
+
+
+
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black12,
         title: Row(
           children: [
+            Padding(padding: const EdgeInsets.only(
+              left: 30,
+            ),
+              child: Text('Application'+counter.toString()),
+            ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 270,
+                left: 100,
               ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.blue,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.white,size: 20),
-                    ],
-                  ),
+              child: FlatButton(
+                height: 20,
+                minWidth: 20,
+                color: Colors.blue,
+                onPressed: () async {
+                  await authBase.logout();
+                  Navigator.of(context).pushReplacementNamed('login');
+                },
+                child:Row(
+                  children:<Widget>[
+                    Icon(Icons.logout,color: Colors.white,size: 20),
+                  ],
                 ),
               ),
+            ),
+
           ],
         ),
       ),
@@ -89,8 +137,9 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller:idle_period_controller ,
-                                decoration: textInputDecoration,
+                                  controller:idle_period_controller ,
+                                  decoration: textInputDecoration,
+                                  //idle_period_controller.text = idle_period[3];
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('idle_period', idle_period_controller.text);
@@ -124,8 +173,8 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller: data_upload_controller,
-                                decoration: textInputDecoration,
+                                  controller: data_upload_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('data_upload', data_upload_controller.text);
@@ -159,8 +208,8 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller: data_download_controller,
-                                decoration: textInputDecoration,
+                                  controller: data_download_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('data_download', data_download_controller.text);
@@ -194,8 +243,8 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller: task_length_controller,
-                                decoration: textInputDecoration,
+                                  controller: task_length_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('task_length', task_length_controller.text);
@@ -229,8 +278,8 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller: required_core_controller,
-                                decoration: textInputDecoration,
+                                  controller: required_core_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('required_core', required_core_controller.text);
@@ -264,8 +313,8 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller: vm_utilization_on_edge_controller,
-                                decoration: textInputDecoration,
+                                  controller: vm_utilization_on_edge_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('vm_utilization_on_edge', vm_utilization_on_edge_controller.text);
@@ -300,8 +349,8 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller: vm_utilization_on_cloud_controller,
-                                decoration: textInputDecoration,
+                                  controller: vm_utilization_on_cloud_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('vm_utilization_on_cloud', vm_utilization_on_cloud_controller.text);
@@ -336,8 +385,8 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 120,
                               height: 40,
                               child: TextFormField(
-                                controller: vm_utilization_on_mobile_controller,
-                                decoration: textInputDecoration,
+                                  controller: vm_utilization_on_mobile_controller,
+                                  decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('vm_utilization_on_mobile', vm_utilization_on_mobile_controller.text);
@@ -350,26 +399,57 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 10
+                        top: 10,
                       ),
                       child: Row(
                         children: [
+                          SizedBox(
+                            width: 160,
+                            height: 60,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                                left: 20,
+                              ),
+                              child: SizedBox(
+                                height: 40,
+                                width: 120,
+                                child: OriginalButton(
+                                  text:'Prev. App',
+                                  textColor: Colors.white,
+                                  color: Colors.black38,
+                                  onPressed: ()async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    counter = prefs.getInt(('counter'));
+                                    if(counter != 1)
+                                      prefs.setInt('counter', counter-1);
+                                    else
+                                      counter = 1;
+                                    Navigator.of(context).pushNamed('add application');
+                                    //edit data in firebase
+                                    //change flag
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(
                               top: 10,
-                              left: 70,
+                              left: 20,
                             ),
                             child: SizedBox(
-                              height: 60,
-                              width: 200,
+                              height: 40,
+                              width: 120,
                               child: OriginalButton(
-                                text:'Submit',
+                                text:'Save',
                                 textColor: Colors.white,
                                 color: Colors.blue,
-                                onPressed: (){
-                                  Navigator.of(context).pushNamed('app xml');
-
+                                onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('save_app', 'true');
                                   //edit data in firebase
+                                  //change flag
                                 },
                               ),
                             ),
@@ -379,22 +459,59 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 10,
-                        left: 250,
+                        top: 30,
                       ),
-                      child: SizedBox(
-                        height: 50,
-                        width: 100,
-                        child: OriginalButton(
-                          text:'Back',
-                          textColor: Colors.white,
-                          color: Colors.blueGrey,
-                          onPressed: (){
-                            Navigator.of(context).pushNamed('graphical');
-                          },
-                        ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 160,
+                            height: 60,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 40
+                              ),
+                              child: OriginalButton(
+                                text:'Delete App',
+                                textColor: Colors.white,
+                                color: Colors.blueGrey,
+                                onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setInt('delete_app', counter);
+                                  Navigator.of(context).pushNamed('app xml');
+
+                                  //edit data in firebase
+                                  //change flag
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 2,
+                            ),
+                            child: SizedBox(
+                              width: 160,
+                              height: 60,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10
+                                ),
+                                child: OriginalButton(
+                                  text:'Add new App',
+                                  textColor: Colors.white,
+                                  color: Colors.blueGrey,
+                                  onPressed: ()async{
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setInt('counter', counter+1);
+                                    Navigator.of(context).pushNamed('add application');
+                                  },
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
