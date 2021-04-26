@@ -13,8 +13,19 @@ class AddAppScreen extends StatefulWidget {
 }
 
 class _AddAppScreenState extends State<AddAppScreen> {
+
+  void initState (){
+    getData();
+  }
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState((){
+      counter= prefs.getInt('counter');});
+  }
+
   AuthBase authBase = AuthBase();
-  List <String> application_name;
+  int counter=1;
+  List <String> application_name=['AUGMENTED','HEALTH','HEAVY_COMP','INFOTAINMENT'];
   List <String> usage_percentage=['30','20','20','30'];
   List <String> prob_cloud_selection=['20','20','40','15'];
   List <String> poisson_interarrival=['5','30','60','7'];
@@ -27,30 +38,28 @@ class _AddAppScreenState extends State<AddAppScreen> {
   var poisson_interarrival_controller;
   var delay_sensitivity_controller;
   var active_period_controller;
+  var idle_period_controller;
 _AddAppScreenState(){
-   application_name_controller=TextEditingController(text:"AUGMENTED");
-   usage_percentage_controller=TextEditingController(text: "30");
-   prob_cloud_selection_controller=TextEditingController(text: "20");
-   poisson_interarrival_controller=TextEditingController(text: "5");
-   delay_sensitivity_controller=TextEditingController(text: "0");
-   active_period_controller=TextEditingController(text: "45");
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      counter = prefs.getInt('counter');
+    });
+
+    application_name_controller = TextEditingController(text:application_name[counter-1]);
+    usage_percentage_controller = TextEditingController(text: usage_percentage[counter-1]);
+    prob_cloud_selection_controller = TextEditingController(text: prob_cloud_selection[counter-1]);
+    poisson_interarrival_controller = TextEditingController(text: poisson_interarrival[counter-1]);
+    delay_sensitivity_controller = TextEditingController(text: delay_sensitivity[counter-1]);
+    active_period_controller = TextEditingController(text: active_period[counter-1]);
+    idle_period_controller=TextEditingController(text: idle_period[counter-1]);
+  }
+  getData();
 }
 
 
   @override
-  int counter=1;
-  void initState (){
-    getData();
-  }
-  getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState((){
-      counter= prefs.getInt('counter');
-      //application_name = prefs.getStringList('application_name');
-    });
 
-
-  }
   Widget build(BuildContext context) {
     //final rcvdData = ModalRoute.withName('cont add application').toString();
     return Scaffold(

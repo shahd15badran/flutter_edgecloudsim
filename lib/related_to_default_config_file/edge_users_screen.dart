@@ -332,7 +332,8 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> {
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('storage_for_mobile_vm', storage_for_mobile_vm_controller.text);
-                                  }                              ),
+                                  }
+                                  ),
                             ),
                           )
                         ],
@@ -384,7 +385,9 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> {
                                 text:'Edit Data Centers',
                                 textColor: Colors.white,
                                 color: Colors.blueGrey,
-                                onPressed: (){
+                                onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setInt('counter', 1);
                                   Navigator.of(context).pushNamed('data center');
                                 },
                               ),

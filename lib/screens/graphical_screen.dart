@@ -51,304 +51,306 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
           padding: const EdgeInsets.only(
             top: 15,
           ),
-          child: Container(
-            color: Colors.white,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 200,
-                          ),
-                          child: Text('Global Cloud  ',style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w800,
-                          ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: RaisedButton(
-                            color: Colors.black12,
-                            onPressed: (){
-                              Navigator.of(context).pushNamed('global cloud');
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25)
+          child: SingleChildScrollView(
+            child: Container(
+              color: Colors.white,
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 200,
                             ),
-                            child:Row(
-                              children:<Widget>[
-                                Icon(Icons.cloud,color: Colors.yellow,size: 28),
-                              ],
+                            child: Text('Global Cloud  ',style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 240,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(''),
-                              Text('Internet  ',style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            Icon(Icons.arrow_upward),
-                            SizedBox(
-                              height: 60,
-                              width: 60,
-                              child: RaisedButton(
-                                color: Colors.blue,
-                                onPressed: (){
-                                  Navigator.of(context).pushNamed('internet');
-                                },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)
-                                ),
-                                child:Row(
-                                  children:<Widget>[
-                                    Icon(Icons.wifi_sharp,color: Colors.white,size: 28),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 20
-                          ),
-                          child: SizedBox(
-                            height: 80,
-                            width: 80,
+                          SizedBox(
+                            height: 60,
+                            width: 60,
                             child: RaisedButton(
-                              color: Colors.orangeAccent,
+                              color: Colors.black12,
                               onPressed: (){
-                                Navigator.of(context).pushNamed('orchestrator');
+                                Navigator.of(context).pushNamed('global cloud');
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25)
                               ),
                               child:Row(
                                 children:<Widget>[
-                                  Icon(Icons.settings,color: Colors.black,size: 46),
+                                  Icon(Icons.cloud,color: Colors.yellow,size: 28),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Text('          '),
-                        Text('Edge Orchestrator',style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.red,
-                          fontWeight: FontWeight.w800,
-                        ),
-                        ),
-                        Column(
-                          children: [
-                            Icon(Icons.trending_up,size: 50),
-                            Icon(Icons.trending_down,size: 50),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 200,
-                          ),
-                          child: Text('Edge Server   ',style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w800,
-                          ),
-                          ),
-                        ),
-
-                        SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: RaisedButton(
-                            color: Colors.blue,
-                            onPressed: (){
-                              Navigator.of(context).pushNamed('edge server');
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25)
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 240,
                             ),
-                            child:Row(
-                              children:<Widget>[
-                                Icon(Icons.storage,color: Colors.white,size: 28),
+                            child: Column(
+                              children: [
+                                Text(''),
+                                Text('Internet  ',style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                                ),
                               ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 254,
-                          ),
-                          child: Column(
+                          Column(
                             children: [
-                              Text(''),
-                              Text('AP       ',style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w800,
-                              ),
+                              Icon(Icons.arrow_upward),
+                              SizedBox(
+                                height: 60,
+                                width: 60,
+                                child: RaisedButton(
+                                  color: Colors.blue,
+                                  onPressed: (){
+                                    Navigator.of(context).pushNamed('internet');
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)
+                                  ),
+                                  child:Row(
+                                    children:<Widget>[
+                                      Icon(Icons.wifi_sharp,color: Colors.white,size: 28),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                        Column(
-                          children: [
-                            Icon(Icons.arrow_downward),
-                            SizedBox(
-                              height: 60,
-                              width: 60,
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 20
+                            ),
+                            child: SizedBox(
+                              height: 80,
+                              width: 80,
                               child: RaisedButton(
-                                color: Colors.blue,
+                                color: Colors.orangeAccent,
                                 onPressed: (){
-                                  Navigator.of(context).pushNamed('internet');
+                                  Navigator.of(context).pushNamed('orchestrator');
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)
                                 ),
                                 child:Row(
                                   children:<Widget>[
-                                    Icon(Icons.wifi_sharp,color: Colors.white,size: 28),
+                                    Icon(Icons.settings,color: Colors.black,size: 46),
                                   ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 212,
                           ),
-                          child: Column(
+                          Text('          '),
+                          Text('Edge Orchestrator',style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.red,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          ),
+                          Column(
                             children: [
-                              Text(''),
-                              Text('Edge Users  ',style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              ),
+                              Icon(Icons.trending_up,size: 50),
+                              Icon(Icons.trending_down,size: 50),
                             ],
                           ),
-                        ),
-                        Column(
-                          children: [
-                            Icon(Icons.arrow_downward),
-                            SizedBox(
-                              height: 60,
-                              width: 60,
-                              child: RaisedButton(
-                                color: Colors.blue,
-                                onPressed: (){
-                                  Navigator.of(context).pushNamed('edge users');
-                                },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)
-                                ),
-                                child:Row(
-                                  children:<Widget>[
-                                    Icon(Icons.group_add_rounded,color: Colors.white,size: 28),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 50,
-                          ),
-                          child: SizedBox(
-                            height: 60,
-                            width: 150,
-                            child: OriginalButton(
-                              text:'Continue',
-                              textColor: Colors.white,
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 200,
+                            ),
+                            child: Text('Edge Server   ',style: TextStyle(
+                              fontSize: 18,
                               color: Colors.blue,
-                              onPressed:(){
-                                Navigator.of(context).pushNamed('simulation_screen');
-                              },
+                              fontWeight: FontWeight.w800,
+                            ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 50,
-                            left: 80,
-                          ),
-                          child: SizedBox(
+
+                          SizedBox(
                             height: 60,
-                            width: 150,
-                            child: OriginalButton(
-                              text:'Add App',
-                              textColor: Colors.white,
-                              color: Colors.grey,
-                              onPressed: ()async{
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.setInt('counter', 1);
-                                Navigator.of(context).pushNamed('add application');
+                            width: 60,
+                            child: RaisedButton(
+                              color: Colors.blue,
+                              onPressed: (){
+                                Navigator.of(context).pushNamed('edge server');
                               },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25)
+                              ),
+                              child:Row(
+                                children:<Widget>[
+                                  Icon(Icons.storage,color: Colors.white,size: 28),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 254,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(''),
+                                Text('AP       ',style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Icon(Icons.arrow_downward),
+                              SizedBox(
+                                height: 60,
+                                width: 60,
+                                child: RaisedButton(
+                                  color: Colors.blue,
+                                  onPressed: (){
+                                    Navigator.of(context).pushNamed('internet');
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)
+                                  ),
+                                  child:Row(
+                                    children:<Widget>[
+                                      Icon(Icons.wifi_sharp,color: Colors.white,size: 28),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 212,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(''),
+                                Text('Edge Users  ',style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Icon(Icons.arrow_downward),
+                              SizedBox(
+                                height: 60,
+                                width: 60,
+                                child: RaisedButton(
+                                  color: Colors.blue,
+                                  onPressed: (){
+                                    Navigator.of(context).pushNamed('edge users');
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)
+                                  ),
+                                  child:Row(
+                                    children:<Widget>[
+                                      Icon(Icons.group_add_rounded,color: Colors.white,size: 28),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 50,
+                            ),
+                            child: SizedBox(
+                              height: 60,
+                              width: 150,
+                              child: OriginalButton(
+                                text:'Simulation Process',
+                                textColor: Colors.white,
+                                color: Colors.blue,
+                                onPressed:(){
+                                  Navigator.of(context).pushNamed('simulation_screen');
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 50,
+                              left: 80,
+                            ),
+                            child: SizedBox(
+                              height: 60,
+                              width: 150,
+                              child: OriginalButton(
+                                text:'Add App',
+                                textColor: Colors.white,
+                                color: Colors.grey,
+                                onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setInt('counter', 1);
+                                  Navigator.of(context).pushNamed('add application');
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -197,7 +197,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('application_name', location_check_interval_controller.text);
+                                    prefs.setString('location_check_interval_controller', location_check_interval_controller.text);
                                   }
                               ),
                             ),

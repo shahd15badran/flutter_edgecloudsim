@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
@@ -24,7 +25,24 @@ class _State extends State<DefaultConfig> {
       _batteryLevel = batteryLevel;
     });
   }
+  String _batteryLevel2='';
+  Future<void> _getBatteryLevel2() async {
+    String batteryLevel2;
+    try {
+      final String result = await Platform.invokeMethod('getDefaultConfigFile',display());
+      batteryLevel2 = ' $result  ';
+    } on PlatformException catch (e) {
+      print(e);
+    }
+
+    setState(() {
+      _batteryLevel2 = batteryLevel2;
+    });
+  }
   @override
+ String concatenate ='';
+  AuthBase authBase = AuthBase();
+  var xml_controller=TextEditingController();
   String simulation_time="30";
   String warm_up_period="3";
   String vm_load_check_interval="0.1";
@@ -118,28 +136,110 @@ class _State extends State<DefaultConfig> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              RaisedButton(
-                child: Text("display"),
-                onPressed: (){
-                  _getBatteryLevel();
-                },
+      appBar: AppBar(
+        backgroundColor: Colors.black12,
+        title: Row(
+          children: [
+            Padding(padding: const EdgeInsets.only(
+              left: 30,
+            ),
+              child: Text(' Default Config'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 100,
               ),
-              Text(_batteryLevel),
-              //display(),
-            ],
-          ),
+              child: FlatButton(
+                height: 20,
+                minWidth: 20,
+                color: Colors.blue,
+                onPressed: () async {
+                  await authBase.logout();
+                  Navigator.of(context).pushReplacementNamed('login');
+                },
+                child:Row(
+                  children:<Widget>[
+                    Icon(Icons.logout,color: Colors.white,size: 20),
+                  ],
+                ),
+              ),
+            ),
 
+          ],
+        ),
+      ),
+
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                  ),
+                  child: RaisedButton(
+                    color: Colors.indigoAccent,
+                    child: Text("display"),
+                    onPressed: (){
+                      // xml_controller.text= display();
+                      _getBatteryLevel();
+                      xml_controller.text= display();
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                  ),
+                  child:Container(
+                    height: 495,
+                    child: SingleChildScrollView(
+                      child: TextField(
+                        maxLines: null,
+                        controller: xml_controller,
+                        decoration: InputDecoration(
+                          //contentPadding: new EdgeInsets.symmetric(vertical: 200.0,horizontal: 10.0),
+                          contentPadding: EdgeInsets.all(1.0),
+                          fillColor: Colors.white,
+                          filled:true,
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                  ),
+                  child: RaisedButton(
+                    color: Colors.amberAccent,
+                    child: Text("submit"),
+                    onPressed: (){
+                      _batteryLevel2=xml_controller.text;
+                      _getBatteryLevel2();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
   display(){
+    List <String> data=['simulation_time','warm_up_period','vm_load_check_interval',
+      'location_check_interval','file_log_enabled','deep_file_log_enabled'
+          'min_number_of_mobile_devices','max_number_of_mobile_devices','mobile_device_counter_size',
+      'wan_propagation_delay','lan_internal_delay','wlan_bandwidth','wan_bandwidth','gsm_bandwidth',
+      'number_of_host_on_cloud_datacenter','number_of_vm_on_cloud_host','core_for_cloud_vm',
+      'mips_for_cloud_vm','ram_for_cloud_vm','storage_for_cloud_vm','core_for_mobile_vm',
+      'mips_for_mobile_vm','ram_for_mobile_vm','storage_for_mobile_vm','orchestrator_policies',
+      'simulation_scenarios','attractiveness_L1_mean_waiting_time','attractiveness_L2_mean_waiting_time',
+      'attractiveness_L3_mean_waiting_time'];
     //31 items
+
     var arr = new List(35);
     arr[0] = simulation_time;
     arr[1] = warm_up_period;
@@ -147,37 +247,44 @@ class _State extends State<DefaultConfig> {
     arr[3] = location_check_interval;
     arr[4] = file_log_enabled;
     arr[5] = deep_file_log_enabled;
+
     arr[6] = min_number_of_mobile_devices;
     arr[7] = max_number_of_mobile_devices;
     arr[8] = mobile_device_counter_size;
+
     arr[9] = wan_propagation_delay;
     arr[10] = lan_internal_delay;
     arr[11] = wlan_bandwidth;
     arr[12] = wan_bandwidth;
     arr[13] = gsm_bandwidth;
+
     arr[14] = number_of_host_on_cloud_datacenter;
     arr[15] = number_of_vm_on_cloud_host;
     arr[16] = core_for_cloud_vm;
     arr[17] = mips_for_cloud_vm;
     arr[18] = ram_for_cloud_vm;
     arr[19] = storage_for_cloud_vm;
+
     arr[20] = core_for_mobile_vm;
     arr[21] = mips_for_mobile_vm;
     arr[22] = ram_for_mobile_vm;
     arr[23] = storage_for_mobile_vm;
+
     arr[24] = orchestrator_policies;
     arr[25] = simulation_scenarios1+','+simulation_scenarios2+','+simulation_scenarios3;
     arr[26] = attractiveness_L1_mean_waiting_time;
     arr[27] = attractiveness_L2_mean_waiting_time;
     arr[28] = attractiveness_L3_mean_waiting_time;
-    arr[29] ="#default config file";
-    arr[30] ="#all the host on cloud runs on a single datacenter";
-    arr[31] ="#mobile devices has no processing unit in this scenario";
-    arr[32]="#use ',' for multiple values";
-    arr[33]="#use ',' for multiple values";
-    arr[34]="#mean waiting time in seconds";
-
-    return arr;
+    //arr[29] ="#default config file";
+   // arr[30] ="#all the host on cloud runs on a single datacenter";
+    //arr[31] ="#mobile devices has no processing unit in this scenario";
+    //arr[32]="#use ',' for multiple values";
+   // arr[33]="#use ',' for multiple values";
+   // arr[34]="#mean waiting time in seconds";
+    for(int l=0;l<data.length;l++) {
+      concatenate += "\n"+data[l]+"="+arr[l];
+    }
+    return concatenate;
   }
 }
 

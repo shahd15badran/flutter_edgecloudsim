@@ -1,5 +1,4 @@
 
-
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +9,6 @@ class AppXML extends StatefulWidget {
   @override
   _State createState() => _State();
 }
-List <String> application_content=['application name','usage_percentage','prob_cloud_selection','poisson_interarrival','delay_sensitivity','active_period','idle_period','data_upload'
-    'data_download','task_length','required_core','vm_utilization_on_edge','vm_utilization_on_cloud',
-  'vm_utilization_on_mobile'];
-
 //////////////////////
 int counter=1;
 int deleteApp;
@@ -32,24 +27,9 @@ class _State extends State<AppXML> {
   List <String> vm_utilization_on_edge=['20','5','30','10'];
   List <String> vm_utilization_on_cloud=['2','0.5','3','1'];
   List <String> vm_utilization_on_mobile=['0','0','0','1'];
-
-
   ///////////////////////
-  String application_name1='AUGMENTED_REALITY';
-  String usage_percentage1='30';
-  String prob_cloud_selection1='20';
-  String poisson_interarrival1='5';
-  String delay_sensitivity1 ='0';
-  String active_period1 ='45';
-  String idle_period1='15';
-  String data_upload1='1500';
-  String data_download1='25';
-  String task_length1='2000';
-  String required_core1='1';
-  String vm_utilization_on_edge1='20';
-  String vm_utilization_on_cloud1='2';
-  String vm_utilization_on_mobile1='0';
   AuthBase authBase = AuthBase();
+  var xml_controller=TextEditingController();
 
   //final application_xml_controller=TextEditingController(text:display());
 
@@ -68,6 +48,20 @@ class _State extends State<AppXML> {
       _batteryLevel = batteryLevel;
     });
   }
+  String _batteryLevel2='';
+  Future<void> _getBatteryLevel2() async {
+    String batteryLevel2;
+    try {
+      final String result = await Platform.invokeMethod('getAppXML', _batteryLevel2);
+      batteryLevel2 = ' $result  ';
+    } on PlatformException catch (e) {
+      print(e);
+    }
+
+    setState(() {
+      _batteryLevel2 = batteryLevel2;
+    });
+  }
   @override
   void initState (){
     getData();
@@ -76,7 +70,6 @@ class _State extends State<AppXML> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState((){
 
-      prefs.setStringList('application_name', application_name);
 //////////////////////////////////////////////////////
       if(prefs.getInt('delete_app')!=null) {
         deleteApp=prefs.getInt('delete_app');
@@ -98,109 +91,205 @@ class _State extends State<AppXML> {
       }
 
 
-      counter=prefs.getInt('counter');
+      if(prefs.getInt('counter')!=null) {
+        counter = prefs.getInt('counter');
+      }
+      else counter=4;
+      // else counter=4;
       print("OOOOOOO"+counter.toString());
       if(counter>0) {
-          if (((prefs.getStringList('application_name')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            application_name[counter-1] = prefs.getStringList('application_name')[counter-1];
+        if (((prefs.getStringList('application_name') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          application_name[counter - 1] = prefs.getStringList('application_name')[counter - 1];
+
+        else if (prefs.getStringList('application_name') == null)
+          application_name[counter - 1] = application_name[counter - 1];
+
+        if (((prefs.getStringList('usage_percentage') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          usage_percentage[counter - 1] = prefs.getStringList('usage_percentage')[counter - 1];
+        ////
+        else if (prefs.getStringList('usage_percentage') == null)
+          usage_percentage[counter - 1] = usage_percentage[counter - 1];
+        if (((prefs.getStringList('prob_cloud_selection') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          prob_cloud_selection[counter - 1] = prefs.getStringList('prob_cloud_selection')[counter - 1];
+        /////
+        else if (prefs.getStringList('prob_cloud_selection') == null)
+          prob_cloud_selection[counter - 1] = prob_cloud_selection[counter - 1];
+
+        if (((prefs.getStringList('poisson_interarrival') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          poisson_interarrival[counter - 1] =
+          prefs.getStringList('poisson_interarrival')[counter - 1];
+        ////
+        else if (prefs.getStringList('poisson_interarrival') == null)
+          poisson_interarrival[counter - 1] = poisson_interarrival[counter - 1];
+
+        if (((prefs.getStringList('delay_sensitivity') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          delay_sensitivity[counter - 1] =
+          prefs.getStringList('delay_sensitivity')[counter - 1];
+        //////
+        else if (prefs.getStringList('delay_sensitivity') == null)
+          delay_sensitivity[counter - 1] = delay_sensitivity[counter - 1];
+        if (((prefs.getStringList('active_period') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          active_period[counter - 1] =
+          prefs.getStringList('active_period')[counter - 1];
+        //////////
+        else if (prefs.getStringList('active_period')== null)
+          active_period[counter - 1] = active_period[counter - 1];
+        if (((prefs.getStringList('idle_period') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          idle_period[counter - 1] =
+          prefs.getStringList('idle_period')[counter - 1];
+        ///////////
+        else if (prefs.getStringList('idle_period') == null)
+          idle_period[counter - 1] = idle_period[counter - 1];
+        if (((prefs.getStringList('data_upload') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          data_upload[counter - 1] =
+          prefs.getStringList('data_upload')[counter - 1];
+        ////////
+        else if (prefs.getStringList('data_upload') == null)
+          data_upload[counter - 1] = data_upload[counter - 1];
+        if (((prefs.getStringList('data_download') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          data_download[counter - 1] =
+          prefs.getStringList('data_download')[counter - 1];
+        ///////
+        else if (prefs.getStringList('data_download') == null)
+          data_download[counter - 1] = data_download[counter - 1];
+        if (((prefs.getStringList('task_length') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          task_length[counter - 1] =
+          prefs.getStringList('task_length')[counter - 1];
+        ////////
+        else if (prefs.getStringList('task_length') == null)
+          task_length[counter - 1] = task_length[counter - 1];
+        if (((prefs.getStringList('required_core') != null) &&
+            (prefs.getString('save_app') == 'true')))
+          required_core[counter - 1] = prefs.getStringList('required_core')[counter - 1];
+        /////////
+        else if (prefs.getStringList('required_core')== null)
+          required_core[counter - 1] = required_core[counter - 1];
+
+        if (((prefs.getStringList('vm_utilization_on_edge')!= null) && (prefs.getString('save_app') == 'true')))
+          vm_utilization_on_edge[counter - 1] = prefs.getStringList('vm_utilization_on_edge')[counter - 1];
+
+        else if (prefs.getStringList('vm_utilization_on_edge') == null)
+          vm_utilization_on_edge[counter - 1]= vm_utilization_on_edge[counter - 1];
 
 
-          else if (((prefs.getStringList('usage_percentage')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            usage_percentage[counter-1] = prefs.getStringList('usage_percentage')[counter-1];
+        if (((prefs.getStringList('vm_utilization_on_cloud') != null) && (prefs.getString('save_app') == 'true')))
+          vm_utilization_on_cloud[counter - 1] = prefs.getStringList('vm_utilization_on_cloud')[counter - 1];
 
+        else if (prefs.getStringList('vm_utilization_on_cloud')== null)
+          vm_utilization_on_cloud[counter - 1] =  vm_utilization_on_cloud[counter - 1];
 
-          else if (((prefs.getStringList('prob_cloud_selection')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            prob_cloud_selection[counter-1] = prefs.getStringList('prob_cloud_selection')[counter-1];
+        if (((prefs.getStringList('vm_utilization_on_mobile') != null) && (prefs.getString('save_app') == 'true')))
+          vm_utilization_on_mobile[counter - 1] = prefs.getStringList('vm_utilization_on_mobile')[counter - 1];
 
-          else if (((prefs.getStringList('poisson_interarrival')[counter-1][counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            poisson_interarrival[counter-1] = prefs.getStringList('poisson_interarrival')[counter-1];
-
-
-          else if (((prefs.getStringList('delay_sensitivity')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            delay_sensitivity[counter-1] = prefs.getStringList('delay_sensitivity')[counter-1];
-
-
-          else if (((prefs.getStringList('active_period')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            active_period[counter-1] = prefs.getStringList('active_period')[counter-1];
-
-
-          else if (((prefs.getStringList('idle_period')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            idle_period[counter-1] = prefs.getStringList('idle_period')[counter-1];
-
-
-          else if (((prefs.getStringList('data_upload')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            data_upload[counter-1] = prefs.getStringList('data_upload')[counter-1];
-
-
-          else if (((prefs.getStringList('data_download')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            data_download[counter-1] = prefs.getStringList('data_download')[counter-1];
-
-
-
-          else if (((prefs.getStringList('task_length')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            task_length[counter-1] = prefs.getStringList('task_length')[counter-1];
-
-
-          else if (((prefs.getStringList('required_core')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            required_core[counter-1] = prefs.getStringList('required_core')[counter-1];
-
-
-          else if (((prefs.getStringList('vm_utilization_on_edge')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            vm_utilization_on_edge[counter-1] =
-                prefs.getStringList('vm_utilization_on_edge')[counter-1];
-
-
-          else if (((prefs.getStringList('vm_utilization_on_cloud')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            vm_utilization_on_cloud[counter-1] =
-                prefs.getStringList('vm_utilization_on_cloud')[counter-1];
-
-
-          else if (((prefs.getStringList('vm_utilization_on_mobile')[counter-1] != null) &&
-              (prefs.getString('save_app') == 'true')))
-            vm_utilization_on_mobile[counter-1] =
-                prefs.getStringList('vm_utilization_on_mobile')[counter-1];
-
-
+        else if (prefs.getStringList('vm_utilization_on_mobile') == null)
+          vm_utilization_on_mobile[counter - 1] =  vm_utilization_on_mobile[counter - 1];
       }
       //////////////////////////
 
-
-
     });
-
+    //prefs.clear();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              RaisedButton(
-                child: Text("display"),
-                onPressed: (){
-                  _getBatteryLevel();
-                },
+      appBar: AppBar(
+        backgroundColor: Colors.black12,
+        title: Row(
+          children: [
+            Padding(padding: const EdgeInsets.only(
+              left: 30,
+            ),
+              child: Text(' App XML'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 100,
               ),
-              Text(_batteryLevel),
-              //display(),
-            ],
-          ),
+              child: FlatButton(
+                height: 20,
+                minWidth: 20,
+                color: Colors.blue,
+                onPressed: () async {
+                  await authBase.logout();
+                  Navigator.of(context).pushReplacementNamed('login');
+                },
+                child:Row(
+                  children:<Widget>[
+                    Icon(Icons.logout,color: Colors.white,size: 20),
+                  ],
+                ),
+              ),
+            ),
 
+          ],
+        ),
+      ),
+
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                padding: const EdgeInsets.only(
+                ),
+                child: RaisedButton(
+                  color: Colors.indigoAccent,
+                  child: Text("display"),
+                  onPressed: (){
+                   // xml_controller.text= display();
+                    _getBatteryLevel();
+                    xml_controller.text= display();
+                  },
+                ),
+              ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                  ),
+                  child:Container(
+                    height: 495,
+                    child: SingleChildScrollView(
+                      child: TextField(
+                        maxLines: null,
+                          controller: xml_controller,
+                          decoration: InputDecoration(
+                            //contentPadding: new EdgeInsets.symmetric(vertical: 200.0,horizontal: 10.0),
+                            contentPadding: EdgeInsets.all(1.0),
+                            fillColor: Colors.white,
+                            filled:true,
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                            ),
+                          ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                  ),
+                  child: RaisedButton(
+                    color: Colors.amberAccent,
+                    child: Text("submit"),
+                    onPressed: (){
+                      _batteryLevel2=xml_controller.text;
+                      _getBatteryLevel2();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -209,7 +298,8 @@ class _State extends State<AppXML> {
     final builder = XmlBuilder();
     builder.processing('xml', 'version="1.0"');
     builder.element('applications', nest: () {
-      for(int c=0;c<counter;c++) {
+      for(int c=0;c<4;c++) {
+        print('cccccccccccc'+c.toString());
         builder.element('application', nest: () {
           builder.attribute('name', application_name[c]);
           builder.element('usage_percentage', nest: usage_percentage[c]);
@@ -231,6 +321,7 @@ class _State extends State<AppXML> {
     });
     final bookshelfXml = builder.buildDocument();
     final String xmlDoc = (bookshelfXml.toXmlString(pretty: true, indent: '\t'));
+    print(xmlDoc);
     return xmlDoc;
   }
 
