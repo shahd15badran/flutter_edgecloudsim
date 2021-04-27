@@ -1,29 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-class LogScreen extends StatefulWidget {
-  @override
-  _LogScreenState createState() => _LogScreenState();
-}
-class _LogScreenState extends State<LogScreen> {
-  var xml_controller=TextEditingController();
-  static const Platform =const MethodChannel("com.flutter.epic/epic");
-  String _batteryLevel = '';
-  Future<void> _getBatteryLevel() async {
-    String batteryLevel;
-    try {
-      final String result = await Platform.invokeMethod('get log file');
-      batteryLevel = ' $result  ';
-    } on PlatformException catch (e) {
-      print(e);
-    }
 
-    setState(() {
-      _batteryLevel = batteryLevel;
-    });
-  }
+class MatlabFile extends StatefulWidget {
+  @override
+  _MatlabFileState createState() => _MatlabFileState();
+}
+
+class _MatlabFileState extends State<MatlabFile> {
   AuthBase authBase = AuthBase();
+  var matlab_controller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +20,7 @@ class _LogScreenState extends State<LogScreen> {
             Padding(padding: const EdgeInsets.only(
               left: 30,
             ),
-              child: Text('Log Files'),
+              child: Text('Matlab File'),
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -58,6 +44,7 @@ class _LogScreenState extends State<LogScreen> {
           ],
         ),
       ),
+
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -69,9 +56,9 @@ class _LogScreenState extends State<LogScreen> {
                   child: RaisedButton(
                     color: Colors.indigoAccent,
                     child: Text("display"),
-                    onPressed: ()async{
-                      _getBatteryLevel();
-                      xml_controller.text= _batteryLevel;
+                    onPressed: (){
+                     // _getBatteryLevel();
+                     // matlab_controller.text= display();
                     },
                   ),
                 ),
@@ -83,7 +70,7 @@ class _LogScreenState extends State<LogScreen> {
                     child: SingleChildScrollView(
                       child: TextField(
                         maxLines: null,
-                        controller: xml_controller,
+                        controller: matlab_controller,
                         decoration: InputDecoration(
                           //contentPadding: new EdgeInsets.symmetric(vertical: 200.0,horizontal: 10.0),
                           contentPadding: EdgeInsets.all(1.0),
@@ -102,9 +89,9 @@ class _LogScreenState extends State<LogScreen> {
                   ),
                   child: RaisedButton(
                     color: Colors.amberAccent,
-                    child: Text("download"),
+                    child: Text("submit"),
                     onPressed: (){
-                     // _batteryLevel2=xml_controller.text;
+                      //_batteryLevel2=matlab_controller.text;
                      // _getBatteryLevel2();
                     },
                   ),

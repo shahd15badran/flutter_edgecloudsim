@@ -41,32 +41,31 @@ public class MainActivity extends FlutterActivity {
                     String arguments= call.arguments();
                     Document doc = convertStringToDocument( arguments );
                     String str = convertDocumentToString(doc);
-                    new SendFileToServer("2" +str);
+                    new SendFileToServer("2" +str,false);
                     result.success(str);
                 }
                 else  if (call.method.equals("getEdgeDeviceXML")){
                     String arguments= call.arguments();
                     Document doc = convertStringToDocument( arguments );
                     String str = convertDocumentToString(doc);
-                    new SendFileToServer("1" +str);
+                    new SendFileToServer("1" +str,false);
                     result.success(str);
                 }
                 else if(call.method.equals("getDefaultConfigFile")){
                    String arguments = call.arguments();
-
-                    //arguments.clear();
-                    //arguments.add(props.getProperty("simulation_scenarios"));
-
-                    new SendFileToServer("3" +arguments);
+                    new SendFileToServer("3" +arguments,false);
                     result.success(arguments);
                 }
                 else if(call.method.equals("Start Sim")){
-                    new SendFileToServer("@");
+                    new SendFileToServer("@",true);
                     result.success(SendFileToServer.getSimMsg());
+                }
+                else if(call.method.equals("get log file")){
+                    new GetFileFromServer("$", true);
+                    result.success("resultssssssssss"+GetFileFromServer.getfilesnames());
                 }
             }
         });
-
     }
     private static Document convertStringToDocument(String xmlStr) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

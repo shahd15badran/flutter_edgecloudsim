@@ -11,20 +11,20 @@ import java.net.Socket;
 public class SendFileToServer {
     static String SimMsg = "";
     String file = "";
-    public SendFileToServer(String file_to_send) {
+    public SendFileToServer(String file_to_send, boolean f) {
         Thread thread = new Thread(() -> {
             try  {
                 this.file = file_to_send;
                 System.out.println("createdddddddddd");
-                Start(file);
+                Start(file,f);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         thread.start();
     }
-    public void Start(String file) throws Exception {
-        String server = "192.168.0.102";
+    public void Start(String file, boolean f) throws Exception {
+        String server = "192.168.1.19";
         int port = 1988;
         try{
             Socket s = new Socket(server, port);
@@ -37,20 +37,25 @@ public class SendFileToServer {
             while ((read = fis.read(buffer)) > 0) {
                 dos.write(buffer, 0, read);
             }
-            //recieve
-            DataInputStream disMsg = new DataInputStream(s.getInputStream());
-            StringBuffer inputLine = new StringBuffer();
-            String tmp;
-            while ((tmp = disMsg.readLine()) != null) {
-                inputLine.append(tmp);
-                System.out.println(tmp);
-            }
-            SimMsg = inputLine.toString();
-
             fis.close();
             dos.close();
-            fileStream.close();
-            disMsg.close();
+            //recieve
+            if(f){
+                DataInputStream disMsg = new DataInputStream(s.getInputStream());
+                StringBuffer inputLine = new StringBuffer();
+                String tmp;
+                while ((tmp = disMsg.readLine()) != null) {
+                    inputLine.append(tmp);
+                    //System.out.println(tmp);
+                }
+                SimMsg = inputLine.toString();
+
+                disMsg.close();
+            }
+
+
+            //fileStream.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,24 +23,30 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
               padding: const EdgeInsets.only(
                 left: 270,
               ),
-              child: FlatButton(
-                height: 20,
-                minWidth: 20,
-                color: Colors.blue,
-                onPressed: () async {
-                  await authBase.logout();
-                  Navigator.of(context).pushReplacementNamed('login');
-                },
-                child:Row(
-                  children:<Widget>[
-                    Icon(Icons.logout,color: Colors.white,size: 20),
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.blue,
+                  onPressed: () async {
+                    await authBase.logout();
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  child:Row(
+                    children:<Widget>[
+                      Icon(Icons.logout,color: Colors.white,size: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
       ),
+
       body:Padding(
         padding: const EdgeInsets.only(
           left: 16.0,

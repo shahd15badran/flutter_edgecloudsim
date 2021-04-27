@@ -12,6 +12,7 @@ import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/cont_data_
 import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/data_center_screen.dart';
 import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/edge_devices_xml.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
+import 'package:flutter_edgecloudsim/screens/matlab_file.dart';
 import 'simulation_process/cont_display_result.dart';
 import 'simulation_process/display_log_result.dart';
 import 'simulation_process/display_result.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home:ManuallyScreen(),//DataCenterScreen(),
+      home:SimulationScreen(),//DataCenterScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
         'result screen':(context)=>ResultScreen(),
         'cont result screen':(context)=>ContResultScreen(),
         'selected graph':(context)=>SelectedGraph(),
+        'matlab file':(context)=>MatlabFile(),
 
       },
     );
