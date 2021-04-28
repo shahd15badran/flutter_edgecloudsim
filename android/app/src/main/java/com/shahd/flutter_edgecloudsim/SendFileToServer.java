@@ -24,7 +24,7 @@ public class SendFileToServer {
         thread.start();
     }
     public void Start(String file, boolean f) throws Exception {
-        String server = "192.168.1.19";
+        String server = "192.168.1.60";
         int port = 1988;
         try{
             Socket s = new Socket(server, port);
@@ -36,9 +36,9 @@ public class SendFileToServer {
             int read;
             while ((read = fis.read(buffer)) > 0) {
                 dos.write(buffer, 0, read);
+
             }
-            fis.close();
-            dos.close();
+
             //recieve
             if(f){
                 DataInputStream disMsg = new DataInputStream(s.getInputStream());
@@ -49,11 +49,10 @@ public class SendFileToServer {
                     //System.out.println(tmp);
                 }
                 SimMsg = inputLine.toString();
-
                 disMsg.close();
             }
-
-
+            fis.close();
+            dos.close();
             //fileStream.close();
 
         } catch (Exception e) {

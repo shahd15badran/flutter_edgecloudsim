@@ -1,4 +1,6 @@
 package com.shahd.flutter_edgecloudsim;
+import android.os.Environment;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -9,20 +11,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GetFileFromServer {
     ArrayList<String> filesnames = new ArrayList<String>();
     static String concatenate="";
     String file = "";
 
-    public GetFileFromServer(String file_to_send,boolean t) {
+    public GetFileFromServer(String file_to_send) {
         Thread thread = new Thread(() -> {
             try {
                 this.file = file_to_send;
                 System.out.println("generatedddddddd");
-                Start(file ,t);
-                System.out.println("doneeeeeee");
+                Start(file);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -30,10 +34,11 @@ public class GetFileFromServer {
         thread.start();
     }
 
-    public void Start(String file,boolean t) throws Exception {
+    public void Start(String file) throws Exception {
         System.out.println("doneeeeeee");
-        String dirPath = "C:\\Users\\asus\\Desktop\\EdgeCloudSim-master\\EdgeCloudSim-master\\sim_results";
-        String server = "192.168.1.19";
+        String dirPath = "C:\\Users\\hp\\eclipse-workspace\\EdgeCloudSim-master\\EdgeCloudSim-master\\sim_results\\ite1try";
+
+        String server = "192.168.1.60";
         int port = 1988;
         try {
             Socket s = new Socket(server, port);
@@ -45,47 +50,48 @@ public class GetFileFromServer {
             while ((read = fis.read(buffer)) > 0) {
                 dos.write(buffer, 0, read);
             }
-            //fis.close();
-            //dos.close();
-            if(t) {
-                System.out.println("reachhhhhhhhhhh");
+
+                System.out.println("reachhhhhhhhhhh");//////////////////////////////////////
                 BufferedInputStream bis = new BufferedInputStream(s.getInputStream());
                 DataInputStream dis = new DataInputStream(bis);
-
+                ArrayList<String> ff = new ArrayList<String>();
                 int filesCount = dis.readInt();
-                ArrayList<File> files = new ArrayList<File>(filesCount);
-                for (int i = 0; i < filesCount; i++) {
-                    File f = new File(dis.readUTF());
-                    files.add(f);
-                }
+                System.out.println("FILES_COUNT = "+ filesCount);/////////////////////////////
+                File[] files = new File[filesCount];
+
 
                 for(int i = 0; i < filesCount; i++)
-                {
-                    concatenate += dis.readUTF() + "\n";
+                {   //concatenate += dis.readUTF() + "\n";
                     long fileLength = dis.readLong();
                     String fileName = dis.readUTF();
-                    files.set(i, new File(dirPath + "\\" + fileName));
-                    FileOutputStream fos = new FileOutputStream(files.get(i));
+                    File the_path = new File(Environment.getExternalStorageDirectory() + "/Documents");
+                    files[i] = new File(the_path + "/" + fileName);
+
+                    FileOutputStream fos = new FileOutputStream(files[i]);/////
                     BufferedOutputStream bos = new BufferedOutputStream(fos);
                     for(int j = 0; j < fileLength; j++)
                         bos.write(bis.read());
                     bos.close();
                 }
-
                 dis.close();
 
+            Scanner input = new Scanner(files[8]);
+            while (input.hasNextLine())
+            {
+                System.out.println(input.nextLine());
             }
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-
         }
-
     }
+
     public static String getfilesnames(){
-        if(concatenate != null)
+        if(concatenate != null) {
+            System.out.println("concatenate isss: " + concatenate);
             return concatenate;
+        }
         else
             return "There's a problem ";
     }

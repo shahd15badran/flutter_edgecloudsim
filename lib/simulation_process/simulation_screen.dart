@@ -13,7 +13,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
   Future<void> _getBatteryLevel() async {
     String simRes;
     try {
-      final String result = await Platform.invokeMethod('Start Sim');
+      final String result = await Platform.invokeMethod("Start Sim");
       simRes = ' $result';
     } on PlatformException catch (e) {
       print(e);

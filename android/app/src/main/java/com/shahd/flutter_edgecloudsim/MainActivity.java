@@ -57,11 +57,12 @@ public class MainActivity extends FlutterActivity {
                     result.success(arguments);
                 }
                 else if(call.method.equals("Start Sim")){
+                    System.out.println("reached Start Sim in MainActivity");
                     new SendFileToServer("@",true);
                     result.success(SendFileToServer.getSimMsg());
                 }
                 else if(call.method.equals("get log file")){
-                    new GetFileFromServer("$", true);
+                    new GetFileFromServer("$");
                     result.success("resultssssssssss"+GetFileFromServer.getfilesnames());
                 }
             }
