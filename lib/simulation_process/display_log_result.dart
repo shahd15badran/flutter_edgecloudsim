@@ -104,7 +104,7 @@ class _LogScreenState extends State<LogScreen> {
                     color: Colors.amberAccent,
                     child: Text("download"),
                     onPressed: (){
-                      Navigator.of(context).pushReplacementNamed('MyFileList');
+                      Navigator.of(context).pushReplacementNamed('MyPDFList');
                      // _batteryLevel2=xml_controller.text;
                      // _getBatteryLevel2();
                     },

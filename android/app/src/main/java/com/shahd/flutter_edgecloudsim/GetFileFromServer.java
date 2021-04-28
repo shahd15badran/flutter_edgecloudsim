@@ -35,9 +35,6 @@ public class GetFileFromServer {
     }
 
     public void Start(String file) throws Exception {
-        System.out.println("doneeeeeee");
-        String dirPath = "C:\\Users\\hp\\eclipse-workspace\\EdgeCloudSim-master\\EdgeCloudSim-master\\sim_results\\ite1try";
-
         String server = "192.168.1.60";
         int port = 1988;
         try {
@@ -74,12 +71,11 @@ public class GetFileFromServer {
                     bos.close();
                 }
                 dis.close();
-
+/*
             Scanner input = new Scanner(files[8]);
-            while (input.hasNextLine())
-            {
+            while (input.hasNextLine()) {
                 System.out.println(input.nextLine());
-            }
+            }*/
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
