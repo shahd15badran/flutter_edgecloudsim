@@ -16,12 +16,15 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
         backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 270,
+                left: 230,
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -30,14 +33,14 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                 child: FlatButton(
                   height: 20,
                   minWidth: 20,
-                  color: Colors.blue,
+                  color: Colors.white,
                   onPressed: () async {
                     await authBase.logout();
                     Navigator.of(context).pushReplacementNamed('login');
                   },
                   child:Row(
                     children:<Widget>[
-                      Icon(Icons.logout,color: Colors.white,size: 20),
+                      Icon(Icons.logout,color: Colors.black,size: 20),
                     ],
                   ),
                 ),
@@ -49,17 +52,15 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
 
       body:Padding(
         padding: const EdgeInsets.only(
-          left: 16.0,
-          right: 10.0,
-          top: 5.0,
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-            top: 15,
+            top: 60,
+            bottom: 15
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white,
+             // color: Colors.black26,
               child: SafeArea(
                 child: Column(
                   children: [
@@ -68,7 +69,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 200,
+                              left: 70,
                             ),
                             child: Text('Global Cloud  ',style: TextStyle(
                               fontSize: 18,
@@ -103,7 +104,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 240,
+                              left: 110,
                             ),
                             child: Column(
                               children: [
@@ -119,7 +120,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                           ),
                           Column(
                             children: [
-                              Icon(Icons.arrow_upward),
+                              Icon(Icons.arrow_upward,size: 20),
                               SizedBox(
                                 height: 60,
                                 width: 60,
@@ -146,10 +147,9 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                     Container(
                       child: Row(
                         children: <Widget>[
-
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 20
+                              left: 10
                             ),
                             child: SizedBox(
                               height: 80,
@@ -170,29 +170,223 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               ),
                             ),
                           ),
-                          Text('          '),
-                          Text('Edge Orchestrator',style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.red,
-                            fontWeight: FontWeight.w800,
-                          ),
-                          ),
-                          Column(
-                            children: [
-                              Icon(Icons.trending_up,size: 50),
-                              Icon(Icons.trending_down,size: 50),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20
+                            ),
+                              child: Column(
+                                children: [
+                                  SizedBox( height: 50,
+                                    width: 110,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: 30
+                                      ),
+                                      child: VerticalDivider(
+                                        color: Colors.black,
+                                        thickness: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  Text('_____________________________________'),
+                                ],
+                              )
+
                           ),
                         ],
                       ),
                     ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 15
+                          ),
+                          child: SizedBox(
+                            height: 50,
+                            width: 110,
+                            child: Text('Edge Orchestrator',style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.red,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            right: 10
+
+                          ),
+                          child: SizedBox(
+                            height: 50,
+                            width: 110,
+                            child: VerticalDivider(
+                              color: Colors.black,
+                              thickness: 2,
+                            )
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 55
+
+                          ),
+                          child: SizedBox(
+                            height: 50,
+                            width: 110,
+                            child: VerticalDivider(
+                              color: Colors.black,
+                              thickness: 2,
+                            )
+                          ),
+                        ),
+                      ],
+                    ),
+                    ////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////////////
                     Container(
                       child: Row(
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 200,
+                              top: 25,
+                              right: 10,
+                              left: 50
+
                             ),
+                            child: SizedBox(
+                              height: 60,
+                              width: 60,
+                              child: RaisedButton(
+                                color: Colors.blue,
+                                onPressed: (){
+                                  Navigator.of(context).pushNamed('edge server');
+                                },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)
+                                ),
+                                child:Row(
+                                  children:<Widget>[
+                                    Icon(Icons.storage,color: Colors.white,size: 28),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 2,
+
+                            ),
+                            child: SizedBox(
+                              height: 6,
+                              width: 30,
+                              child: Icon(Icons.minimize_rounded,size: 30),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+
+                            ),
+                            child: Column(
+                              children: [
+                                Icon(Icons.arrow_drop_down,size: 20),
+                                SizedBox(
+                                  height: 60,
+                                  width: 60,
+                                  child: RaisedButton(
+                                    color: Colors.blue,
+                                    onPressed: (){
+                                      Navigator.of(context).pushNamed('internet');
+                                    },
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25)
+                                    ),
+                                    child:Row(
+                                      children:<Widget>[
+                                        Icon(Icons.wifi_sharp,color: Colors.white,size: 28),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 25,
+                                right: 1,
+                                left: 25
+                            ),
+                            child: SizedBox(
+                              height: 60,
+                              width: 60,
+                              child: RaisedButton(
+                                color: Colors.blue,
+                                onPressed: (){
+                                  Navigator.of(context).pushNamed('edge server');
+                                },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)
+                                ),
+                                child:Row(
+                                  children:<Widget>[
+                                    Icon(Icons.storage,color: Colors.white,size: 28),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 2
+                            ),
+                            child: SizedBox(
+                              height: 6,
+                              width: 30,
+                              child: Icon(Icons.minimize_rounded,size: 30),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                            ),
+                            child: Column(
+                              children: [
+                                Icon(Icons.arrow_drop_down,size: 20),
+                                SizedBox(
+                                  height: 60,
+                                  width: 60,
+                                  child: RaisedButton(
+                                    color: Colors.blue,
+                                    onPressed: (){
+                                      Navigator.of(context).pushNamed('internet');
+                                    },
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25)
+                                    ),
+                                    child:Row(
+                                      children:<Widget>[
+                                        Icon(Icons.wifi_sharp,color: Colors.white,size: 28),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 60,
+                              top: 8
+                          ),
+                          child: SizedBox(
+                            width: 60,
                             child: Text('Edge Server   ',style: TextStyle(
                               fontSize: 18,
                               color: Colors.blue,
@@ -200,124 +394,151 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             ),
                             ),
                           ),
-
-                          SizedBox(
-                            height: 60,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 50,
+                          ),
+                          child: Text('AP   ',style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 40,
+                            top: 8
+                          ),
+                          child: SizedBox(
                             width: 60,
-                            child: RaisedButton(
+                            child: Text('Edge Server   ',style: TextStyle(
+                              fontSize: 18,
                               color: Colors.blue,
-                              onPressed: (){
-                                Navigator.of(context).pushNamed('edge server');
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25)
-                              ),
-                              child:Row(
-                                children:<Widget>[
-                                  Icon(Icons.storage,color: Colors.white,size: 28),
-                                ],
-                              ),
+                              fontWeight: FontWeight.w800,
+                            ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 40,
+                          ),
+                          child: Text('AP   ',style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                       child: Row(
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 254,
+
+                              right: 110,
+                              left: 150
                             ),
                             child: Column(
                               children: [
-                                Text(''),
-                                Text('AP       ',style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.w800,
-                                ),
+                                Icon(Icons.arrow_downward,size: 20),
+                                SizedBox(
+                                  height: 60,
+                                  width: 60,
+                                  child: RaisedButton(
+                                    color: Colors.blue,
+                                    onPressed: (){
+                                      Navigator.of(context).pushNamed('edge users');
+                                    },
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25)
+                                    ),
+                                    child:Row(
+                                      children:<Widget>[
+                                        Icon(Icons.group_add_rounded,color: Colors.white,size: 28),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                          Column(
-                            children: [
-                              Icon(Icons.arrow_downward),
-                              SizedBox(
-                                height: 60,
-                                width: 60,
-                                child: RaisedButton(
-                                  color: Colors.blue,
-                                  onPressed: (){
-                                    Navigator.of(context).pushNamed('internet');
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child:Row(
-                                    children:<Widget>[
-                                      Icon(Icons.wifi_sharp,color: Colors.white,size: 28),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 212,
+                                left: 10
                             ),
                             child: Column(
                               children: [
-                                Text(''),
-                                Text('Edge Users  ',style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.w800,
-                                ),
+                                Icon(Icons.arrow_downward,size: 20),
+                                SizedBox(
+                                  height: 60,
+                                  width: 60,
+                                  child: RaisedButton(
+                                    color: Colors.blue,
+                                    onPressed: (){
+                                      Navigator.of(context).pushNamed('edge users');
+                                    },
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25)
+                                    ),
+                                    child:Row(
+                                      children:<Widget>[
+                                        Icon(Icons.group_add_rounded,color: Colors.white,size: 28),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                          Column(
-                            children: [
-                              Icon(Icons.arrow_downward),
-                              SizedBox(
-                                height: 60,
-                                width: 60,
-                                child: RaisedButton(
-                                  color: Colors.blue,
-                                  onPressed: (){
-                                    Navigator.of(context).pushNamed('edge users');
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child:Row(
-                                    children:<Widget>[
-                                      Icon(Icons.group_add_rounded,color: Colors.white,size: 28),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 8,
+                            left: 165,
+                          ),
+                          child: SizedBox(
+                            width: 60,
+                            child: Text('Edge Users  ',style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 8,
+                            left: 115,
+                          ),
+                          child: SizedBox(
+                            width: 60,
+                            child: Text('Edge Users  ',style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                       child: Row(
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 50,
+                              top: 60,
+                              left: 20
                             ),
                             child: SizedBox(
                               height: 60,
@@ -334,14 +555,14 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 50,
+                              top: 60,
                               left: 80,
                             ),
                             child: SizedBox(
                               height: 60,
                               width: 150,
                               child: OriginalButton(
-                                text:'Add App',
+                                text:'Edit sample applications',
                                 textColor: Colors.white,
                                 color: Colors.grey,
                                 onPressed: ()async{

@@ -64,34 +64,45 @@ _AddAppScreenState(){
     //final rcvdData = ModalRoute.withName('cont add application').toString();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
+        backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(padding: const EdgeInsets.only(
-              left: 30,
+             // left: 30,
             ),
-              child: Text('Application'+counter.toString()),
+              child: Text('Application'+counter.toString(),style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 100,
+                left: 120,
               ),
-              child: FlatButton(
-                height: 20,
-                minWidth: 20,
-                color: Colors.blue,
-                onPressed: () async {
-                  await authBase.logout();
-                  Navigator.of(context).pushReplacementNamed('login');
-                },
-                child:Row(
-                  children:<Widget>[
-                    Icon(Icons.logout,color: Colors.white,size: 20),
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.white,
+                  onPressed: () async {
+                    await authBase.logout();
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  child:Row(
+                    children:<Widget>[
+                      Icon(Icons.logout,color: Colors.black,size: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -99,7 +110,7 @@ _AddAppScreenState(){
           padding: const EdgeInsets.only(
             left: 16.0,
             right: 10.0,
-            top: 10.0,
+            top: 80.0,
           ),
           child: SingleChildScrollView(
             child: Container(
@@ -354,54 +365,23 @@ _AddAppScreenState(){
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30,
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 160,
-                            height: 60,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 40
-                              ),
-                              child: OriginalButton(
-                                text:'try',
-                                textColor: Colors.white,
-                                color: Colors.blueGrey,
-                                onPressed: (){
-                                  Navigator.of(context).pushNamed('app xml');
-                                },
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 2,
-                            ),
-                            child: SizedBox(
-                              width: 160,
-                              height: 60,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10
+                     Padding(
+                       padding: const EdgeInsets.only(
+                         top: 30
+                       ),
+                       child: SizedBox(
+                                width: 160,
+                                height: 50,
+                                  child: OriginalButton(
+                                    text:'Continue Editing',
+                                    textColor: Colors.white,
+                                    color: Colors.blueGrey,
+                                    onPressed: (){
+                                      Navigator.of(context).pushNamed('cont add application');
+                                    },
+                                  ),
                                 ),
-                                child: OriginalButton(
-                                  text:'Continue Editing',
-                                  textColor: Colors.white,
-                                  color: Colors.blueGrey,
-                                  onPressed: (){
-                                    Navigator.of(context).pushNamed('cont add application');
-                                  },
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                     ),
                   ],
                 ),
               ),

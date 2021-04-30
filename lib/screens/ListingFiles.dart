@@ -33,14 +33,10 @@ class _MyFileList extends State<MyFileList>{
     var root = storageInfo[0].rootDir + "/Documents"; //storageInfo[1] for SD card, geting the root directory
     var fm = FileManager(root: Directory(root));
 
-    files = await fm.filesTree(
-      //set fm.dirsTree() for directory/folder tree list
-        //excludedPaths: ["/storage/emulated/0/Document"],
-        extensions: ["log"] //optional, to filter files, remove to list all,
-      //remove this if your are grabbing folder list
-    );
+    files = await fm.filesTree(extensions: ["log"]);
 
-    setState(() {}); //update the UI
+    setState(() {
+    }); //update the UI
   }
 
   @override
@@ -53,8 +49,8 @@ class _MyFileList extends State<MyFileList>{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title:Text("File/Folder list from SD Card"),
-            backgroundColor: Colors.redAccent
+            title:Text("Log files"),
+            backgroundColor: Colors.blue
         ),
         body:files == null? Text("Searching Files"):
         ListView.builder(  //if file/folder list is grabbed, then show here
@@ -63,8 +59,8 @@ class _MyFileList extends State<MyFileList>{
             return Card(
                 child:ListTile(
                   title: Text(files[index].path.split('/').last),
-                  leading: Icon(Icons.image),
-                  trailing: Icon(Icons.delete, color: Colors.redAccent,),
+                  leading: Icon(Icons.file_present),
+                  //trailing: Icon(Icons.delete, color: Colors.redAccent,),
                 )
             );
           },

@@ -68,6 +68,7 @@ class _State extends State<EdgeXML> {
   @override
   void initState (){
     getData();
+    xml_controller.text= display();
   }
   getData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -254,56 +255,44 @@ class _State extends State<EdgeXML> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
+        backgroundColor: Colors.white,
         title: Row(
           children: [
-            Padding(padding: const EdgeInsets.only(
-              left: 30,
-            ),
-              child: Text(' Edge XML'),
-            ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 100,
+                left: 230,
               ),
-              child: FlatButton(
-                height: 20,
-                minWidth: 20,
-                color: Colors.blue,
-                onPressed: () async {
-                  await authBase.logout();
-                  Navigator.of(context).pushReplacementNamed('login');
-                },
-                child:Row(
-                  children:<Widget>[
-                    Icon(Icons.logout,color: Colors.white,size: 20),
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.white,
+                  onPressed: () async {
+                    await authBase.logout();
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  child:Row(
+                    children:<Widget>[
+                      Icon(Icons.logout,color: Colors.black,size: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
-
           ],
         ),
       ),
-
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(
-                  ),
-                  child: RaisedButton(
-                    color: Colors.indigoAccent,
-                    child: Text("display"),
-                    onPressed: (){
-                      // xml_controller.text= display();
-                      _getBatteryLevel();
-                      xml_controller.text= display();
-                    },
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(
                   ),

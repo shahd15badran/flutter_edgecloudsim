@@ -7,7 +7,7 @@ class LogScreen extends StatefulWidget {
   _LogScreenState createState() => _LogScreenState();
 }
 class _LogScreenState extends State<LogScreen> {
-  var xml_controller=TextEditingController();
+  //var xml_controller=TextEditingController();
   static const Platform =const MethodChannel("com.flutter.epic/epic");
   String _batteryLevel = '';
   Future<void> _getBatteryLevel() async {
@@ -68,33 +68,11 @@ class _LogScreenState extends State<LogScreen> {
                   ),
                   child: RaisedButton(
                     color: Colors.indigoAccent,
-                    child: Text("display"),
+                    child: Text("download"),
                     onPressed: ()async{
                       _getBatteryLevel();
-                      xml_controller.text= _batteryLevel;
+                     // xml_controller.text= _batteryLevel;
                     },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                  ),
-                  child:Container(
-                    height: 495,
-                    child: SingleChildScrollView(
-                      child: TextField(
-                        maxLines: null,
-                        controller: xml_controller,
-                        decoration: InputDecoration(
-                          //contentPadding: new EdgeInsets.symmetric(vertical: 200.0,horizontal: 10.0),
-                          contentPadding: EdgeInsets.all(1.0),
-                          fillColor: Colors.white,
-                          filled:true,
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black45,width: 1.0)
-                          ),
-                        ),
-                      ),
-                    ),
                   ),
                 ),
                 Padding(
@@ -102,7 +80,7 @@ class _LogScreenState extends State<LogScreen> {
                   ),
                   child: RaisedButton(
                     color: Colors.amberAccent,
-                    child: Text("download"),
+                    child: Text("display log files"),
                     onPressed: (){
                       Navigator.of(context).pushReplacementNamed('MyPDFList');
                      // _batteryLevel2=xml_controller.text;

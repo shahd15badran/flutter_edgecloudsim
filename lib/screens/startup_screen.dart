@@ -14,20 +14,25 @@ class StartupScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 325,
+                left: 280,
               ),
-              child: FlatButton(
-                height: 20,
-                minWidth: 20,
-                color: Colors.blue,
-                onPressed: () async {
-                  await authBase.logout();
-                  Navigator.of(context).pushReplacementNamed('login');
-                },
-                child:Row(
-                  children:<Widget>[
-                    Icon(Icons.logout,color: Colors.white,size: 20),
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.white,
+                  onPressed: () async {
+                    await authBase.logout();
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  child:Row(
+                    children:<Widget>[
+                      Icon(Icons.logout,color: Colors.black,size: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -40,14 +45,10 @@ class StartupScreen extends StatelessWidget {
         Stack(
         children: <Widget>[
         Container(
-        height: MediaQuery.of(context).size.height * 0.57,
+        height: MediaQuery.of(context).size.height * 0.56,
         margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           color: Colors.blue,
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
-
-          ),
         ),
       ),
       Center(
@@ -56,23 +57,27 @@ class StartupScreen extends StatelessWidget {
             SizedBox(height: 30),
             Hero(
               tag: 'logoAnimation',
-              child: Image.asset(
-                'assets/images/ECS logo1.jpg',
-               height: 180,
+              child: Image.asset('assets/images/ECS logo1.jpg',
+               height: 220,
                 width: double.infinity,
 
               ),
             ),
-            Text(''),
-            Text('EdgeCloudSim is another fork from CloudSim, mainly focused on Edge computing .'
-                ' This tool covers different aspects of modeling, including network modeling '
-                ', computational modeling , and Fog specific modeling (mobility, offloading,'
-                ' orchestration).',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 50,
+                right: 50
               ),
-              textAlign: TextAlign.center,
+              child: Text('EdgeCloudSim is another fork from CloudSim, mainly focused on Edge computing, '
+                  'this tool covers different aspects of modeling, including network modeling '
+                  ', computational modeling, and Fog specific modeling (mobility, offloading,'
+                  ' orchestration).',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
 
           ],
@@ -82,14 +87,20 @@ class StartupScreen extends StatelessWidget {
     ),
               Column(
                 children: [
-                  Text('Choose how you want to work:',
-                     style: TextStyle(
-                        color:Colors.blue,
-                        fontSize: 20,
-                        height: 3,
-                        fontWeight: FontWeight.w800,
-                  ),
-                    textDirection: TextDirection.ltr,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 120,
+                      bottom: 10
+                    ),
+                    child: Text('Edit Simulator',
+                       style: TextStyle(
+                          color:Colors.blue,
+                          fontSize: 27,
+                          height: 3,
+                          fontWeight: FontWeight.w500,
+                    ),
+                      textDirection: TextDirection.ltr,
+                    ),
                   ),
                 ],
               ),
@@ -102,10 +113,7 @@ class StartupScreen extends StatelessWidget {
                     Navigator.of(context).pushNamed('graphical');
 
                   },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)
-                  ),
-                  child: Text('Graphical Interface' ,
+                  child: Text('Graphically' ,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20
@@ -123,9 +131,6 @@ class StartupScreen extends StatelessWidget {
                   onPressed: (){
                     Navigator.of(context).pushNamed('manually');
                   },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25)
-                  ),
                   child: Text('Manually' ,
                     style: TextStyle(
                       color: Colors.white,

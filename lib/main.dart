@@ -15,6 +15,7 @@ import 'package:flutter_edgecloudsim/screens/ListingFiles.dart';
 import 'package:flutter_edgecloudsim/screens/ListingPdfFiles.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
 import 'package:flutter_edgecloudsim/screens/matlab_file.dart';
+import 'package:flutter_edgecloudsim/simulation_process/matlab_screen.dart';
 import 'simulation_process/cont_display_result.dart';
 import 'simulation_process/display_log_result.dart';
 import 'simulation_process/display_result.dart';
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home:ManuallyScreen(),//DataCenterScreen(),
+      home:MatlabScreen(),//DataCenterScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),
@@ -80,7 +81,8 @@ class MyApp extends StatelessWidget {
         'result screen':(context)=>ResultScreen(),
         'cont result screen':(context)=>ContResultScreen(),
         'selected graph':(context)=>SelectedGraph(),
-        'matlab file':(context)=>MatlabFile(),
+        'matlab file':(context)=>MatlabFile(),/////
+        'matlab screen':(context)=>MatlabScreen(),
         'MyFileList':(context)=>MyFileList(),
         'MyPDFList':(context)=>MyPDFList(),
 

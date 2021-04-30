@@ -10,30 +10,32 @@ class ManuallyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
         backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 270,
+                left: 230,
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
-                  left: 40
+                    left: 40
                 ),
                 child: FlatButton(
                   height: 20,
                   minWidth: 20,
-                  color: Colors.blue,
+                  color: Colors.white,
                   onPressed: () async {
                     await authBase.logout();
                     Navigator.of(context).pushReplacementNamed('login');
                   },
                   child:Row(
                     children:<Widget>[
-                      Icon(Icons.logout,color: Colors.white,size: 20),
+                      Icon(Icons.logout,color: Colors.black,size: 20),
                     ],
                   ),
                 ),
@@ -42,36 +44,35 @@ class ManuallyScreen extends StatelessWidget {
           ],
         ),
       ),
-
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.7,
                   decoration: BoxDecoration(
                     color: Colors.blue,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30),
-
-                    ),
                   ),
                 ),
                 Center(
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 60),
-                      Text(''),
-                      Text('Select The File You Want To Edit:',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 100,
+                          bottom: 25,
+                          right: 90
                         ),
-                        textAlign: TextAlign.center,
+                        child: Text('Select the file you want to edit:',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                       ),
-                      Text(''),
                       SizedBox(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -124,41 +125,24 @@ class ManuallyScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Text(''),Text(''),
-            Column(
-              children: [
-            SizedBox(
-              height: 100,
-              child: TextFormField(
-                minLines: 5,
-              keyboardType: TextInputType.multiline,maxLines: null,
-              decoration: InputDecoration(
-              labelText: 'Response from server :',
-
-
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 60
               ),
-              ),
-            ),
-              ],
-            ),
-            //all is for the button
-            Text(''),Text(''),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: RaisedButton(
-                color: Colors.blue,
-                onPressed: (){
-                  Navigator.of(context).pushNamed('simulation');
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25)
+              child: SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: RaisedButton(
+                  color: Colors.blue,
+                  onPressed: (){
+                    Navigator.of(context).pushNamed('simulation');
+                  },
+                  child: Text('Go to simulation process' ,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20
+                    ) ,),
                 ),
-                child: Text('simulation process' ,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20
-                  ) ,),
               ),
             ),
           ],

@@ -23,25 +23,31 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
         backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 270,
+                left: 230,
               ),
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child: RaisedButton(
-                  color: Colors.blue,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.white,
                   onPressed: () async {
                     await authBase.logout();
                     Navigator.of(context).pushReplacementNamed('login');
                   },
                   child:Row(
                     children:<Widget>[
-                      Icon(Icons.logout,color: Colors.white,size: 20),
+                      Icon(Icons.logout,color: Colors.black,size: 20),
                     ],
                   ),
                 ),
@@ -54,7 +60,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> {
           padding: const EdgeInsets.only(
             left: 16.0,
             right: 10.0,
-            top: 10.0,
+            top: 80.0,
           ),
           child: SingleChildScrollView(
             child: Container(
@@ -339,79 +345,45 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> {
                         ],
                       ),
                     ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  left: 200,
+                ),
+                child: SizedBox(
+                  height: 40,
+                  width: 120,
+                  child: OriginalButton(
+                    text:'Save',
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    onPressed: ()async{
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setString('save_app', 'true');
+                      //edit data in firebase
+                      //change flag
+                    },
+                  ),
+                ),
+              ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 10
+                        top: 50,
+                        left: 15,
                       ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 70,
-                            ),
-                            child: SizedBox(
-                              height: 60,
-                              width: 200,
-                              child: OriginalButton(
-                                text:'Submit',
-                                textColor: Colors.white,
-                                color: Colors.blue,
-                                onPressed: (){
-
-                                  //edit data in firebase
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 2
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 5,
-                            ),
-                            child: SizedBox(
-                              height: 50,
-                              width: 200,
-                              child: OriginalButton(
-                                text:'Edit Data Centers',
-                                textColor: Colors.white,
-                                color: Colors.blueGrey,
-                                onPressed: ()async{
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setInt('counter', 1);
-                                  Navigator.of(context).pushNamed('data center');
-                                },
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 30,
-                            ),
-                            child: SizedBox(
-                              height: 50,
-                              width: 100,
-                              child: OriginalButton(
-                                text:'Back',
-                                textColor: Colors.white,
-                                color: Colors.blueGrey,
-                                onPressed: (){
-                                  Navigator.of(context).pushNamed('graphical');
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: SizedBox(
+                        height: 50,
+                        width: 200,
+                        child: OriginalButton(
+                          text:'Edit Data Centers',
+                          textColor: Colors.white,
+                          color: Colors.blueGrey,
+                          onPressed: ()async{
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            prefs.setInt('counter', 1);
+                            Navigator.of(context).pushNamed('data center');
+                          },
+                        ),
                       ),
                     ),
                   ],

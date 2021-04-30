@@ -22,28 +22,36 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
         backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 270,
+                left: 230,
               ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
                 child: FlatButton(
                   height: 20,
                   minWidth: 20,
-                  color: Colors.blue,
+                  color: Colors.white,
                   onPressed: () async {
                     await authBase.logout();
                     Navigator.of(context).pushReplacementNamed('login');
                   },
                   child:Row(
                     children:<Widget>[
-                      Icon(Icons.logout,color: Colors.white,size: 20),
+                      Icon(Icons.logout,color: Colors.black,size: 20),
                     ],
                   ),
                 ),
               ),
+            ),
           ],
         ),
       ),
@@ -51,11 +59,11 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen> {
           padding: const EdgeInsets.only(
             left: 16.0,
             right: 10.0,
-            top: 10.0,
+            top: 100.0,
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white70,
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 50,
@@ -278,49 +286,25 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 20
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              left: 70,
-                            ),
-                            child: SizedBox(
-                              height: 60,
-                              width: 200,
-                              child: OriginalButton(
-                                text:'Submit',
-                                textColor: Colors.white,
-                                color: Colors.blue,
-                                onPressed: (){
-                                  //edit data in firebase
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
                         top: 10,
-                        left: 250,
+                        left: 195,
                       ),
                       child: SizedBox(
-                        height: 50,
-                        width: 100,
+                        height: 40,
+                        width: 120,
                         child: OriginalButton(
-                          text:'Back',
+                          text:'Save',
                           textColor: Colors.white,
-                          color: Colors.blueGrey,
-                          onPressed: (){
-                            Navigator.of(context).pushNamed('graphical');
+                          color: Colors.blue,
+                          onPressed: ()async{
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            prefs.setString('save_app', 'true');
+                            //edit data in firebase
+                            //change flag
                           },
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

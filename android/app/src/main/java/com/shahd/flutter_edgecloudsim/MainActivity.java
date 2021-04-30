@@ -62,9 +62,24 @@ public class MainActivity extends FlutterActivity {
                     result.success(SendFileToServer.getSimMsg());
                 }
                 else if(call.method.equals("get log file")){
-                    new GetFileFromServer("$");
-                    result.success("resultssssssssss"+GetFileFromServer.getfilesnames());
+                    new GetFileFromServer("*" );
+                    //result.success("resultssssssssss"+GetFileFromServer.getfilesnames());//
+                }////
+                else if(call.method.equals("pdfs_failed")) {
+                    new GetFileFromServer("f");
                 }
+                else if(call.method.equals("pdfs_network")){
+                    new GetFileFromServer("n");
+                }
+                else if(call.method.equals("pdfs_process")){
+                    new GetFileFromServer("p");
+                }
+                else if(call.method.equals("pdfs_service")){
+                    new GetFileFromServer("s");
+                }
+                else if(call.method.equals("pdfs_vm")){
+                    new GetFileFromServer("v");
+                }////
             }
         });
     }

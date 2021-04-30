@@ -1,4 +1,5 @@
 package com.shahd.flutter_edgecloudsim;
+
 import android.os.Environment;
 
 import java.io.BufferedInputStream;
@@ -17,8 +18,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GetFileFromServer {
-    ArrayList<String> filesnames = new ArrayList<String>();
-    static String concatenate="";
+    static String concatenate = "";
     String file = "";
 
     public GetFileFromServer(String file_to_send) {
@@ -35,9 +35,10 @@ public class GetFileFromServer {
     }
 
     public void Start(String file) throws Exception {
-        String server = "192.168.1.60";
+        String server = "192.168.0.105";
         int port = 1988;
         try {
+
             Socket s = new Socket(server, port);
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
             InputStream fileStream = new ByteArrayInputStream(file.getBytes());
@@ -48,34 +49,28 @@ public class GetFileFromServer {
                 dos.write(buffer, 0, read);
             }
 
-                System.out.println("reachhhhhhhhhhh");//////////////////////////////////////
-                BufferedInputStream bis = new BufferedInputStream(s.getInputStream());
-                DataInputStream dis = new DataInputStream(bis);
-                ArrayList<String> ff = new ArrayList<String>();
-                int filesCount = dis.readInt();
-                System.out.println("FILES_COUNT = "+ filesCount);/////////////////////////////
-                File[] files = new File[filesCount];
+            BufferedInputStream bis = new BufferedInputStream(s.getInputStream());
+            DataInputStream dis = new DataInputStream(bis);
+            ArrayList<String> ff = new ArrayList<String>();
+            int filesCount = dis.readInt();
+            System.out.println("FILES_COUNT = " + filesCount);////////////////////////
+            File[] files = new File[filesCount];
 
 
-                for(int i = 0; i < filesCount; i++)
-                {   //concatenate += dis.readUTF() + "\n";
-                    long fileLength = dis.readLong();
-                    String fileName = dis.readUTF();
-                    File the_path = new File(Environment.getExternalStorageDirectory() + "/Documents");
-                    files[i] = new File(the_path + "/" + fileName);
+            for (int i = 0; i < filesCount; i++) {   //concatenate += dis.readUTF() + "\n";
+                long fileLength = dis.readLong();
+                String fileName = dis.readUTF();
+                File the_path = new File(Environment.getExternalStorageDirectory() + "/Documents");
+                files[i] = new File(the_path + "/" + fileName);
 
-                    FileOutputStream fos = new FileOutputStream(files[i]);/////
-                    BufferedOutputStream bos = new BufferedOutputStream(fos);
-                    for(int j = 0; j < fileLength; j++)
-                        bos.write(bis.read());
-                    bos.close();
-                }
-                dis.close();
-/*
-            Scanner input = new Scanner(files[8]);
-            while (input.hasNextLine()) {
-                System.out.println(input.nextLine());
-            }*/
+                FileOutputStream fos = new FileOutputStream(files[i]);/////
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                for (int j = 0; j < fileLength; j++)
+                    bos.write(bis.read());
+                bos.close();
+            }
+            dis.close();
+
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -83,12 +78,11 @@ public class GetFileFromServer {
         }
     }
 
-    public static String getfilesnames(){
-        if(concatenate != null) {
+    public static String getfilesnames() {
+        if (concatenate != null) {
             System.out.println("concatenate isss: " + concatenate);
             return concatenate;
-        }
-        else
+        } else
             return "There's a problem ";
     }
 }

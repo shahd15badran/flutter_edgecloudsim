@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/edge_devices_xml.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 class SimulationScreen extends StatefulWidget {
@@ -10,8 +11,9 @@ class SimulationScreen extends StatefulWidget {
 class _SimulationScreenState extends State<SimulationScreen> {
   static const Platform =const MethodChannel("com.flutter.epic/epic");
   String _batteryLevel = '';
+  var simRes;
   Future<void> _getBatteryLevel() async {
-    String simRes;
+    //String simRes;
     try {
       final String result = await Platform.invokeMethod("Start Sim");
       simRes = ' $result';
@@ -20,41 +22,76 @@ class _SimulationScreenState extends State<SimulationScreen> {
     }
     setState(() {
       _batteryLevel = simRes; //TODO put it in small text box
+      print(_batteryLevel);
     });
   }
+
+  ////
+  String _logs = '';
+  Future<void> _getlogs() async {
+    String batteryLevel;
+    try {
+      final String result = await Platform.invokeMethod('get log file');
+      batteryLevel = ' $result  ';
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    setState(() {
+      _logs = batteryLevel;
+    });
+  }
+  ////
+
+  @override
+  void initState() {
+    super.initState();
+    //print("inittttt " +_batteryLevel);
+  }
+
   AuthBase authBase = AuthBase();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
+        backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(padding: const EdgeInsets.only(
-              left: 20,
+              // left: 30,
             ),
-              child: Text('Simulation Process'),
+              child: Text('Run simulator',style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 60,
+                left: 100,
               ),
-              child: FlatButton(
-                height: 20,
-                minWidth: 20,
-                color: Colors.blue,
-                onPressed: () async {
-                  await authBase.logout();
-                  Navigator.of(context).pushReplacementNamed('login');
-                },
-                child:Row(
-                  children:<Widget>[
-                    Icon(Icons.logout,color: Colors.white,size: 20),
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.white,
+                  onPressed: () async {
+                    await authBase.logout();
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  child:Row(
+                    children:<Widget>[
+                      Icon(Icons.logout,color: Colors.black,size: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -66,6 +103,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal:20),
               child: SizedBox(
@@ -75,11 +113,12 @@ class _SimulationScreenState extends State<SimulationScreen> {
                   color: Colors.blue,
                   textColor: Colors.white,
                   onPressed: ()async{
-                _getBatteryLevel();
-                },
+                    _getBatteryLevel();
+                  },
                 ),
               ),
             ),
+            //////////////////////////////////////////////////
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -91,6 +130,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
 
                     ),
                     child: TextFormField(
+                      initialValue:_batteryLevel,//simRes == null ? 'Display Running Time' : simRes,,
                       decoration: InputDecoration(
                         contentPadding: new EdgeInsets.symmetric(vertical: 80.0,horizontal: 10.0),
                         fillColor: Colors.white,
@@ -98,7 +138,6 @@ class _SimulationScreenState extends State<SimulationScreen> {
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black45,width: 1.0)
                         ),
-                        labelText: 'Display Running Time',
                       ),
                     ),
                   ),
@@ -107,30 +146,25 @@ class _SimulationScreenState extends State<SimulationScreen> {
               ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 20,
+                top: 2,
                 bottom: 1,
-                left: 10,right: 10
-              ),
-              child:Text('You can choose how you want to display your result:',style: TextStyle(
-                fontSize: 19,
-                color: Colors.blue,
-                fontWeight: FontWeight.w800,
-              ),
+                left: 10,right: 100
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 20,
+                top: 2,
                 bottom: 5,
               ),
               child: SizedBox(
                 width:250 ,
                 child: OriginalButton(
-                  text: 'Show log files',
+                  text: 'Generated Log Files',
                   color: Colors.black38,
                   textColor: Colors.white,
                   onPressed: ()async{
-                    Navigator.of(context).pushNamed('log screen');
+                    _getlogs();
+                   Navigator.of(context).pushNamed('MyFileList');
                   },
                 ),
               ),
@@ -138,16 +172,16 @@ class _SimulationScreenState extends State<SimulationScreen> {
             Padding(
               padding: const EdgeInsets.only(
                 top: 10,
-                bottom: 20,
+                bottom: 150,
               ),
               child: SizedBox(
                 width:250 ,
                 child: OriginalButton(
-                  text: 'Show Results',
+                  text: 'Apply Matlab Functions',
                   color: Colors.black38,
                   textColor: Colors.white,
                   onPressed: ()async{
-                    Navigator.of(context).pushNamed('result screen');
+                    Navigator.of(context).pushNamed('matlab screen');
                   },
                 ),
               ),

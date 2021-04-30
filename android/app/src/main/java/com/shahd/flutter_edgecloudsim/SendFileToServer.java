@@ -15,7 +15,7 @@ public class SendFileToServer {
         Thread thread = new Thread(() -> {
             try  {
                 this.file = file_to_send;
-                System.out.println("createdddddddddd");
+                System.out.println("createdddddddddd");//
                 Start(file,f);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -24,7 +24,7 @@ public class SendFileToServer {
         thread.start();
     }
     public void Start(String file, boolean f) throws Exception {
-        String server = "192.168.1.60";
+        String server = "192.168.0.105";
         int port = 1988;
         try{
             Socket s = new Socket(server, port);

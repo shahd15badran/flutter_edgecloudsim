@@ -62,30 +62,42 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
+        backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(padding: const EdgeInsets.only(
-              left: 30,
+              // left: 30,
             ),
-              child: Text('Application'+counter.toString()),
+              child: Text('Application'+counter.toString(),style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 100,
+                left: 120,
               ),
-              child: FlatButton(
-                height: 20,
-                minWidth: 20,
-                color: Colors.blue,
-                onPressed: () async {
-                  await authBase.logout();
-                  Navigator.of(context).pushReplacementNamed('login');
-                },
-                child:Row(
-                  children:<Widget>[
-                    Icon(Icons.logout,color: Colors.white,size: 20),
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.white,
+                  onPressed: () async {
+                    await authBase.logout();
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  child:Row(
+                    children:<Widget>[
+                      Icon(Icons.logout,color: Colors.black,size: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -95,12 +107,12 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
       body: Padding(
           padding: const EdgeInsets.only(
             left: 16.0,
-            right: 10.0,
-            top: 10.0,
+            right: 20.0,
+            top: 60.0,
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white70,
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 30,
@@ -394,60 +406,54 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 10,
+                        top: 40,
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 160,
-                            height: 60,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 10,
-                                left: 20,
-                              ),
-                              child: SizedBox(
-                                height: 40,
-                                width: 120,
-                                child: OriginalButton(
-                                  text:'Prev. App',
-                                  textColor: Colors.white,
-                                  color: Colors.blue,
-                                  onPressed: ()async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    counter = prefs.getInt(('counter'));
-                                    if(counter != 1)
-                                      prefs.setInt('counter', counter-1);
-                                    else
-                                      counter = 1;
-                                    Navigator.of(context).pushNamed('add application');
-                                    //edit data in firebase
-                                    //change flag
-                                  },
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 2
+                      ),
+                            child: SizedBox(
+                              width: 140,
+                              height: 40,
+                                  child: OriginalButton(
+                                    text:'Previous App',
+                                    textColor: Colors.white,
+                                    color: Colors.blue,
+                                    onPressed: ()async{
+                                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      counter = prefs.getInt(('counter'));
+                                      if(counter != 1)
+                                        prefs.setInt('counter', counter-1);
+                                      else
+                                        counter = 1;
+                                      Navigator.of(context).pushNamed('add application');
+                                      //edit data in firebase
+                                      //change flag
+                                    },
+                                  ),
                                 ),
-                              ),
-                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 20,
+                              left: 90
                             ),
                             child: SizedBox(
+                              width: 100,
                               height: 40,
-                              width: 120,
-                              child: OriginalButton(
-                                text:'Save',
-                                textColor: Colors.white,
-                                color: Colors.blue,
-                                onPressed: ()async{
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('save_app', 'true');
-                                  //edit data in firebase
-                                  //change flag
-                                },
-                              ),
-                            ),
+                                  child: OriginalButton(
+                                    text:'Save',
+                                    textColor: Colors.white,
+                                    color: Colors.blue,
+                                    onPressed: ()async{
+                                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                                      prefs.setString('save_app', 'true');
+                                      //edit data in firebase
+                                      //change flag
+                                    },
+                                  ),
+                                ),
                           ),
                         ],
                       ),
@@ -458,13 +464,13 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 160,
-                            height: 60,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 40
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 2
+                            ),
+                            child: SizedBox(
+                              width: 140,
+                              height: 40,
                               child: OriginalButton(
                                 text:'Delete App',
                                 textColor: Colors.white,
@@ -481,17 +487,13 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 2,
+                                left: 90
                             ),
                             child: SizedBox(
-                              width: 160,
-                              height: 60,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10
-                                ),
+                              width: 100,
+                              height: 40,
                                 child: OriginalButton(
-                                  text:'Add new App',
+                                  text:'Next App',
                                   textColor: Colors.white,
                                   color: Colors.blueGrey,
                                   onPressed: ()async{
@@ -502,7 +504,6 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                                 ),
                               ),
                             ),
-                          )
                         ],
                       ),
                     ),

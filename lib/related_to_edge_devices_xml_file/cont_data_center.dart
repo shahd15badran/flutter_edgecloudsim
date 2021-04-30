@@ -81,30 +81,42 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
+        backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(padding: const EdgeInsets.only(
-              left: 30,
+              // left: 30,
             ),
-              child: Text('Data Center'+counter.toString()),
+              child: Text('Data Center'+counter.toString(),style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 100,
+                left: 120,
               ),
-              child: FlatButton(
-                height: 20,
-                minWidth: 20,
-                color: Colors.blue,
-                onPressed: () async {
-                  await authBase.logout();
-                  Navigator.of(context).pushReplacementNamed('login');
-                },
-                child:Row(
-                  children:<Widget>[
-                    Icon(Icons.logout,color: Colors.white,size: 20),
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 40
+                ),
+                child: FlatButton(
+                  height: 20,
+                  minWidth: 20,
+                  color: Colors.white,
+                  onPressed: () async {
+                    await authBase.logout();
+                    Navigator.of(context).pushReplacementNamed('login');
+                  },
+                  child:Row(
+                    children:<Widget>[
+                      Icon(Icons.logout,color: Colors.black,size: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -115,7 +127,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
           padding: const EdgeInsets.only(
             left: 16.0,
             right: 16.0,
-            top: 80.0,
+            top: 120.0,
           ),
           child: SingleChildScrollView(
             child: Container(
@@ -470,48 +482,42 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                     ////////////////////////////////////////////
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 10,
+                        top: 40,
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 160,
-                            height: 60,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 10,
-                                left: 20,
-                              ),
-                              child: SizedBox(
-                                height: 40,
-                                width: 120,
-                                child: OriginalButton(
-                                  text:'Prev. DataCenter',
-                                  textColor: Colors.white,
-                                  color: Colors.blue,
-                                  onPressed: ()async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    counter = prefs.getInt(('counter'));
-                                    if(counter != 1)
-                                      prefs.setInt('counter', counter-1);
-                                    else
-                                      counter = 1;
-                                    Navigator.of(context).pushNamed('data center');
-                                    //edit data in firebase
-                                    //change flag
-                                  },
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 2
+                            ),
+                            child: SizedBox(
+                              width: 140,
+                              height: 40,
+                              child: OriginalButton(
+                                text:'Previous DC',
+                                textColor: Colors.white,
+                                color: Colors.blue,
+                                onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  counter = prefs.getInt(('counter'));
+                                  if(counter != 1)
+                                    prefs.setInt('counter', counter-1);
+                                  else
+                                    counter = 1;
+                                  Navigator.of(context).pushNamed('data center');
+                                  //edit data in firebase
+                                  //change flag
+                                },
                               ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 20,
+                                left: 90
                             ),
                             child: SizedBox(
+                              width: 100,
                               height: 40,
-                              width: 120,
                               child: OriginalButton(
                                 text:'Save',
                                 textColor: Colors.white,
@@ -534,20 +540,21 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 160,
-                            height: 60,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 40
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 2
+                            ),
+                            child: SizedBox(
+                              width: 140,
+                              height: 40,
                               child: OriginalButton(
-                                text:'Delete App',
+                                text:'Delete DC',
                                 textColor: Colors.white,
                                 color: Colors.blueGrey,
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setInt('delete_app', counter);
+
                                   //edit data in firebase
                                   //change flag
                                 },
@@ -556,28 +563,23 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 2,
+                                left: 90
                             ),
                             child: SizedBox(
-                              width: 160,
-                              height: 60,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10
-                                ),
-                                child: OriginalButton(
-                                  text:'Next DataCenter',
-                                  textColor: Colors.white,
-                                  color: Colors.blueGrey,
-                                  onPressed: ()async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setInt('counter', counter+1);
-                                    Navigator.of(context).pushNamed('data center');
-                                  },
-                                ),
+                              width: 100,
+                              height: 40,
+                              child: OriginalButton(
+                                text:'Next DC',
+                                textColor: Colors.white,
+                                color: Colors.blueGrey,
+                                onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setInt('counter', counter+1);
+                                  Navigator.of(context).pushNamed('data center');
+                                },
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
