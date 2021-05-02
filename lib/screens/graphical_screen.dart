@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_edgecloudsim/related_to_application_xml_file/applications_xml.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,8 +10,10 @@ class GraphicalScreen extends StatefulWidget {
 }
 
 class _GraphicalScreenState extends State<GraphicalScreen> {
-
   AuthBase authBase = AuthBase();
+
+  /*
+  */
 
   @override
   Widget build(BuildContext context) {

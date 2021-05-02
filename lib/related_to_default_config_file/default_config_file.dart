@@ -219,7 +219,7 @@ class _State extends State<DefaultConfig> {
   }
   display(){
     List <String> data=['simulation_time','warm_up_period','vm_load_check_interval',
-      'location_check_interval','file_log_enabled','deep_file_log_enabled'
+      'location_check_interval','file_log_enabled','deep_file_log_enabled',
           'min_number_of_mobile_devices','max_number_of_mobile_devices','mobile_device_counter_size',
       'wan_propagation_delay','lan_internal_delay','wlan_bandwidth','wan_bandwidth','gsm_bandwidth',
       'number_of_host_on_cloud_datacenter','number_of_vm_on_cloud_host','core_for_cloud_vm',

@@ -9,7 +9,7 @@ class AppXML extends StatefulWidget {
   @override
   _State createState() => _State();
 }
-//////////////////////
+
 int counter=1;
 int deleteApp;
 class _State extends State<AppXML> {
@@ -70,8 +70,6 @@ class _State extends State<AppXML> {
   getData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState((){
-
-//////////////////////////////////////////////////////
       if(prefs.getInt('counter')!=null) {
         counter = prefs.getInt('counter');
       }
