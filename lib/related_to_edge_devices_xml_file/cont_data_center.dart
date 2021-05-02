@@ -548,13 +548,11 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                               width: 140,
                               height: 40,
                               child: OriginalButton(
-                                text:'Delete DC',
+                                text:'Return to HomePage',
                                 textColor: Colors.white,
                                 color: Colors.blueGrey,
                                 onPressed: ()async{
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setInt('delete_app', counter);
-
+                                  Navigator.of(context).pushReplacementNamed('graphical');
                                   //edit data in firebase
                                   //change flag
                                 },

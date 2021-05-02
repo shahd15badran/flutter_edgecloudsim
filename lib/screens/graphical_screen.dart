@@ -24,11 +24,10 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 230,
+                left: 250,
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
                 ),
                 child: FlatButton(
                   height: 20,

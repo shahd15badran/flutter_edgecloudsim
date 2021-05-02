@@ -20,6 +20,7 @@ import java.util.Scanner;
 public class GetFileFromServer {
     static String concatenate = "";
     String file = "";
+    static boolean done = false;
 
     public GetFileFromServer(String file_to_send) {
         Thread thread = new Thread(() -> {
@@ -35,7 +36,7 @@ public class GetFileFromServer {
     }
 
     public void Start(String file) throws Exception {
-        String server = "192.168.0.105";
+        String server = "192.168.0.185";
         int port = 1988;
         try {
 
@@ -71,6 +72,7 @@ public class GetFileFromServer {
             }
             dis.close();
 
+            done = true;
 
         } catch (IOException e) {
             // TODO Auto-generated catch block

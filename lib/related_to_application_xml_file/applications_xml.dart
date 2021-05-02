@@ -72,26 +72,6 @@ class _State extends State<AppXML> {
     setState((){
 
 //////////////////////////////////////////////////////
-      if(prefs.getInt('delete_app')!=null) {
-        deleteApp=prefs.getInt('delete_app');
-
-        application_name.removeAt(deleteApp);
-        usage_percentage.removeAt(deleteApp);
-        prob_cloud_selection.removeAt(deleteApp);
-        poisson_interarrival.removeAt(deleteApp);
-        delay_sensitivity.removeAt(deleteApp);
-        active_period.removeAt(deleteApp);
-        idle_period.removeAt(deleteApp);
-        data_upload.removeAt(deleteApp);
-        data_download.removeAt(deleteApp);
-        task_length.removeAt(deleteApp);
-        required_core.removeAt(deleteApp);
-        vm_utilization_on_edge.removeAt(deleteApp);
-        vm_utilization_on_cloud.removeAt(deleteApp);
-        vm_utilization_on_mobile.removeAt(deleteApp);
-      }
-
-
       if(prefs.getInt('counter')!=null) {
         counter = prefs.getInt('counter');
       }

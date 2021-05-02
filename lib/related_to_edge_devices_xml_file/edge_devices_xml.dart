@@ -74,37 +74,10 @@ class _State extends State<EdgeXML> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState((){
 ///////////////////////////////////////////////////////if(prefs.getInt('delete_app')!=null) {
-      if(prefs.getInt('delete_app')!=null) {
-        deleteApp=prefs.getInt('delete_app');
-
-        costPerBw.removeAt(deleteApp);
-        costPerSec.removeAt(deleteApp);
-        costPerMem.removeAt(deleteApp);
-        costPerStorage.removeAt(deleteApp);
-        x_pos.removeAt(deleteApp);
-        y_pos.removeAt(deleteApp);
-        wlan_id.removeAt(deleteApp);
-        attractiveness.removeAt(deleteApp);
-        core.removeAt(deleteApp);
-        mips.removeAt(deleteApp);
-        ram.removeAt(deleteApp);
-        storage.removeAt(deleteApp);
-        core1.removeAt(deleteApp);
-        mips1.removeAt(deleteApp);
-        ram1.removeAt(deleteApp);
-        storage1.removeAt(deleteApp);
-        core2.removeAt(deleteApp);
-        mips2.removeAt(deleteApp);
-        ram2.removeAt(deleteApp);
-        storage2.removeAt(deleteApp);
-
-      }
-
       if(prefs.getInt('counter')!=null) {
         counter = prefs.getInt('counter');
       }
       else counter=1;
-      // else counter=4;
       print("OOOOOOO"+counter.toString());
       if(counter>0){
         if (((prefs.getStringList('costPerBw') != null) &&

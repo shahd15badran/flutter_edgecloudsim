@@ -48,8 +48,8 @@ class _MyPDFList extends State<MyPDFList>{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title:Text("PDF File list from SD Card"),
-            backgroundColor: Colors.redAccent
+            title:Text("Generated PDF files"),
+            backgroundColor: Colors.blueAccent
         ),
         body:files == null? Text("Searching Files"):
         ListView.builder(  //if file/folder list is grabbed, then show here
@@ -59,7 +59,7 @@ class _MyPDFList extends State<MyPDFList>{
                 child:ListTile(
                   title: Text(files[index].path.split('/').last),
                   leading: Icon(Icons.picture_as_pdf),
-                  trailing: Icon(Icons.arrow_forward, color: Colors.redAccent,),
+                  trailing: Icon(Icons.arrow_forward, color: Colors.blueAccent,),
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                       return ViewPDF(pathPDF:files[index].path.toString());
@@ -82,8 +82,8 @@ class ViewPDF extends StatelessWidget {
   Widget build(BuildContext context) {
     return PDFViewerScaffold( //view PDF
         appBar: AppBar(
-          title: Text("Document"),
-          backgroundColor: Colors.deepOrangeAccent,
+          title: Text("Graph"),
+          backgroundColor: Colors.black54,
         ),
         path: pathPDF
     );

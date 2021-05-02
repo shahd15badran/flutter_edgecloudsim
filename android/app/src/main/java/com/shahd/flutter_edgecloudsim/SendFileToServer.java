@@ -24,7 +24,7 @@ public class SendFileToServer {
         thread.start();
     }
     public void Start(String file, boolean f) throws Exception {
-        String server = "192.168.0.105";
+        String server = "192.168.0.185";
         int port = 1988;
         try{
             Socket s = new Socket(server, port);
@@ -49,6 +49,7 @@ public class SendFileToServer {
                     //System.out.println(tmp);
                 }
                 SimMsg = inputLine.toString();
+                System.out.println("sim"+ SimMsg);
                 disMsg.close();
             }
             fis.close();

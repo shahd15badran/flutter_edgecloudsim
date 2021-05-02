@@ -1,9 +1,12 @@
 package com.shahd.flutter_edgecloudsim;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodCall;
+//import io.flutter.plugins.GeneratedPluginRegistrant;
 
 import java.util.Properties;
 
@@ -28,8 +31,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL="com.flutter.epic/epic";
+    /*
     @Override
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        GeneratedPluginRegistrant.registerWith(this.getFlutterEngine());
+    }
+    */
+    @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine){
         super.configureFlutterEngine(flutterEngine);        //GeneratedPluginRegistrant.registerWith(flutterEngine);
 
@@ -59,17 +68,22 @@ public class MainActivity extends FlutterActivity {
                 else if(call.method.equals("Start Sim")){
                     System.out.println("reached Start Sim in MainActivity");
                     new SendFileToServer("@",true);
+                    System.out.println("AAAAAAAAAAA"+SendFileToServer.getSimMsg());
+                    result.success(SendFileToServer.getSimMsg());
+                }
+                else if (call.method.equals("getMsg")){
                     result.success(SendFileToServer.getSimMsg());
                 }
                 else if(call.method.equals("get log file")){
                     new GetFileFromServer("*" );
-                    //result.success("resultssssssssss"+GetFileFromServer.getfilesnames());//
+                    result.success("resultssssssssss"+GetFileFromServer.getfilesnames());//
                 }////
                 else if(call.method.equals("pdfs_failed")) {
-                    new GetFileFromServer("f");
+                    GetFileFromServer gf = new GetFileFromServer("f");
                 }
                 else if(call.method.equals("pdfs_network")){
                     new GetFileFromServer("n");
+
                 }
                 else if(call.method.equals("pdfs_process")){
                     new GetFileFromServer("p");
