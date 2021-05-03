@@ -65,6 +65,12 @@ public class MainActivity extends FlutterActivity {
                     new SendFileToServer("3" +arguments,false);
                     result.success(arguments);
                 }
+                else if(call.method.equals("updateGeneric")){
+                    String arguments = call.arguments();
+                    new SendFileToServer("4" +arguments,false);
+                    result.success(arguments);
+                }
+
                 else if(call.method.equals("Start Sim")){
                     System.out.println("reached Start Sim in MainActivity");
                     new SendFileToServer("@",true);

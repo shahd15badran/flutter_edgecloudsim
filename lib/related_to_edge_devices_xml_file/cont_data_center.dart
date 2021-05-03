@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
@@ -8,10 +10,13 @@ class ContDataCenterScreen extends StatefulWidget {
   _ContDataCenterScreenState createState() => _ContDataCenterScreenState();
 }
 
-class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
+class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerProviderStateMixin {
+  int _state = 0;
 
   void initState (){
     getData();
+    super.initState();
+
   }
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -409,7 +414,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                     Padding(
                       padding: const EdgeInsets.only(
                           top: 5,
-                          bottom: 50,
+                          bottom: 20,
                           left: 10
                       ),
                       child: Row(
@@ -480,13 +485,46 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                     ////////////////////////////////////////////
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 40,
                       ),
                       child: Row(
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 2
+                              left: 260,
+                              bottom: 30
+                            ),
+                            child: SizedBox(
+                              height: 30,
+                              width: 80,
+                              child: new MaterialButton(
+                                color: Colors.blue,
+                                child: setUpButtonChild(),
+                                onPressed: ()async{
+                                  setState(() {
+                                    if (_state == 0) {
+                                      animateButton();
+                                    }
+                                  });
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('save_app', 'true');
+                                  //edit data in firebase
+                                  //change flag
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 30,
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 2,
                             ),
                             child: SizedBox(
                               width: 140,
@@ -511,55 +549,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 90
-                            ),
-                            child: SizedBox(
-                              width: 100,
-                              height: 40,
-                              child: OriginalButton(
-                                text:'Save',
-                                textColor: Colors.white,
-                                color: Colors.blue,
-                                onPressed: ()async{
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('save_app', 'true');
-                                  //edit data in firebase
-                                  //change flag
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30,
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 2
-                            ),
-                            child: SizedBox(
-                              width: 140,
-                              height: 40,
-                              child: OriginalButton(
-                                text:'Return to HomePage',
-                                textColor: Colors.white,
-                                color: Colors.blueGrey,
-                                onPressed: ()async{
-                                  Navigator.of(context).pushReplacementNamed('graphical');
-                                  //edit data in firebase
-                                  //change flag
-                                },
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 90
+                                left: 105
                             ),
                             child: SizedBox(
                               width: 100,
@@ -567,7 +557,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                               child: OriginalButton(
                                 text:'Next DC',
                                 textColor: Colors.white,
-                                color: Colors.blueGrey,
+                                color: Colors.blue,
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setInt('counter', counter+1);
@@ -579,6 +569,27 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 200,
+                          top: 30
+                      ),
+                      child: SizedBox(
+                        width: 140,
+                        height: 40,
+                        child: OriginalButton(
+                          text:'HomePage',
+                          textColor: Colors.white,
+                          color: Colors.black,
+                          onPressed: ()async{
+                            Navigator.of(context).pushReplacementNamed('graphical');
+
+                            //edit data in firebase
+                            //change flag
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -587,5 +598,34 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen> {
 
       ),
     );
+  }
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 1000), () {
+      setState(() {
+        _state = 2;
+      });
+      // Navigator.of(context).pushNamed('MyFileList');
+    });
   }
 }

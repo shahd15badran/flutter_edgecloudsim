@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xml/xml.dart';
 
@@ -70,6 +71,16 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
       print(e);
     }
   }
+
+  Future<void> _sendPlotGeneric() async {
+    prefs = await SharedPreferences.getInstance();
+    try {
+      final String result = await Platform.invokeMethod('updateGeneric',display_plotGeneric());
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
+
   //FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   @override
   void initState(){
@@ -204,13 +215,12 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                   child: new MaterialButton(
                     child: setUpButtonChild('Download Log Files'),
                     onPressed: () async{
-                      _getlogs();
-                      setState(() {
-                        if (_state == 0) {
-                          animateButton();
-                        }
-                      });
-                      //Navigator.of(context).pushNamed('MyFileList');
+                        _getlogs();
+                        setState(() {
+                          if (_state == 0) {
+                            animateButton();
+                          }
+                        });
                     },
                     elevation: 4.0,
                     minWidth:250.0,
@@ -234,6 +244,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                     color: Colors.black,
                     textColor: Colors.white,
                     onPressed: () async {
+                      _sendPlotGeneric();
                       Navigator.of(context).pushNamed('matlab screen');
                     },
                   ),
@@ -491,5 +502,136 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
       concatenate += "\n"+data[l]+"="+arr[l];
     }
     return concatenate;
+  }
+
+  display_plotGeneric(){
+    String all = '';
+    all+= 'function [] = plotGenericResult(rowOfset, columnOfset, yLabel, appType, calculatePercentage)\n';
+    all+= 'folderPath = "C:/Users/hp/eclipse-workspace/EdgeCloudSim-master/EdgeCloudSim-master/sim_results";\n';
+    all+= 'numOfSimulations = 1;\n';
+    all+= 'startOfMobileDeviceLoop ='+ prefs.getString('min_number_of_mobile_devices')+';\n';
+    all+= 'stepOfMobileDeviceLoop =' + prefs.getString('mobile_device_counter_size')+';\n';
+    all+= 'endOfMobileDeviceLoop ='+ prefs.getString('max_number_of_mobile_devices')+';\n';
+    all+= 'xTickLabelCoefficient = 1;\n';
+    all+= "scenarioType = {'SINGLE_TIER','TWO_TIER','TWO_TIER_WITH_EO'};\n";
+    all+= "legends = {'1-tier','2-tier','2-tier with EO'};\n";
+    all+= 'numOfMobileDevices = (endOfMobileDeviceLoop - startOfMobileDeviceLoop)/stepOfMobileDeviceLoop + 1;\n';
+    all+= 'pos=[10 3 12 12];\n';
+    all+= 'all_results = zeros(numOfSimulations, size(scenarioType,2), numOfMobileDevices);\n';
+    all+= 'min_results = zeros(size(scenarioType,2), numOfMobileDevices);\n';
+    all+= 'max_results = zeros(size(scenarioType,2), numOfMobileDevices);\n';
+    all+= 'for s=1:numOfSimulations\n';
+    all+= 'for i=1:size(scenarioType,2)\n';
+    all+= 'for j=1:numOfMobileDevices\n';
+    all+= 'try\n';
+    all+= 'mobileDeviceNumber = startOfMobileDeviceLoop + stepOfMobileDeviceLoop * (j-1);\n';
+    all+= "filePath = strcat(folderPath,'/ite',int2str(s),'/SIMRESULT_',char(scenarioType(i)),'_NEXT_FIT_',int2str(mobileDeviceNumber),'DEVICES_',appType,'_GENERIC.log');\n";
+    all+= "readData = dlmread(filePath,';',rowOfset,0);\n";
+    all+= 'value = readData(1,columnOfset);\n';
+    all+= "if(strcmp(calculatePercentage,'percentage_for_all'))\n";
+    all+= "readData = dlmread(filePath,';',1,0);\n";
+    all+= 'totalTask = readData(1,1)+readData(1,2);\n';
+    all+= 'value = (100 * value) / totalTask;\n';
+    all+= "elseif(strcmp(calculatePercentage,'percentage_for_completed'))\n";
+    all+= "readData = dlmread(filePath,';',1,0);\n";
+    all+= "totalTask = readData(1,1);\n";
+    all+= "value = (100 * value) / totalTask;\n";
+    all+= "elseif(strcmp(calculatePercentage,'percentage_for_failed'))\n";
+    all+= "readData = dlmread(filePath,';',1,0);\n";
+    all+= "totalTask = readData(1,2);\n";
+    all+= " value = (100 * value) / totalTask;\n";
+    all+= "end\n";
+    all+= "all_results(s,i,j) = value;\n";
+    all+= "catch err\n";
+    all+= "error(err)\n";
+    all+= "end\n"; all+= "end\n"; all+= "end\n"; all+= "end\n";
+    all+= "if(numOfSimulations == 1)\n";
+    all+= "results = all_results;\n";
+    all+= "else\n";
+    all+= "results = mean(all_results); %still 3d matrix but 1xMxN format\n";
+    all+= "end\n";
+    all+= "results = squeeze(results); %remove singleton dimensions\n";
+    all+= "for i=1:size(scenarioType,2)\n";
+    all+= "for j=1:numOfMobileDevices\n";
+    all+= "x=all_results(:,i,j);                    % Create Data\n";
+    all+= "SEM = std(x)/sqrt(length(x));            % Standard Error\n";
+    all+= "ts = tinv([0.05  0.95],length(x)-1);   % T-Score\n";
+    all+= "CI = mean(x) + ts*SEM;                   % Confidence Intervals\n";
+    all+= "if(CI(1) < 0)\n";
+    all+= "CI(1) = 0;\n";
+    all+= "end\n";
+    all+= "if(CI(2) < 0)\n";
+    all+= "CI(2) = 0;\n";
+    all+= "end\n";
+    all+= "min_results(i,j) = results(i,j) - CI(1);\n";
+    all+= "max_results(i,j) = CI(2) - results(i,j);\n";
+    all+= "end\n"; all+= "end\n";
+    all+= "types = zeros(1,numOfMobileDevices);\n";
+    all+= "for i=1:numOfMobileDevices\n";
+    all+= "types(i)=startOfMobileDeviceLoop+((i-1)*stepOfMobileDeviceLoop);\n";
+    all+= "end\n";
+    all+= "hFig = figure;\n";
+    all+= "set(hFig, 'Units','centimeters');\n";
+    all+= "set(hFig, 'Position',pos);\n";
+    all+= "set(0,'DefaultAxesFontName','Times New Roman');\n";
+    all+= "set(0,'DefaultTextFontName','Times New Roman');\n";
+    all+= "set(0,'DefaultAxesFontSize',10);\n";
+    all+= "set(0,'DefaultTextFontSize',12);\n";
+    all+= "C = [0.55 0 0;0 0.15 0.6;0 0.23 0;0.6 0 0.6;0.08 0.08 0.08;0 0.8 0.8;0.8 0.4 0;0.8 0.8 0];\n";
+    all+= "if(1 == 1)\n";
+    all+= "for i=1:1:numOfMobileDevices\n";
+    all+= "xIndex=startOfMobileDeviceLoop+((i-1)*stepOfMobileDeviceLoop);" +"\n" +
+        "markers = {':k*',':ko',':ks',':kv',':kp',':kd',':kx',':kh'};"+"\n" +
+    "for j=1:size(scenarioType,2)"+"\n" +
+    "plot(xIndex, results(j,i),char(markers(j)),'MarkerFaceColor',[0.55 0 0],'color',[0.55 0 0]);"+"\n" +
+    "hold on;"+"\n" +
+    "end"+"\n" +
+    "end"+"\n" +
+    "for j=1:size(scenarioType,2)"+"\n" +
+    "if(0 == 1)"+"\n" +
+    "errorbar(types, results(j,:), min_results(j,:),max_results(j,:),':k','color',[0.55 0 0],'LineWidth',1.5);"+"\n" +
+    "else"+"\n" +
+    "plot(types, results(j,:),':k','color',[0.55 0 0],'LineWidth',1.5);"+"\n" +
+    "end"+"\n" +
+    "hold on;"+"\n" +
+    "end\n";
+
+    all+= "set(gca,'color','none');"+"\n" +
+    "else"+"\n" +
+    "markers = {'-k*','-ko','-ks','-kv','-kp','-kd','-kx','-kh'};"+"\n" +
+    "for j=1:size(scenarioType,2)"+"\n" +
+    "if(0 == 1)"+"\n" +
+    "errorbar(types, results(j,:),min_results(j,:),max_results(j,:),char(markers(j)),'MarkerFaceColor','w','LineWidth',1.2);"+"\n" +
+    "else"+"\n" +
+    "plot(types, results(j,:),char(markers(j)),'MarkerFaceColor','w','LineWidth',1.2);"+"\n" +
+    "end"+"\n" +
+    "hold on;"+"\n" +
+    "end"+"\n" +
+    "end"+"\n" +
+    "lgnd = legend(legends,'Location','NorthWest');"+"\n" +
+    "if(1 == 1)"+"\n" +
+    "set(lgnd,'color','none');"+"\n" +
+    "end"+"\n" +
+    "hold off;"+"\n" +
+    "axis square"+"\n" +
+    "xlabel('Number of Mobile Devices');"+"\n" +
+    "set(gca,'XTick', (startOfMobileDeviceLoop*xTickLabelCoefficient):(stepOfMobileDeviceLoop*xTickLabelCoefficient):endOfMobileDeviceLoop);"+"\n" +
+    "set(gca,'XTickLabel', (startOfMobileDeviceLoop*xTickLabelCoefficient):(stepOfMobileDeviceLoop*xTickLabelCoefficient):endOfMobileDeviceLoop);"+"\n" +
+    "ylabel(yLabel);"+"\n" +
+    "set(gca,'XLim',[startOfMobileDeviceLoop-5 endOfMobileDeviceLoop+5]);"+"\n" +
+    "set(get(gca,'Xlabel'),'FontSize',12)"+"\n" +
+    "set(get(gca,'Ylabel'),'FontSize',12)"+"\n" +
+    "set(lgnd,'FontSize',11)"+"\n" +
+    "if(1 == 1)"+"\n" +
+    "set(hFig, 'PaperUnits', 'centimeters');"+"\n" +
+    "set(hFig, 'PaperPositionMode', 'manual');"+"\n" +
+    "set(hFig, 'PaperPosition',[0 0 pos(3) pos(4)]);"+"\n" +
+    "set(gcf, 'PaperSize', [pos(3) pos(4)]); %Keep the same paper size"+"\n" +
+    "filename = strcat(folderPath,'/',int2str(rowOfset),'_',int2str(columnOfset),'_',appType);"+"\n" +
+    "saveas(gcf, filename, 'pdf');"+"\n" +
+    "end"+"\n" +
+    "end";
+
+  return all;
   }
 }

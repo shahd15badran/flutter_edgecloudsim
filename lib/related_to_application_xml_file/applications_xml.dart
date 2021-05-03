@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,8 @@ class AppXML extends StatefulWidget {
 
 int counter=1;
 int deleteApp;
-class _State extends State<AppXML> {
+class _State extends State<AppXML>with TickerProviderStateMixin  {
+  int _state = 0;
   List <String> application_name=['AUGMENTED_REALITY','HEALTH_APP','HEAVY_COMP_APP','INFOTAINMENT_APP'];
   List <String> usage_percentage=['30','20','20','30'];
   List <String> prob_cloud_selection=['20','20','40','15'];
@@ -245,14 +248,34 @@ class _State extends State<AppXML> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
+                      bottom: 2
                   ),
-                  child: RaisedButton(
-                    color: Colors.amberAccent,
-                    child: Text("submit"),
-                    onPressed: (){
-                      _batteryLevel2=xml_controller.text;
-                      _getBatteryLevel2();
-                    },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                          left: 150,
+                        ),
+                        child: SizedBox(
+                          height: 30,
+                          width: 90,
+                          child: new MaterialButton(
+                            color: Colors.yellow,
+                            child: setUpButtonChild(),
+                            onPressed: ()async{
+                              setState(() {
+                                if (_state == 0) {
+                                  animateButton();
+                                  _batteryLevel2=xml_controller.text;
+                                  _getBatteryLevel2();
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -261,6 +284,35 @@ class _State extends State<AppXML> {
         ),
       ),
     );
+  }
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text('submit',
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.black);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 1000), () {
+      setState(() {
+        _state = 2;
+      });
+      // Navigator.of(context).pushNamed('MyFileList');
+    });
   }
   display(){
     final builder = XmlBuilder();

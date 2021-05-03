@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/related_to_application_xml_file/applications_xml.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class GraphicalScreen extends StatefulWidget {
   @override
@@ -57,7 +58,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-            top: 60,
+            top: 20,
             bottom: 15
           ),
           child: SingleChildScrollView(
@@ -261,9 +262,9 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               height: 60,
                               width: 60,
                               child: RaisedButton(
-                                color: Colors.blue,
+                                color: Colors.grey,
                                 onPressed: (){
-                                  Navigator.of(context).pushNamed('edge server');
+                                 // Navigator.of(context).pushNamed('edge server');
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)
@@ -325,9 +326,9 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               height: 60,
                               width: 60,
                               child: RaisedButton(
-                                color: Colors.blue,
+                                color: Colors.grey,
                                 onPressed: (){
-                                  Navigator.of(context).pushNamed('edge server');
+                                 // Navigator.of(context).pushNamed('edge server');
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)
@@ -452,7 +453,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                   height: 60,
                                   width: 60,
                                   child: RaisedButton(
-                                    color: Colors.blue,
+                                    color: Colors.brown,
                                     onPressed: (){
                                       Navigator.of(context).pushNamed('edge users');
                                     },
@@ -480,7 +481,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                   height: 60,
                                   width: 60,
                                   child: RaisedButton(
-                                    color: Colors.blue,
+                                    color: Colors.brown,
                                     onPressed: (){
                                       Navigator.of(context).pushNamed('edge users');
                                     },
@@ -543,14 +544,17 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               left: 20
                             ),
                             child: SizedBox(
-                              height: 60,
+                              height: 50,
                               width: 150,
                               child: OriginalButton(
                                 text:'Simulation Process',
                                 textColor: Colors.white,
-                                color: Colors.blue,
-                                onPressed:(){
-                                  Navigator.of(context).pushNamed('simulation_screen');
+                                color: Colors.black,
+                                onPressed:() async{
+                                  final status = await Permission.storage.request();
+                                  if (status.isGranted) {
+                                    Navigator.of(context).pushNamed('simulation');
+                                  }
                                 },
                               ),
                             ),
@@ -561,12 +565,12 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               left: 80,
                             ),
                             child: SizedBox(
-                              height: 60,
+                              height: 50,
                               width: 150,
                               child: OriginalButton(
                                 text:'Edit sample applications',
                                 textColor: Colors.white,
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setInt('counter', 1);

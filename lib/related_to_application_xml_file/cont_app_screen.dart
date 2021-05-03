@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
@@ -10,9 +12,11 @@ class ContAddAppScreen extends StatefulWidget {
   _ContAddAppScreenState createState() => _ContAddAppScreenState();
 }
 
-class _ContAddAppScreenState extends State<ContAddAppScreen> {
+class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderStateMixin {
+  int _state = 0;
   void initState (){
     getData();
+    super.initState();
   }
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -108,7 +112,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
           padding: const EdgeInsets.only(
             left: 16.0,
             right: 20.0,
-            top: 60.0,
+            top: 40.0,
           ),
           child: SingleChildScrollView(
             child: Container(
@@ -406,54 +410,33 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 40,
+                        top: 15,
                       ),
                       child: Row(
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 2
-                      ),
-                            child: SizedBox(
-                              width: 140,
-                              height: 40,
-                                  child: OriginalButton(
-                                    text:'Previous App',
-                                    textColor: Colors.white,
-                                    color: Colors.blue,
-                                    onPressed: ()async{
-                                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                                      counter = prefs.getInt(('counter'));
-                                      if(counter != 1)
-                                        prefs.setInt('counter', counter-1);
-                                      else
-                                        counter = 1;
-                                      Navigator.of(context).pushNamed('add application');
-                                      //edit data in firebase
-                                      //change flag
-                                    },
-                                  ),
-                                ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 90
+                              left: 235,
                             ),
                             child: SizedBox(
-                              width: 100,
-                              height: 40,
-                                  child: OriginalButton(
-                                    text:'Save',
-                                    textColor: Colors.white,
-                                    color: Colors.blue,
-                                    onPressed: ()async{
-                                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                                      prefs.setString('save_app', 'true');
-                                      //edit data in firebase
-                                      //change flag
-                                    },
-                                  ),
-                                ),
+                              height: 30,
+                              width: 90,
+                              child: new MaterialButton(
+                                color: Colors.blue,
+                                child: setUpButtonChild(),
+                                onPressed: ()async{
+                                  setState(() {
+                                    if (_state == 0) {
+                                      animateButton();
+                                    }
+                                  });
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('save_app', 'true');
+                                  //edit data in firebase
+                                  //change flag
+                                },
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -472,12 +455,17 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                               width: 140,
                               height: 40,
                               child: OriginalButton(
-                                text:'Return to HomePage',
+                                text:'Previous App',
                                 textColor: Colors.white,
-                                color: Colors.blueGrey,
+                                color: Colors.blue,
                                 onPressed: ()async{
-                                  Navigator.of(context).pushReplacementNamed('graphical');
-
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  counter = prefs.getInt(('counter'));
+                                  if(counter != 1)
+                                    prefs.setInt('counter', counter-1);
+                                  else
+                                    counter = 1;
+                                  Navigator.of(context).pushNamed('add application');
                                   //edit data in firebase
                                   //change flag
                                 },
@@ -494,7 +482,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                                 child: OriginalButton(
                                   text:'Next App',
                                   textColor: Colors.white,
-                                  color: Colors.blueGrey,
+                                  color: Colors.blue,
                                   onPressed: ()async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setInt('counter', counter+1);
@@ -506,6 +494,27 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: 200,
+                        top: 30
+                      ),
+                      child: SizedBox(
+                        width: 140,
+                        height: 40,
+                        child: OriginalButton(
+                          text:'HomePage',
+                          textColor: Colors.white,
+                          color: Colors.black,
+                          onPressed: ()async{
+                            Navigator.of(context).pushReplacementNamed('graphical');
+
+                            //edit data in firebase
+                            //change flag
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -514,5 +523,34 @@ class _ContAddAppScreenState extends State<ContAddAppScreen> {
 
       ),
     );
+  }
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 1000), () {
+      setState(() {
+        _state = 2;
+      });
+      // Navigator.of(context).pushNamed('MyFileList');
+    });
   }
 }

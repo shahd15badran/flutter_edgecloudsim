@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
@@ -8,7 +10,8 @@ class EdgeUserScreen extends StatefulWidget {
   _EdgeUserScreenState createState() => _EdgeUserScreenState();
 }
 
-class _EdgeUserScreenState extends State<EdgeUserScreen> {
+class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStateMixin {
+  int _state = 0;
   AuthBase authBase = AuthBase();
   final min_number_of_mobile_devices_controller=TextEditingController(text: "100");
   final max_number_of_mobile_devices_controller=TextEditingController(text: "1000");
@@ -345,27 +348,40 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> {
                         ],
                       ),
                     ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 200,
-                ),
-                child: SizedBox(
-                  height: 40,
-                  width: 120,
-                  child: OriginalButton(
-                    text:'Save',
-                    textColor: Colors.white,
-                    color: Colors.blue,
-                    onPressed: ()async{
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      prefs.setString('save_app', 'true');
-                      //edit data in firebase
-                      //change flag
-                    },
-                  ),
-                ),
-              ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 2
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 10,
+                              left: 245,
+                            ),
+                            child: SizedBox(
+                              height: 30,
+                              width: 90,
+                              child: new MaterialButton(
+                                color: Colors.blue,
+                                child: setUpButtonChild(),
+                                onPressed: ()async{
+                                  setState(() {
+                                    if (_state == 0) {
+                                      animateButton();
+                                    }
+                                  });
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('save_app', 'true');
+                                  //edit data in firebase
+                                  //change flag
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 50,
@@ -394,5 +410,34 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> {
 
       ),
     );
+  }
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 1000), () {
+      setState(() {
+        _state = 2;
+      });
+      // Navigator.of(context).pushNamed('MyFileList');
+    });
   }
 }

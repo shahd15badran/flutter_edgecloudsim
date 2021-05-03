@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +11,8 @@ class DefaultConfig extends StatefulWidget {
   _State createState() => _State();
 }
 
-class _State extends State<DefaultConfig> {
+class _State extends State<DefaultConfig>with TickerProviderStateMixin {
+  int _state = 0;
   static const Platform =const MethodChannel("com.flutter.epic/epic");
   String _batteryLevel = 'Unknown battery level.';
   Future<void> _getBatteryLevel() async {
@@ -200,14 +203,34 @@ class _State extends State<DefaultConfig> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
+                      bottom: 2
                   ),
-                  child: RaisedButton(
-                    color: Colors.amberAccent,
-                    child: Text("submit"),
-                    onPressed: (){
-                      _batteryLevel2=xml_controller.text;
-                      _getBatteryLevel2();
-                    },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                          left: 150,
+                        ),
+                        child: SizedBox(
+                          height: 30,
+                          width: 90,
+                          child: new MaterialButton(
+                            color: Colors.yellow,
+                            child: setUpButtonChild(),
+                            onPressed: ()async{
+                              setState(() {
+                                if (_state == 0) {
+                                  animateButton();
+                                  _batteryLevel2=xml_controller.text;
+                                  _getBatteryLevel2();
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -216,6 +239,35 @@ class _State extends State<DefaultConfig> {
         ),
       ),
     );
+  }
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text('submit',
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.black);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 1000), () {
+      setState(() {
+        _state = 2;
+      });
+      // Navigator.of(context).pushNamed('MyFileList');
+    });
   }
   display(){
     List <String> data=['simulation_time','warm_up_period','vm_load_check_interval',

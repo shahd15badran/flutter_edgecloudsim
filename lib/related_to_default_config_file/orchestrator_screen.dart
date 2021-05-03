@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
@@ -8,7 +10,8 @@ class OrchestratorScreen extends StatefulWidget {
   _OrchestratorScreenState createState() => _OrchestratorScreenState();
 }
 
-class _OrchestratorScreenState extends State<OrchestratorScreen> {
+class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProviderStateMixin {
+  int _state = 0;
   AuthBase authBase = AuthBase();
 
   final orchestrator_policies_controller=TextEditingController(text: "NEXT_FIT");
@@ -316,19 +319,29 @@ class _OrchestratorScreenState extends State<OrchestratorScreen> {
                       ),
                     ),
 //////////////////////////////////////////////////////////////////
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 2
+                      ),
+                      child: Row(
+                        children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 20,
-                              left: 225,
+                              top: 10,
+                              left: 250,
                             ),
                             child: SizedBox(
-                              height: 40,
-                              width: 120,
-                              child: OriginalButton(
-                                text:'Save',
-                                textColor: Colors.white,
+                              height: 30,
+                              width: 80,
+                              child: new MaterialButton(
                                 color: Colors.blue,
+                                child: setUpButtonChild(),
                                 onPressed: ()async{
+                                  setState(() {
+                                    if (_state == 0) {
+                                      animateButton();
+                                    }
+                                  });
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
                                   //edit data in firebase
@@ -337,6 +350,9 @@ class _OrchestratorScreenState extends State<OrchestratorScreen> {
                               ),
                             ),
                           ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 40,
@@ -362,5 +378,34 @@ class _OrchestratorScreenState extends State<OrchestratorScreen> {
           ),
       ),
     );
+  }
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 1000), () {
+      setState(() {
+        _state = 2;
+      });
+      // Navigator.of(context).pushNamed('MyFileList');
+    });
   }
 }

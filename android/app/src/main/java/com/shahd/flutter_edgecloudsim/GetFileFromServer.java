@@ -36,7 +36,7 @@ public class GetFileFromServer {
     }
 
     public void Start(String file) throws Exception {
-        String server = "192.168.0.105";
+        String server = "172.16.225.151";
         int port = 1988;
         try {
 

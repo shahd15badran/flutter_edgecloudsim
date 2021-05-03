@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ManuallyScreen extends StatelessWidget {
   AuthBase authBase = AuthBase();
@@ -134,8 +135,11 @@ class ManuallyScreen extends StatelessWidget {
                 width: double.infinity,
                 child: RaisedButton(
                   color: Colors.blue,
-                  onPressed: (){
-                    Navigator.of(context).pushNamed('simulation');
+                  onPressed: () async{
+                      final status = await Permission.storage.request();
+                      if (status.isGranted) {
+                        Navigator.of(context).pushNamed('simulation');
+                      }
                   },
                   child: Text('Go to simulation process' ,
                     style: TextStyle(

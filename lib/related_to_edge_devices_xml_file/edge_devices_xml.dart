@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +13,8 @@ class EdgeXML extends StatefulWidget {
 int counter=1;
 int deleteApp;
 /////////////
-class _State extends State<EdgeXML> {
+class _State extends State<EdgeXML>with TickerProviderStateMixin  {
+  int _state = 0;
   List<String>costPerBw=['0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1'];
   List<String>costPerSec=['3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0'];
   List<String>costPerMem=['0.05','0.05','0.05','0.05''0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05'];
@@ -290,14 +293,34 @@ class _State extends State<EdgeXML> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
+                      bottom: 2
                   ),
-                  child: RaisedButton(
-                    color: Colors.amberAccent,
-                    child: Text("submit"),
-                    onPressed: (){
-                      _batteryLevel2=xml_controller.text;
-                      _getBatteryLevel2();
-                    },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                          left: 150,
+                        ),
+                        child: SizedBox(
+                          height: 30,
+                          width: 90,
+                          child: new MaterialButton(
+                            color: Colors.yellow,
+                            child: setUpButtonChild(),
+                            onPressed: ()async{
+                              setState(() {
+                                if (_state == 0) {
+                                  animateButton();
+                                  _batteryLevel2=xml_controller.text;
+                                  _getBatteryLevel2();
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -306,6 +329,35 @@ class _State extends State<EdgeXML> {
         ),
       ),
     );
+  }
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text('submit',
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.black);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+
+    Timer(Duration(milliseconds: 1000), () {
+      setState(() {
+        _state = 2;
+      });
+      // Navigator.of(context).pushNamed('MyFileList');
+    });
   }
   display(){
     final builder = XmlBuilder();
