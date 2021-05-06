@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
@@ -16,6 +17,12 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
   int _state4 = 0;
   int _state5 = 0;
 
+  bool _hasBeenPressed1 = false;
+  bool _hasBeenPressed2 = false;
+  bool _hasBeenPressed3 = false;
+  bool _hasBeenPressed4 = false;
+  bool _hasBeenPressed5 = false;
+
   static const Platform =const MethodChannel("com.flutter.epic/epic");
   String _pdfs = '';
   Future<void> _getpdfs(fname) async {
@@ -31,10 +38,29 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
     });
   }
 
+  _createFolder()async {
+    final folderName = "Pdfs";
+    final path = Directory("storage/emulated/0/Documents/$folderName");
+    if ((await path.exists())) {
+    } else {
+      path.create();
+    }
+  }
+
+  _createSubFolder(folderName) async{
+    final path = Directory("storage/emulated/0/Documents/Pdfs/$folderName");
+    if ((await path.exists())) {
+      print("exist");
+    } else {
+      print("not exist");
+      path.create();
+    }
+  }
+
   @override
   void initState() {
+    _createFolder();
     super.initState();
-    //print("inittttt " +_pdfs);
   }
 
   AuthBase authBase = AuthBase();
@@ -81,6 +107,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                   new MaterialButton(
                     child: setUpButtonChild('plotAvgFailedTask',1),
                     onPressed: () async{
+                      _createSubFolder('failedTasks');
                       setState(() {
                         if (_state1 == 0) {
                           animateButton(1);
@@ -95,7 +122,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Color(0xFF5896CB),
+                    color: _hasBeenPressed1? Colors.green : Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
@@ -126,6 +153,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                   new MaterialButton(
                     child: setUpButtonChild('plotAvgNetworkDelay',2),
                     onPressed: () async{
+                      _createSubFolder('networkDelay');
                       setState(() {
                         if (_state2 == 0) {
                           animateButton(2);
@@ -140,7 +168,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color:Color(0xFF5896CB),
+                    color: _hasBeenPressed2? Colors.green : Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
@@ -171,6 +199,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                   new MaterialButton(
                     child: setUpButtonChild('plotAvgProcessingTime',3),
                     onPressed: () async{
+                      _createSubFolder('ProcessingTime');
                       setState(() {
                         if (_state3 == 0) {
                           animateButton(3);
@@ -185,7 +214,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Color(0xFF5896CB),
+                    color: _hasBeenPressed3? Colors.green : Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
@@ -216,6 +245,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                   new MaterialButton(
                     child: setUpButtonChild('plotAvgServiceTime',4),
                     onPressed: () async{
+                      _createSubFolder('serviceTime');
                       setState(() {
                         if (_state4 == 0) {
                           animateButton(4);
@@ -230,7 +260,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color:Color(0xFF5896CB),
+                    color: _hasBeenPressed4? Colors.green : Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
@@ -261,6 +291,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                   new MaterialButton(
                     child: setUpButtonChild('plotAvgVmUtilization',5),
                     onPressed: () async{
+                      _createSubFolder('vmUtilization');
                       setState(() {
                         if (_state5 == 0) {
                           animateButton(5);
@@ -275,7 +306,7 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Color(0xFF5896CB),
+                    color: _hasBeenPressed5? Colors.green : Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
@@ -336,7 +367,41 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
     } else {
-      return Icon(Icons.check, color: Colors.white);
+      //return Icon(Icons.check, color: Colors.white);
+      switch(n){
+        case 1:
+          setState(() {
+            _hasBeenPressed1 =  true;
+          });
+          break;
+        case 2:
+          setState(() {
+            _hasBeenPressed2 =  true;
+          });
+          break;
+        case 3:
+          setState(() {
+            _hasBeenPressed3 =  true;
+          });
+          break;
+        case 4:
+          setState(() {
+            _hasBeenPressed4 =  true;
+          });
+          break;
+        case 5:
+          setState(() {
+            _hasBeenPressed5 =  true;
+          });
+          break;
+      }
+      return new Text(
+        name,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 

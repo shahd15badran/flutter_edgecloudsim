@@ -25,12 +25,12 @@ class MyFileList extends StatefulWidget{
 }
 
 class _MyFileList extends State<MyFileList>{
+
   var files;
 
   void getFiles() async { //async function to get list of files
-
     List<StorageInfo> storageInfo = await PathProviderEx.getStorageInfo();
-    var root = storageInfo[0].rootDir + "/Documents"; //storageInfo[1] for SD card, geting the root directory
+    var root = storageInfo[0].rootDir + "/Documents/Logs"; //storageInfo[1] for SD card, geting the root directory
     var fm = FileManager(root: Directory(root));
 
     files = await fm.filesTree(extensions: ["log"]);

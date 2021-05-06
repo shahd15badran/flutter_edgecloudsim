@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ffi';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
@@ -92,8 +93,8 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
 
   void _disableButtons() {
     setState(() {
-      _isLogButtonDisabled = true;
-      _isPdfButtonDisabled = true;
+      _isLogButtonDisabled = false;//TODO return them to true
+      _isPdfButtonDisabled = false;
     });
   }
 
@@ -223,6 +224,16 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                     child: new MaterialButton(
                       child: setUpButtonChild('Download Log Files'),
                       onPressed: _isLogButtonDisabled? null:() async{
+                        final folderName = "Logs";
+                        final path = Directory("storage/emulated/0/Documents/$folderName");
+                        if ((await path.exists())) {
+                          // TODO:
+                          print("exist");
+                        } else {
+                          // TODO:
+                          print("not exist");
+                          path.create();
+                        }
                         _getlogs();
                         setState(() {
                           if (_state == 0) {
@@ -356,12 +367,12 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
     setState(() {
       _stateM = 1;
     });
-/*
+
     Timer(Duration(milliseconds: 20000), () {
       setState(() {
         _stateM = 2;
       });
-    });*/
+    });
   }
 
   List <String> application_name;

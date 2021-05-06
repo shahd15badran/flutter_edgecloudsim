@@ -21,6 +21,7 @@ public class GetFileFromServer {
     static String concatenate = "";
     String file = "";
     static boolean done = false;
+    File the_path;
 
     public GetFileFromServer(String file_to_send) {
         Thread thread = new Thread(() -> {
@@ -36,10 +37,24 @@ public class GetFileFromServer {
     }
 
     public void Start(String file) throws Exception {
-        String server = "172.16.225.224";
+        String server = "192.168.1.18";
         int port = 1988;
-        try {
 
+        //Decide destination folder
+        if(file == "*")
+            the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Logs");
+        else if(file == "f")
+            the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/failedTasks");
+        else if(file == "n")
+            the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/networkDelay");
+        else if(file == "p")
+            the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/processingTime");
+        else if(file == "s")
+            the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/serviceTime");
+        else if(file == "v")
+            the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/vmUtilization");
+
+        try {
             Socket s = new Socket(server, port);
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
             InputStream fileStream = new ByteArrayInputStream(file.getBytes());
@@ -58,13 +73,12 @@ public class GetFileFromServer {
             File[] files = new File[filesCount];
 
 
-            for (int i = 0; i < filesCount; i++) {   //concatenate += dis.readUTF() + "\n";
+            for (int i = 0; i < filesCount; i++) {
                 long fileLength = dis.readLong();
                 String fileName = dis.readUTF();
-                File the_path = new File(Environment.getExternalStorageDirectory() + "/Documents");
                 files[i] = new File(the_path + "/" + fileName);
 
-                FileOutputStream fos = new FileOutputStream(files[i]);/////
+                FileOutputStream fos = new FileOutputStream(files[i]);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 for (int j = 0; j < fileLength; j++)
                     bos.write(bis.read());
@@ -75,7 +89,6 @@ public class GetFileFromServer {
             done = true;
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

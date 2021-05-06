@@ -51,7 +51,14 @@ class _MyPDFList extends State<MyPDFList>{
             title:Text("Generated PDF files"),
             backgroundColor:Color(0xFF5896CB),
         ),
-        body:files == null? Text("Searching Files"):
+        body:files == null? Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text("Searching Files",style: TextStyle(
+            fontSize: 30,
+            color:  Color(0xFF727578),
+            fontWeight: FontWeight.w200,
+          ),),
+        ):
         ListView.builder(  //if file/folder list is grabbed, then show here
           itemCount: files?.length ?? 0,
           itemBuilder: (context, index) {
