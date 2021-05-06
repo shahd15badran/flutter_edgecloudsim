@@ -82,7 +82,6 @@ public class GetFileFromServer {
 
     public static String getfilesnames() {
         if (concatenate != null) {
-            System.out.println("concatenate isss: " + concatenate);
             return concatenate;
         } else
             return "There's a problem ";

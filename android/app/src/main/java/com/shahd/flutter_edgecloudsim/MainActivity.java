@@ -74,7 +74,6 @@ public class MainActivity extends FlutterActivity {
                 else if(call.method.equals("Start Sim")){
                     System.out.println("reached Start Sim in MainActivity");
                     new SendFileToServer("@",true);
-                    System.out.println("AAAAAAAAAAA"+SendFileToServer.getSimMsg());
                     result.success(SendFileToServer.getSimMsg());
                 }
                 else if (call.method.equals("getMsg")){

@@ -49,7 +49,6 @@ public class SendFileToServer {
                     //System.out.println(tmp);
                 }
                 SimMsg = inputLine.toString();
-                System.out.println("sim"+ SimMsg);
                 disMsg.close();
             }
             fis.close();

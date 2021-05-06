@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
@@ -16,17 +17,16 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
   int _state = 0;
   final Msg_controller=TextEditingController(text:"");
   int _stateM = 0;
+  bool _isLogButtonDisabled;
+  bool _isPdfButtonDisabled;
+  //bool _finishedSimulation;
   static const Platform = const MethodChannel("com.flutter.epic/epic");
   var simRes = '';
   Future<String> _getBatteryLevel() async {
     try {
-      final String result = await Platform.invokeMethod("Start Sim");
-
+      return await Platform.invokeMethod("Start Sim");
     } on PlatformException catch (e) {
       print(e);
-    } finally {
-      setState(() {
-      });
     }
   }
   String _logs = '';
@@ -83,19 +83,21 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
   //FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   @override
   void initState(){
-    getData();
     _sendAppXML();
     _sendEdgeXML();
     _sendConfigPROP();
+    _disableButtons(); //results buttons
     super.initState();
-    //await prefs.init();
+  }
 
-    //send configuration files to server
-
+  void _disableButtons() {
+    setState(() {
+      _isLogButtonDisabled = true;
+      _isPdfButtonDisabled = true;
+    });
   }
 
   AuthBase authBase = AuthBase();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +127,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                         padding: const EdgeInsets.only(top: 50,bottom: 30),
                         child: SizedBox(
                             width: 350,
-                            child:Text('The editable files have been sent, you can click the button below to continue the process..',
+                            child:Text('Your configuration files have been sent, you can click the button below to continue the process..',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
@@ -140,10 +142,17 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                           child: OriginalButton(
                             text: 'Start Simulation',
                             color: Colors.white,
-                            textColor: Colors.blue,
+                            textColor: Color(0xFF345979),
                             onPressed: () {
                               _getBatteryLevel();
-
+                              /*
+                              var res = _getBatteryLevel();
+                              res.then( (value) {
+                                print('in then part!');
+                                setState(() {
+                                  _stateM = 2;
+                                });
+                              });*/
                               setState(() {
                                 if (_stateM == 0) {
                                   animateButtonM();
@@ -197,7 +206,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                   ),
                   child: SizedBox(
                     width: 350,
-                    child:Text('You can get the output log files by clicking on Download Log Files icon, or you can follow the results and draw graphics by clicking on the second icon! ',
+                    child:Text('When simulation details appears, you can download the generated log files, or further apply matlab functions on them to see clearer results! ',
                       style: TextStyle(
                         fontSize: 16,
                         color:Color(0xFF77A5CD),
@@ -212,8 +221,8 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                   child: SizedBox(
                     width: 250,
                     child: new MaterialButton(
-                      child: setUpButtonChild('Download Log Files!'),
-                      onPressed: () async{
+                      child: setUpButtonChild('Download Log Files'),
+                      onPressed: _isLogButtonDisabled? null:() async{
                         _getlogs();
                         setState(() {
                           if (_state == 0) {
@@ -224,7 +233,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                       elevation: 4.0,
                       minWidth:250.0,
                       height: 55.0,
-                      color: Colors.blueGrey,
+                      color: Color(0xFF345979),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -238,14 +247,20 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                   ),
                   child: SizedBox(
                     width: 250,
-                    child: OriginalButton(
-                      text: 'Apply Matlab Functions',
-                      color: Colors.blueGrey,
-                      textColor: Colors.white,
-                      onPressed: () async {
+                    child: MaterialButton(
+                      child: setUpButton('Apply Matlab Functions'),
+                      //text: 'Apply Matlab Functions',
+                      onPressed: _isPdfButtonDisabled? null:() async {
                         _sendPlotGeneric();
                         Navigator.of(context).pushNamed('matlab screen');
                       },
+                      elevation: 4.0,
+                      minWidth:250.0,
+                      height: 55.0,
+                      color: Color(0xFF345979),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
                 ),
@@ -257,7 +272,18 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
       ),
     );
   }
-  Widget setUpButtonChild(String name) {
+
+  Widget setUpButton(String name){ //Pdfs Button
+    return new Text(
+      name,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 16.0,
+      ),
+    );
+  }
+
+  Widget setUpButtonChild(String name) { //Logs Button
     if (_state == 0) {
       return new Text(
         name,
@@ -301,15 +327,17 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
         valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey),
       );
     } else {
-      //print("hhhhhhhhhhhhhhhh" + simRes);
       return InkWell(
-        splashColor: Colors.blue, // splash color
+        splashColor: Color(0xFF18801A), // splash color
         onTap: ()async {
           try {
             final String result = await Platform.invokeMethod("getMsg");
             simRes = ' $result';
-            print('on tap ' + simRes);
             Msg_controller.text=simRes;
+            setState(() {
+              _isLogButtonDisabled = false;
+              _isPdfButtonDisabled = false;
+            });
           } on PlatformException catch (e) {
             print(e);
           }
@@ -328,12 +356,12 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
     setState(() {
       _stateM = 1;
     });
-
+/*
     Timer(Duration(milliseconds: 20000), () {
       setState(() {
         _stateM = 2;
       });
-    });
+    });*/
   }
 
   List <String> application_name;
@@ -351,22 +379,13 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
   List <String> vm_utilization_on_cloud;
   List <String> vm_utilization_on_mobile;
 
-
-  getData() async {
-    //prefs = await SharedPreferences.getInstance();
-    //print('in simulation_screen: application name: ');
-    //print(prefs.getStringList('application_name')[0]);
-  }
-
   display_applications(){
     final builder = XmlBuilder();
     builder.processing('xml', 'version="1.0"');
     builder.element('applications', nest: () {
       for(int c=0;c<4;c++) {
-        print('cccccccccccc'+c.toString());
+        //print('counter'+c.toString());
         builder.element('application', nest: () {
-          print('INSIDE simulation_screen: application name: ');
-          print(prefs.getStringList('application_name')[0]);
           builder.attribute('name', prefs.getStringList('application_name')[c]);
           builder.element('usage_percentage', nest: prefs.getStringList('usage_percentage')[c]);
           builder.element('prob_cloud_selection', nest: prefs.getStringList('prob_cloud_selection')[c]);
@@ -387,7 +406,6 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
     });
     final bookshelfXml = builder.buildDocument();
     final String xmlDoc = (bookshelfXml.toXmlString(pretty: true, indent: '\t'));
-    print(xmlDoc);
     return xmlDoc;
   }
 
@@ -635,4 +653,5 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
 
     return all;
   }
+
 }
