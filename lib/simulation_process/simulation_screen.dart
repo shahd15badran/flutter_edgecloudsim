@@ -227,10 +227,8 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                         final folderName = "Logs";
                         final path = Directory("storage/emulated/0/Documents/$folderName");
                         if ((await path.exists())) {
-                          // TODO:
                           print("exist");
                         } else {
-                          // TODO:
                           print("not exist");
                           path.create();
                         }

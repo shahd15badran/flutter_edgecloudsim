@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_edgecloudsim/screens/ListingPdfFiles.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -130,13 +131,17 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                         color: Colors.white, // button color
                         child: InkWell(
                           splashColor: Color(0xFF5896CB), // splash color
-                          onTap: () {
-                            Navigator.of(context).pushNamed('MyPDFList');
+                          onTap: !_hasBeenPressed1? null :() {
+                            Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyPDFList('failedTasks')
+                                )
+                            );
                           }, // button pressed
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Icon(Icons.arrow_forward_ios_outlined),
+                              Icon(Icons.arrow_forward_ios_outlined,color: _hasBeenPressed1?Colors.black:Colors.white ,),
                             ],
                           ),
                         ),
@@ -176,13 +181,17 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                       color: Colors.white, // button color
                       child: InkWell(
                         splashColor: Color(0xFF5896CB),// splash color
-                        onTap: () {
-                          Navigator.of(context).pushNamed('MyPDFList');
+                        onTap: !_hasBeenPressed2? null :() {
+                          Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyPDFList('networkDelay')
+                              )
+                          );
                         }, // button pressed
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.arrow_forward_ios_outlined),
+                            Icon(Icons.arrow_forward_ios_outlined,color: _hasBeenPressed2?Colors.black:Colors.white ,),
                           ],
                         ),
                       ),
@@ -222,13 +231,17 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                       color: Colors.white, // button color
                       child: InkWell(
                         splashColor: Color(0xFF5896CB),// splash color
-                        onTap: () {
-                          Navigator.of(context).pushNamed('MyPDFList');
+                        onTap: !_hasBeenPressed3? null :() {
+                          Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyPDFList('processingTime')
+                              )
+                          );
                         }, // button pressed
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.arrow_forward_ios_outlined),
+                            Icon(Icons.arrow_forward_ios_outlined,color: _hasBeenPressed3?Colors.black:Colors.white ,),
                           ],
                         ),
                       ),
@@ -268,13 +281,17 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                       color: Colors.white, // button color
                       child: InkWell(
                         splashColor: Color(0xFF5896CB),// splash color
-                        onTap: () {
-                          Navigator.of(context).pushNamed('MyPDFList');
+                        onTap:!_hasBeenPressed4? null : () {
+                          Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyPDFList('serviceTime')
+                              )
+                          );
                         }, // button pressed
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.arrow_forward_ios_outlined),
+                            Icon(Icons.arrow_forward_ios_outlined,color: _hasBeenPressed4?Colors.black:Colors.white ,),
                           ],
                         ),
                       ),
@@ -314,13 +331,17 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                       color: Colors.white, // button color
                       child: InkWell(
                         splashColor: Color(0xFF5896CB), // splash color
-                        onTap: () {
-                          Navigator.of(context).pushNamed('MyPDFList');
+                        onTap:!_hasBeenPressed5? null : () {
+                          Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyPDFList('vmUtilization')
+                              )
+                          );
                         }, // button pressed
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.arrow_forward_ios_outlined),
+                            Icon(Icons.arrow_forward_ios_outlined,color: _hasBeenPressed5?Colors.black:Colors.white ,),
                           ],
                         ),
                       ),

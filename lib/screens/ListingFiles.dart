@@ -47,6 +47,9 @@ class _MyFileList extends State<MyFileList>{
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    if (arguments != null) print(arguments['exampleArgument']);
+
     return Scaffold(
         appBar: AppBar(
             title:Text("Log files"),
