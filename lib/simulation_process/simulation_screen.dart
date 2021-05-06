@@ -2,9 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xml/xml.dart';
 
@@ -100,158 +99,160 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.black,
+          color:Color(0xA3131212),
         ),
         backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Padding(padding: const EdgeInsets.only(
-              // left: 30,
-            ),
-              child: Text('Run Simulator', style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 110,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 40
+      ),
+      body:  SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  margin: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color:Color(0xFF77A5CD),
+                  ),
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child: Row(
+                Center(
+                  child: Column(
                     children: <Widget>[
-                      Icon(Icons.logout, color: Colors.black, size: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50,bottom: 30),
+                        child: SizedBox(
+                            width: 350,
+                            child:Text('The editable files have been sent, you can click the button below to continue the process..',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),)
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: SizedBox(
+                          width: 250,
+                          child: OriginalButton(
+                            text: 'Start Simulation',
+                            color: Colors.white,
+                            textColor: Colors.blue,
+                            onPressed: () {
+                              _getBatteryLevel();
+
+                              setState(() {
+                                if (_stateM == 0) {
+                                  animateButtonM();
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top:20
+                        ),
+                        child: SizedBox(
+                            width: 250,
+                            child: setUpMsgChild()
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 20,
+                            left: 20,
+                            top: 30
+                        ),
+                          child: SingleChildScrollView(
+                            child: TextField(
+                              maxLines: null,
+                              enabled: false,
+                              controller: Msg_controller,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: InputBorder.none,
+                                hintText: "         Click on the check icon when it appears!",
+                              ),
+                            ),
+                          ),
+                      ),
+
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-      body: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 80,
-            bottom: 10,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SizedBox(
-                  width: 250,
-                  child: OriginalButton(
-                    text: 'Start Simulation',
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      _getBatteryLevel();
-
-                      setState(() {
-                        if (_stateM == 0) {
-                          animateButtonM();
-                        }
-                      });
-                    },
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    bottom: 50,
+                  ),
+                  child: SizedBox(
+                    width: 350,
+                    child:Text('You can get the output log files by clicking on Download Log Files icon, or you can follow the results and draw graphics by clicking on the second icon! ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color:Color(0xFF77A5CD),
+                        fontWeight: FontWeight.w600,
+                      ), ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top:20
-                ),
-                child: SizedBox(
-                  width: 250,
-                  child: setUpMsgChild()
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 20,
-                  left: 20
-                ),
-                child:Container(
-                  color: Colors.white,
-                  height: 200,
-                  width: double.infinity,
-                  child: SingleChildScrollView(
-                    child: TextField(
-                      maxLines: null,
-                      enabled: false,
-                      controller: Msg_controller,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: InputBorder.none,
-                        hintText: "         Click on the check icon when it appears!",
-                      ),
-                    ),
+
+                Padding(
+                  padding: const EdgeInsets.only(
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                ),
-                child: SizedBox(
-                  width: 250,
-                  child: new MaterialButton(
-                    child: setUpButtonChild('Download Log Files'),
-                    onPressed: () async{
+                  child: SizedBox(
+                    width: 250,
+                    child: new MaterialButton(
+                      child: setUpButtonChild('Download Log Files!'),
+                      onPressed: () async{
                         _getlogs();
                         setState(() {
                           if (_state == 0) {
                             animateButton();
                           }
                         });
-                    },
-                    elevation: 4.0,
-                    minWidth:250.0,
-                    height: 55.0,
-                    color: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                      },
+                      elevation: 4.0,
+                      minWidth:250.0,
+                      height: 55.0,
+                      color: Colors.blueGrey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 150,
-                ),
-                child: SizedBox(
-                  width: 250,
-                  child: OriginalButton(
-                    text: 'Apply Matlab Functions',
-                    color: Colors.black,
-                    textColor: Colors.white,
-                    onPressed: () async {
-                      _sendPlotGeneric();
-                      Navigator.of(context).pushNamed('matlab screen');
-                    },
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    bottom: 150,
+                  ),
+                  child: SizedBox(
+                    width: 250,
+                    child: OriginalButton(
+                      text: 'Apply Matlab Functions',
+                      color: Colors.blueGrey,
+                      textColor: Colors.white,
+                      onPressed: () async {
+                        _sendPlotGeneric();
+                        Navigator.of(context).pushNamed('matlab screen');
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -289,7 +290,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
   Widget setUpMsgChild() {
     if (_stateM == 0) {
       return new Text(
-        "Not yet",
+        "",
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
@@ -448,7 +449,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
     String concatenate = '';
     List <String> data=['simulation_time','warm_up_period','vm_load_check_interval',
       'location_check_interval','file_log_enabled','deep_file_log_enabled',
-          'min_number_of_mobile_devices','max_number_of_mobile_devices','mobile_device_counter_size',
+      'min_number_of_mobile_devices','max_number_of_mobile_devices','mobile_device_counter_size',
       'wan_propagation_delay','lan_internal_delay','wlan_bandwidth','wan_bandwidth','gsm_bandwidth',
       'number_of_host_on_cloud_datacenter','number_of_vm_on_cloud_host','core_for_cloud_vm',
       'mips_for_cloud_vm','ram_for_cloud_vm','storage_for_cloud_vm','core_for_mobile_vm',
@@ -582,56 +583,56 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
     all+= "for i=1:1:numOfMobileDevices\n";
     all+= "xIndex=startOfMobileDeviceLoop+((i-1)*stepOfMobileDeviceLoop);" +"\n" +
         "markers = {':k*',':ko',':ks',':kv',':kp',':kd',':kx',':kh'};"+"\n" +
-    "for j=1:size(scenarioType,2)"+"\n" +
-    "plot(xIndex, results(j,i),char(markers(j)),'MarkerFaceColor',[0.55 0 0],'color',[0.55 0 0]);"+"\n" +
-    "hold on;"+"\n" +
-    "end"+"\n" +
-    "end"+"\n" +
-    "for j=1:size(scenarioType,2)"+"\n" +
-    "if(0 == 1)"+"\n" +
-    "errorbar(types, results(j,:), min_results(j,:),max_results(j,:),':k','color',[0.55 0 0],'LineWidth',1.5);"+"\n" +
-    "else"+"\n" +
-    "plot(types, results(j,:),':k','color',[0.55 0 0],'LineWidth',1.5);"+"\n" +
-    "end"+"\n" +
-    "hold on;"+"\n" +
-    "end\n";
+        "for j=1:size(scenarioType,2)"+"\n" +
+        "plot(xIndex, results(j,i),char(markers(j)),'MarkerFaceColor',[0.55 0 0],'color',[0.55 0 0]);"+"\n" +
+        "hold on;"+"\n" +
+        "end"+"\n" +
+        "end"+"\n" +
+        "for j=1:size(scenarioType,2)"+"\n" +
+        "if(0 == 1)"+"\n" +
+        "errorbar(types, results(j,:), min_results(j,:),max_results(j,:),':k','color',[0.55 0 0],'LineWidth',1.5);"+"\n" +
+        "else"+"\n" +
+        "plot(types, results(j,:),':k','color',[0.55 0 0],'LineWidth',1.5);"+"\n" +
+        "end"+"\n" +
+        "hold on;"+"\n" +
+        "end\n";
 
     all+= "set(gca,'color','none');"+"\n" +
-    "else"+"\n" +
-    "markers = {'-k*','-ko','-ks','-kv','-kp','-kd','-kx','-kh'};"+"\n" +
-    "for j=1:size(scenarioType,2)"+"\n" +
-    "if(0 == 1)"+"\n" +
-    "errorbar(types, results(j,:),min_results(j,:),max_results(j,:),char(markers(j)),'MarkerFaceColor','w','LineWidth',1.2);"+"\n" +
-    "else"+"\n" +
-    "plot(types, results(j,:),char(markers(j)),'MarkerFaceColor','w','LineWidth',1.2);"+"\n" +
-    "end"+"\n" +
-    "hold on;"+"\n" +
-    "end"+"\n" +
-    "end"+"\n" +
-    "lgnd = legend(legends,'Location','NorthWest');"+"\n" +
-    "if(1 == 1)"+"\n" +
-    "set(lgnd,'color','none');"+"\n" +
-    "end"+"\n" +
-    "hold off;"+"\n" +
-    "axis square"+"\n" +
-    "xlabel('Number of Mobile Devices');"+"\n" +
-    "set(gca,'XTick', (startOfMobileDeviceLoop*xTickLabelCoefficient):(stepOfMobileDeviceLoop*xTickLabelCoefficient):endOfMobileDeviceLoop);"+"\n" +
-    "set(gca,'XTickLabel', (startOfMobileDeviceLoop*xTickLabelCoefficient):(stepOfMobileDeviceLoop*xTickLabelCoefficient):endOfMobileDeviceLoop);"+"\n" +
-    "ylabel(yLabel);"+"\n" +
-    "set(gca,'XLim',[startOfMobileDeviceLoop-5 endOfMobileDeviceLoop+5]);"+"\n" +
-    "set(get(gca,'Xlabel'),'FontSize',12)"+"\n" +
-    "set(get(gca,'Ylabel'),'FontSize',12)"+"\n" +
-    "set(lgnd,'FontSize',11)"+"\n" +
-    "if(1 == 1)"+"\n" +
-    "set(hFig, 'PaperUnits', 'centimeters');"+"\n" +
-    "set(hFig, 'PaperPositionMode', 'manual');"+"\n" +
-    "set(hFig, 'PaperPosition',[0 0 pos(3) pos(4)]);"+"\n" +
-    "set(gcf, 'PaperSize', [pos(3) pos(4)]); %Keep the same paper size"+"\n" +
-    "filename = strcat(folderPath,'/',int2str(rowOfset),'_',int2str(columnOfset),'_',appType);"+"\n" +
-    "saveas(gcf, filename, 'pdf');"+"\n" +
-    "end"+"\n" +
-    "end";
+        "else"+"\n" +
+        "markers = {'-k*','-ko','-ks','-kv','-kp','-kd','-kx','-kh'};"+"\n" +
+        "for j=1:size(scenarioType,2)"+"\n" +
+        "if(0 == 1)"+"\n" +
+        "errorbar(types, results(j,:),min_results(j,:),max_results(j,:),char(markers(j)),'MarkerFaceColor','w','LineWidth',1.2);"+"\n" +
+        "else"+"\n" +
+        "plot(types, results(j,:),char(markers(j)),'MarkerFaceColor','w','LineWidth',1.2);"+"\n" +
+        "end"+"\n" +
+        "hold on;"+"\n" +
+        "end"+"\n" +
+        "end"+"\n" +
+        "lgnd = legend(legends,'Location','NorthWest');"+"\n" +
+        "if(1 == 1)"+"\n" +
+        "set(lgnd,'color','none');"+"\n" +
+        "end"+"\n" +
+        "hold off;"+"\n" +
+        "axis square"+"\n" +
+        "xlabel('Number of Mobile Devices');"+"\n" +
+        "set(gca,'XTick', (startOfMobileDeviceLoop*xTickLabelCoefficient):(stepOfMobileDeviceLoop*xTickLabelCoefficient):endOfMobileDeviceLoop);"+"\n" +
+        "set(gca,'XTickLabel', (startOfMobileDeviceLoop*xTickLabelCoefficient):(stepOfMobileDeviceLoop*xTickLabelCoefficient):endOfMobileDeviceLoop);"+"\n" +
+        "ylabel(yLabel);"+"\n" +
+        "set(gca,'XLim',[startOfMobileDeviceLoop-5 endOfMobileDeviceLoop+5]);"+"\n" +
+        "set(get(gca,'Xlabel'),'FontSize',12)"+"\n" +
+        "set(get(gca,'Ylabel'),'FontSize',12)"+"\n" +
+        "set(lgnd,'FontSize',11)"+"\n" +
+        "if(1 == 1)"+"\n" +
+        "set(hFig, 'PaperUnits', 'centimeters');"+"\n" +
+        "set(hFig, 'PaperPositionMode', 'manual');"+"\n" +
+        "set(hFig, 'PaperPosition',[0 0 pos(3) pos(4)]);"+"\n" +
+        "set(gcf, 'PaperSize', [pos(3) pos(4)]); %Keep the same paper size"+"\n" +
+        "filename = strcat(folderPath,'/',int2str(rowOfset),'_',int2str(columnOfset),'_',appType);"+"\n" +
+        "saveas(gcf, filename, 'pdf');"+"\n" +
+        "end"+"\n" +
+        "end";
 
-  return all;
+    return all;
   }
 }

@@ -23,7 +23,7 @@ class AuthScreen extends StatelessWidget {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.47,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Color(0xFF5896CB),
                   ),
                 ),
                 Center(
@@ -33,7 +33,7 @@ class AuthScreen extends StatelessWidget {
                       Hero(
                         tag: 'logoAnimation',
                         child: Image.asset(
-                          'assets/images/ECS logo2.jpg', height: 200,
+                          'assets/images/ECS logo2.jpg', height: 250,
                         ),
                       ),
                     ],

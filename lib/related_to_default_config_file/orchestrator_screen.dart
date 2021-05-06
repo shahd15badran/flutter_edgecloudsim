@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,36 +30,28 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF77A5CD),
         title: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                left: 230,
-              ),
-              child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
+                  left: 210,
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40
                   ),
-                ),
-              ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    },
+                  ),
+                )
             ),
           ],
         ),
@@ -90,7 +83,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                             width: 200,
                             child: Text('orchestrator_policies :',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -124,7 +117,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                             width: 100,
                             child: Text('simulation_scenarios=>',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -219,7 +212,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                             width: 200,
                             child: Text('attractiveness_L1 :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -256,7 +249,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                             width: 200,
                             child: Text('attractiveness_L2 :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -293,7 +286,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                             width: 200,
                             child: Text('attractiveness_L3 :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -334,7 +327,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                               height: 30,
                               width: 80,
                               child: new MaterialButton(
-                                color: Colors.blue,
+                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {

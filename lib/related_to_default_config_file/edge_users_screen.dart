@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,36 +26,28 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF77A5CD),
         title: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                left: 230,
-              ),
-              child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
+                  left: 210,
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40
                   ),
-                ),
-              ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    },
+                  ),
+                )
             ),
           ],
         ),
@@ -67,7 +60,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white70,
+              //color: Colors.white70,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 30,
@@ -86,7 +79,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                             width: 240,
                             child: Text('min_number_of_mobile_devices :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -121,7 +114,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                             width: 240,
                             child: Text('max_number_of_mobile_devices:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -156,7 +149,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                             width: 240,
                             child: Text('mobile_device_counter_size:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -212,7 +205,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                             width: 200,
                             child: Text('core_for_mobile_vm :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -249,7 +242,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                             width: 200,
                             child: Text('mips_for_mobile_vm :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -286,7 +279,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                             width: 200,
                             child: Text('ram_for_mobile_vm :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -323,7 +316,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                             width: 200,
                             child: Text('storage_for_mobile_vm :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -363,7 +356,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.blue,
+                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -393,7 +386,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                         child: OriginalButton(
                           text:'Edit Data Centers',
                           textColor: Colors.white,
-                          color: Colors.blueGrey,
+                          color: Color(0xFF345979),
                           onPressed: ()async{
                             SharedPreferences prefs = await SharedPreferences.getInstance();
                             prefs.setInt('counter', 1);

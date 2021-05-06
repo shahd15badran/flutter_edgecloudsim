@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 class MatlabScreen extends StatefulWidget {
   @override
@@ -41,39 +41,13 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
+
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Color(0xA3131212),
         ),
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 230,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 40
-                ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        backgroundColor: Color(0xFF5896CB),
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -121,14 +95,14 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Colors.blueAccent,
+                    color: Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
                       child: Material(
                         color: Colors.white, // button color
                         child: InkWell(
-                          splashColor: Colors.blue, // splash color
+                          splashColor: Color(0xFF5896CB), // splash color
                           onTap: () {
                             Navigator.of(context).pushNamed('MyPDFList');
                           }, // button pressed
@@ -166,14 +140,14 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Colors.blueAccent,
+                    color:Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
                     child: Material(
                       color: Colors.white, // button color
                       child: InkWell(
-                        splashColor: Colors.blue, // splash color
+                        splashColor: Color(0xFF5896CB),// splash color
                         onTap: () {
                           Navigator.of(context).pushNamed('MyPDFList');
                         }, // button pressed
@@ -211,14 +185,14 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Colors.blueAccent,
+                    color: Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
                     child: Material(
                       color: Colors.white, // button color
                       child: InkWell(
-                        splashColor: Colors.blue, // splash color
+                        splashColor: Color(0xFF5896CB),// splash color
                         onTap: () {
                           Navigator.of(context).pushNamed('MyPDFList');
                         }, // button pressed
@@ -256,14 +230,14 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Colors.blueAccent,
+                    color:Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
                     child: Material(
                       color: Colors.white, // button color
                       child: InkWell(
-                        splashColor: Colors.blue, // splash color
+                        splashColor: Color(0xFF5896CB),// splash color
                         onTap: () {
                           Navigator.of(context).pushNamed('MyPDFList');
                         }, // button pressed
@@ -301,14 +275,14 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                     elevation: 4.0,
                     minWidth:250.0,
                     height: 50.0,
-                    color: Colors.blueAccent,
+                    color: Color(0xFF5896CB),
                   ),
                   SizedBox.fromSize(
                     size: Size(50, 50), // button width and height
                     child: Material(
                       color: Colors.white, // button color
                       child: InkWell(
-                        splashColor: Colors.blue, // splash color
+                        splashColor: Color(0xFF5896CB), // splash color
                         onTap: () {
                           Navigator.of(context).pushNamed('MyPDFList');
                         }, // button pressed

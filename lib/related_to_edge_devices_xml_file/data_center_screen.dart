@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,11 +67,12 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
 @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF77A5CD),
         title: Row(
           children: [
             Padding(padding: const EdgeInsets.only(
@@ -78,33 +80,25 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
             ),
               child: Text('Data Center'+counter.toString(),style: TextStyle(
                 fontSize: 18,
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
-              ),),
+              ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 120,
-              ),
-              child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
+                  left: 120,
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40
                   ),
-                ),
-              ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    },
+                  ),
+                )
             ),
           ],
         ),
@@ -155,7 +149,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('costPerBw :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -191,7 +185,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('costPerSec:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -227,7 +221,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('costPerMem :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -263,7 +257,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('costPerStorage:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -321,7 +315,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('   x_pos :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -357,7 +351,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('   y_pos:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -393,7 +387,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('  wlan_id :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -429,7 +423,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                             width: 120,
                             child: Text('attractiveness:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -471,7 +465,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.blue,
+                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -501,7 +495,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                         child: OriginalButton(
                           text:'Continue Editing',
                           textColor: Colors.white,
-                          color: Colors.blueGrey,
+                          color: Color(0xFF345979),
                           onPressed: (){
                             Navigator.of(context).pushNamed('cont data center');
                           },

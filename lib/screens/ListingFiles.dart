@@ -50,7 +50,7 @@ class _MyFileList extends State<MyFileList>{
     return Scaffold(
         appBar: AppBar(
             title:Text("Log files"),
-            backgroundColor: Colors.blue
+            backgroundColor:Color(0xFF77A5CD),
         ),
         body:files == null? Text("Searching Files"):
         ListView.builder(  //if file/folder list is grabbed, then show here

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,11 +84,12 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF77A5CD),
         title: Row(
           children: [
             Padding(padding: const EdgeInsets.only(
@@ -95,33 +97,25 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
             ),
               child: Text('Data Center'+counter.toString(),style: TextStyle(
                 fontSize: 18,
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
-              ),),
+              ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 120,
-              ),
-              child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
+                  left: 120,
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40
                   ),
-                ),
-              ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    },
+                  ),
+                )
             ),
           ],
         ),
@@ -134,7 +128,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white70,
+              //color: Colors.white70,
               child: Padding(
                 padding: const EdgeInsets.only(
                     right: 10,
@@ -209,7 +203,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                             width: 80,
                             child: Text('core:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -281,7 +275,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                             width: 80,
                             child: Text('mips:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -352,7 +346,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                             width: 80,
                             child: Text('ram:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -423,7 +417,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                             width: 80,
                             child: Text('storage:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -497,7 +491,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                               height: 30,
                               width: 80,
                               child: new MaterialButton(
-                                color: Colors.blue,
+                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -532,7 +526,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                               child: OriginalButton(
                                 text:'Previous DC',
                                 textColor: Colors.white,
-                                color: Colors.blue,
+                                color:Color(0xFF345979),
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   counter = prefs.getInt(('counter'));
@@ -557,7 +551,7 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                               child: OriginalButton(
                                 text:'Next DC',
                                 textColor: Colors.white,
-                                color: Colors.blue,
+                                color: Color(0xFF345979),
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setInt('counter', counter+1);
@@ -567,27 +561,6 @@ class _ContDataCenterScreenState extends State<ContDataCenterScreen>with TickerP
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 200,
-                          top: 30
-                      ),
-                      child: SizedBox(
-                        width: 140,
-                        height: 40,
-                        child: OriginalButton(
-                          text:'HomePage',
-                          textColor: Colors.white,
-                          color: Colors.black,
-                          onPressed: ()async{
-                            Navigator.of(context).pushReplacementNamed('graphical');
-
-                            //edit data in firebase
-                            //change flag
-                          },
-                        ),
                       ),
                     ),
                   ],

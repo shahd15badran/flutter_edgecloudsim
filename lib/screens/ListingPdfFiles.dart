@@ -49,7 +49,7 @@ class _MyPDFList extends State<MyPDFList>{
     return Scaffold(
         appBar: AppBar(
             title:Text("Generated PDF files"),
-            backgroundColor: Colors.blueAccent
+            backgroundColor:Color(0xFF5896CB),
         ),
         body:files == null? Text("Searching Files"):
         ListView.builder(  //if file/folder list is grabbed, then show here
@@ -59,7 +59,7 @@ class _MyPDFList extends State<MyPDFList>{
                 child:ListTile(
                   title: Text(files[index].path.split('/').last),
                   leading: Icon(Icons.picture_as_pdf),
-                  trailing: Icon(Icons.arrow_forward, color: Colors.blueAccent,),
+                  trailing: Icon(Icons.arrow_forward, color: Color(0xFF5896CB),),
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                       return ViewPDF(pathPDF:files[index].path.toString());
@@ -83,7 +83,7 @@ class ViewPDF extends StatelessWidget {
     return PDFViewerScaffold( //view PDF
         appBar: AppBar(
           title: Text("Graph"),
-          backgroundColor: Colors.black54,
+          backgroundColor: Color(0x8AAA5555),
         ),
         path: pathPDF
     );

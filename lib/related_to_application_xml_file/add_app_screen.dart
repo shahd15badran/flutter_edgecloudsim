@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,45 +67,38 @@ _AddAppScreenState(){
   Widget build(BuildContext context) {
     //final rcvdData = ModalRoute.withName('cont add application').toString();
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF77A5CD),
         title: Row(
           children: [
             Padding(padding: const EdgeInsets.only(
-             // left: 30,
+             //left: 10,
             ),
               child: Text('Application'+counter.toString(),style: TextStyle(
                 fontSize: 18,
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
-              ),),
+              ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 120,
-              ),
-              child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
+                  left: 120,
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40
                   ),
-                ),
-              ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    },
+                  ),
+                )
             ),
           ],
         ),
@@ -117,7 +111,7 @@ _AddAppScreenState(){
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white70,
+              //color: Colors.white70,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 50,
@@ -136,7 +130,7 @@ _AddAppScreenState(){
                             width: 160,
                             child: Text('application name :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -171,7 +165,7 @@ _AddAppScreenState(){
                             width: 160,
                             child: Text('usage_percentage :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -206,7 +200,7 @@ _AddAppScreenState(){
                             width: 160,
                             child: Text('prob_cloud_selection:',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -242,7 +236,7 @@ _AddAppScreenState(){
                             width: 160,
                             child: Text('poisson_interarrival :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -278,7 +272,7 @@ _AddAppScreenState(){
                             width: 160,
                             child: Text('delay_sensitivity :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -313,7 +307,7 @@ _AddAppScreenState(){
                             width: 160,
                             child: Text('active_period :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -347,13 +341,13 @@ _AddAppScreenState(){
                           Padding(
                             padding: const EdgeInsets.only(
                               top: 10,
-                              left: 210,
+                              left: 260,
                             ),
                             child: SizedBox(
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.blue,
+                                color:  Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -382,7 +376,7 @@ _AddAppScreenState(){
                                   child: OriginalButton(
                                     text:'Continue Editing',
                                     textColor: Colors.white,
-                                    color: Colors.blueGrey,
+                                    color: Color(0xFF345979),
                                     onPressed: (){
                                       Navigator.of(context).pushNamed('cont add application');
                                     },

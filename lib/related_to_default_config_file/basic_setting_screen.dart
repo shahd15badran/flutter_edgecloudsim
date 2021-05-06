@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,36 +23,28 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF77A5CD),
         title: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                left: 230,
-              ),
-              child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
+                  left: 210,
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40
                   ),
-                ),
-              ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    },
+                  ),
+                )
             ),
           ],
         ),
@@ -64,7 +57,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white70,
+              //color: Colors.white70,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 50,
@@ -83,7 +76,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                             width: 200,
                             child: Text('simulation_time :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -120,7 +113,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                             width: 200,
                             child: Text('warm_up_period :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -155,7 +148,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                             width: 200,
                             child: Text('vm_load_check_interval :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -191,7 +184,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                             width: 200,
                             child: Text('location_check_interval :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -227,7 +220,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                             width: 200,
                             child: Text('file_log_enabled :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -262,7 +255,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                             width: 200,
                             child: Text('deep_file_log_enabled :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -302,7 +295,7 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.blue,
+                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {

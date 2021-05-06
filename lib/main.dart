@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home:IntroScreen(),//DataCenterScreen(),
+      home:StartupScreen(),//DataCenterScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),

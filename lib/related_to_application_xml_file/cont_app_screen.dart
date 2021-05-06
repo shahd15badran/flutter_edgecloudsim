@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,45 +66,39 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor:  Color(0xFF77A5CD),
         title: Row(
           children: [
-            Padding(padding: const EdgeInsets.only(
-              // left: 30,
+            Padding(
+              padding: const EdgeInsets.only(
+               //left: 80,
             ),
               child: Text('Application'+counter.toString(),style: TextStyle(
                 fontSize: 18,
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
-              ),),
+              ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 120,
-              ),
-              child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 40
+                  left: 120,
                 ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40
                   ),
-                ),
-              ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    },
+                  ),
+                )
             ),
           ],
         ),
@@ -135,7 +130,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('idle_period :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -171,7 +166,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('data_upload :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -206,7 +201,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('data_download :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -241,7 +236,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('task_length :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -276,7 +271,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('required_core :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -311,7 +306,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('vm_utilization_on_edge :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -347,7 +342,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('vm_utilization_on_cloud :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -383,7 +378,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             width: 200,
                             child: Text('vm_utilization_on_mobile :',style: TextStyle(
                               fontSize: 16,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -416,13 +411,13 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 235,
+                              left: 247,
                             ),
                             child: SizedBox(
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.blue,
+                                color:Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -457,7 +452,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                               child: OriginalButton(
                                 text:'Previous App',
                                 textColor: Colors.white,
-                                color: Colors.blue,
+                                color:  Color(0xFF345979),
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   counter = prefs.getInt(('counter'));
@@ -482,7 +477,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                 child: OriginalButton(
                                   text:'Next App',
                                   textColor: Colors.white,
-                                  color: Colors.blue,
+                                  color:  Color(0xFF345979),
                                   onPressed: ()async{
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setInt('counter', counter+1);
@@ -492,27 +487,6 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                               ),
                             ),
                         ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 200,
-                        top: 30
-                      ),
-                      child: SizedBox(
-                        width: 140,
-                        height: 40,
-                        child: OriginalButton(
-                          text:'HomePage',
-                          textColor: Colors.white,
-                          color: Colors.black,
-                          onPressed: ()async{
-                            Navigator.of(context).pushReplacementNamed('graphical');
-
-                            //edit data in firebase
-                            //change flag
-                          },
-                        ),
                       ),
                     ),
                   ],

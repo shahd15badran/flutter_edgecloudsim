@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/related_to_application_xml_file/applications_xml.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,40 +20,14 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.black,
+          color:Colors.white,
         ),
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 250,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                ),
-                child: FlatButton(
-                  height: 20,
-                  minWidth: 20,
-                  color: Colors.white,
-                  onPressed: () async {
-                    await authBase.logout();
-                    Navigator.of(context).pushReplacementNamed('login');
-                  },
-                  child:Row(
-                    children:<Widget>[
-                      Icon(Icons.logout,color: Colors.black,size: 20),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        backgroundColor: Color(0xFF77A5CD),
       ),
-
       body:Padding(
         padding: const EdgeInsets.only(
         ),
@@ -76,7 +51,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             ),
                             child: Text('Global Cloud  ',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -85,7 +60,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             height: 60,
                             width: 60,
                             child: RaisedButton(
-                              color: Colors.black12,
+                              color: Color(0xFF554F4F),
                               onPressed: (){
                                 Navigator.of(context).pushNamed('global cloud');
                               },
@@ -114,7 +89,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                 Text(''),
                                 Text('Internet  ',style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.blue,
+                                  color: Color(0xFF345979),
                                   fontWeight: FontWeight.w800,
                                 ),
                                 ),
@@ -128,7 +103,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                 height: 60,
                                 width: 60,
                                 child: RaisedButton(
-                                  color: Colors.blue,
+                                  color: Color(0xFF77A5CD),
                                   onPressed: (){
                                     Navigator.of(context).pushNamed('internet');
                                   },
@@ -246,8 +221,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         ),
                       ],
                     ),
-                    ////////////////////////////////////////////////////////////////////////////////////////
-                    //////////////////////////////////////////////////////////////////////////
+
                     Container(
                       child: Row(
                         children: <Widget>[
@@ -299,7 +273,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                   height: 60,
                                   width: 60,
                                   child: RaisedButton(
-                                    color: Colors.blue,
+                                    color: Color(0xFF77A5CD),
                                     onPressed: (){
                                       Navigator.of(context).pushNamed('internet');
                                     },
@@ -361,7 +335,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                   height: 60,
                                   width: 60,
                                   child: RaisedButton(
-                                    color: Colors.blue,
+                                    color: Color(0xFF77A5CD),
                                     onPressed: (){
                                       Navigator.of(context).pushNamed('internet');
                                     },
@@ -392,7 +366,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             width: 60,
                             child: Text('Edge Server   ',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -404,7 +378,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                           ),
                           child: Text('AP   ',style: TextStyle(
                             fontSize: 18,
-                            color: Colors.blue,
+                            color: Color(0xFF345979),
                             fontWeight: FontWeight.w800,
                           ),
                           ),
@@ -418,7 +392,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             width: 60,
                             child: Text('Edge Server   ',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -430,7 +404,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                           ),
                           child: Text('AP   ',style: TextStyle(
                             fontSize: 18,
-                            color: Colors.blue,
+                            color: Color(0xFF345979),
                             fontWeight: FontWeight.w800,
                           ),
                           ),
@@ -512,7 +486,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             width: 60,
                             child: Text('Edge Users  ',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -527,7 +501,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             width: 60,
                             child: Text('Edge Users  ',style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color:  Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
                             ),
@@ -544,12 +518,12 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               left: 20
                             ),
                             child: SizedBox(
-                              height: 50,
+                              height: 60,
                               width: 150,
                               child: OriginalButton(
                                 text:'Simulation Process',
                                 textColor: Colors.white,
-                                color: Colors.black,
+                                color: Color(0xFFA33A3A),
                                 onPressed:() async{
                                   final status = await Permission.storage.request();
                                   if (status.isGranted) {
@@ -565,12 +539,12 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               left: 80,
                             ),
                             child: SizedBox(
-                              height: 50,
+                              height: 60,
                               width: 150,
                               child: OriginalButton(
                                 text:'Edit sample applications',
                                 textColor: Colors.white,
-                                color: Colors.blue,
+                                color: Color(0xFF345979),
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setInt('counter', 1);

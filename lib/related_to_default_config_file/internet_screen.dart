@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,36 +24,28 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
       @override
       Widget build(BuildContext context) {
         return Scaffold(
+          drawer: NavDrawer(),
           appBar: AppBar(
             iconTheme: IconThemeData(
-              color:Colors.black,
+              color:Colors.white,
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFF77A5CD),
             title: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 230,
-                  ),
-                  child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 40
+                      left: 210,
                     ),
-                    child: FlatButton(
-                      height: 20,
-                      minWidth: 20,
-                      color: Colors.white,
-                      onPressed: () async {
-                        await authBase.logout();
-                        Navigator.of(context).pushReplacementNamed('login');
-                      },
-                      child:Row(
-                        children:<Widget>[
-                          Icon(Icons.logout,color: Colors.black,size: 20),
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 40
                       ),
-                    ),
-                  ),
+                      child: new IconButton(
+                        icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                        onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                        },
+                      ),
+                    )
                 ),
               ],
             ),
@@ -65,7 +58,7 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
             ),
             child: SingleChildScrollView(
               child: Container(
-                color: Colors.white70,
+                //color: Colors.white70,
                 child: Padding(
                   padding: const EdgeInsets.only(
                     top: 50,
@@ -84,7 +77,7 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
                               width: 200,
                               child: Text('wan_propagation_delay :',style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.blue,
+                                color:  Color(0xFF345979),
                                 fontWeight: FontWeight.w800,
                               ),
                               ),
@@ -119,7 +112,7 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
                               width: 200,
                               child: Text('lan_internal_delay :',style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.blue,
+                                color: Color(0xFF345979),
                                 fontWeight: FontWeight.w800,
                               ),
                               ),
@@ -154,7 +147,7 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
                               width: 200,
                               child: Text('wlan_bandwidth :',style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.blue,
+                                color:  Color(0xFF345979),
                                 fontWeight: FontWeight.w800,
                               ),
                               ),
@@ -190,7 +183,7 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
                               width: 200,
                               child: Text('wan_bandwidth :',style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.blue,
+                                color:  Color(0xFF345979),
                                 fontWeight: FontWeight.w800,
                               ),
                               ),
@@ -226,7 +219,7 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
                               width: 200,
                               child: Text('gsm_bandwidth :',style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.blue,
+                                color:  Color(0xFF345979),
                                 fontWeight: FontWeight.w800,
                               ),
                               ),
@@ -266,7 +259,7 @@ class _InternetScreenState extends State<InternetScreen> with TickerProviderStat
                                 height: 30,
                                 width: 90,
                                 child: new MaterialButton(
-                                  color: Colors.blue,
+                                  color: Colors.grey,
                                   child: setUpButtonChild(),
                                   onPressed: ()async{
                                     setState(() {

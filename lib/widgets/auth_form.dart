@@ -55,7 +55,7 @@ class _AuthFormState extends State<AuthForm> {
             SizedBox(height: 20),
             OriginalButton(
               text: widget.authType == AuthType.login ? 'Login' : 'Register',
-              color: Colors.lightBlue,
+              color: Color(0xFF5896CB),
               textColor: Colors.white,
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
