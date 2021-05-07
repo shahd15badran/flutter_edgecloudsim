@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_file_manager/flutter_file_manager.dart';
@@ -64,7 +65,7 @@ class _MyPDFList extends State<MyPDFList>{
                 Text("Generated PDF files"),
                 RaisedButton(
                   child: Text("Share"),
-                 /* onPressed: () async {
+                  onPressed: () async {
                     print('no files found');
                     FilePickerResult result = await FilePicker.platform.pickFiles(
                       allowMultiple: true,
@@ -78,7 +79,7 @@ class _MyPDFList extends State<MyPDFList>{
                     else{
                       print('no files found');
                     }
-                  },*/
+                  },
                 ),
               ],
             ),
