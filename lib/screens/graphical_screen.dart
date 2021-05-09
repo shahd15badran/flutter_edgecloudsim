@@ -33,15 +33,34 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-            top: 20,
-            bottom: 15
+              //top: 20,
+              bottom: 15
           ),
           child: SingleChildScrollView(
             child: Container(
-             // color: Colors.black26,
+              // color: Colors.black26,
               child: SafeArea(
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: 380
+                      ),
+                      child: SizedBox(
+                        height: 30,
+
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+
+                          ),
+                          child: IconButton(
+
+                            icon: Icon(Icons.help_center_outlined,color:  Colors.black45,size: 25),
+                            tooltip:'Click the icon for detailed configuration before you go the simulation process' ,
+                          ),
+                        ),
+                      ),
+                    ),
                     Container(
                       child: Row(
                         children: <Widget>[
@@ -127,7 +146,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              left: 10
+                                left: 10
                             ),
                             child: SizedBox(
                               height: 80,
@@ -149,16 +168,16 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 20
-                            ),
+                              padding: const EdgeInsets.only(
+                                  left: 20
+                              ),
                               child: Column(
                                 children: [
                                   SizedBox( height: 50,
                                     width: 110,
                                     child: Padding(
                                       padding: const EdgeInsets.only(
-                                        right: 30
+                                          right: 30
                                       ),
                                       child: VerticalDivider(
                                         color: Colors.black,
@@ -178,7 +197,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            left: 15
+                              left: 15
                           ),
                           child: SizedBox(
                             height: 50,
@@ -193,30 +212,30 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            right: 10
+                              right: 10
 
                           ),
                           child: SizedBox(
-                            height: 50,
-                            width: 110,
-                            child: VerticalDivider(
-                              color: Colors.black,
-                              thickness: 2,
-                            )
+                              height: 50,
+                              width: 110,
+                              child: VerticalDivider(
+                                color: Colors.black,
+                                thickness: 2,
+                              )
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            left: 55
+                              left: 55
 
                           ),
                           child: SizedBox(
-                            height: 50,
-                            width: 110,
-                            child: VerticalDivider(
-                              color: Colors.black,
-                              thickness: 2,
-                            )
+                              height: 50,
+                              width: 110,
+                              child: VerticalDivider(
+                                color: Colors.black,
+                                thickness: 2,
+                              )
                           ),
                         ),
                       ],
@@ -227,9 +246,9 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 25,
-                              right: 10,
-                              left: 50
+                                top: 25,
+                                right: 10,
+                                left: 50
 
                             ),
                             child: SizedBox(
@@ -238,7 +257,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               child: RaisedButton(
                                 color: Colors.grey,
                                 onPressed: (){
-                                 // Navigator.of(context).pushNamed('edge server');
+                                  // Navigator.of(context).pushNamed('edge server');
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)
@@ -253,7 +272,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 2,
+                              top: 2,
 
                             ),
                             child: SizedBox(
@@ -302,7 +321,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               child: RaisedButton(
                                 color: Colors.grey,
                                 onPressed: (){
-                                 // Navigator.of(context).pushNamed('edge server');
+                                  // Navigator.of(context).pushNamed('edge server');
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)
@@ -385,8 +404,8 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            left: 40,
-                            top: 8
+                              left: 40,
+                              top: 8
                           ),
                           child: SizedBox(
                             width: 60,
@@ -417,8 +436,8 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                           Padding(
                             padding: const EdgeInsets.only(
 
-                              right: 110,
-                              left: 150
+                                right: 110,
+                                left: 150
                             ),
                             child: Column(
                               children: [
@@ -514,8 +533,8 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 60,
-                              left: 20
+                                top: 30,
+                                left: 20
                             ),
                             child: SizedBox(
                               height: 60,
@@ -535,7 +554,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 60,
+                              top: 30,
                               left: 80,
                             ),
                             child: SizedBox(

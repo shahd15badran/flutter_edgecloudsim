@@ -16,6 +16,7 @@ class SimulationScreen extends StatefulWidget {
 
 class _SimulationScreenState extends State<SimulationScreen> with TickerProviderStateMixin{
   int _state = 0;
+  bool _hasbeenpressed=false;
   final Msg_controller=TextEditingController(text:"");
   int _stateM = 0;
   bool _isLogButtonDisabled;
@@ -139,7 +140,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: SizedBox(
-                          width: 250,
+                          width: 360,
                           child: OriginalButton(
                             text: 'Start Simulation',
                             color: Colors.white,
@@ -184,7 +185,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                               enabled: false,
                               controller: Msg_controller,
                               decoration: InputDecoration(
-                                fillColor: Colors.white,
+                                fillColor: Color(0xFFE7DADA),
                                 filled: true,
                                 border: InputBorder.none,
                                 hintText: "         Click on the check icon when it appears!",
@@ -242,7 +243,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
                       elevation: 4.0,
                       minWidth:250.0,
                       height: 55.0,
-                      color: Color(0xFF345979),
+                      color:_hasbeenpressed?Colors.green: Color(0xFF345979),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -305,8 +306,16 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
       return CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
-    } else {
-      return Icon(Icons.check, color: Colors.white);
+    } else  {
+      setState(() {
+        _hasbeenpressed = true;
+      });
+      return new Text(name,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 

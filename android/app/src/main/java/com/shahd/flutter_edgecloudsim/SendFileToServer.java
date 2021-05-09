@@ -24,7 +24,7 @@ public class SendFileToServer {
         thread.start();
     }
     public void Start(String file, boolean f) throws Exception {
-        String server = "192.168.0.105";
+        String server = "192.168.0.106";
         int port = 1988;
         try{
             Socket s = new Socket(server, port);

@@ -13,14 +13,32 @@ class EdgeUserScreen extends StatefulWidget {
 
 class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStateMixin {
   int _state = 0;
+  bool _hasbeenpressed=false;
   AuthBase authBase = AuthBase();
-  final min_number_of_mobile_devices_controller=TextEditingController(text: "100");
-  final max_number_of_mobile_devices_controller=TextEditingController(text: "1000");
-  final mobile_device_counter_size_controller=TextEditingController(text: "100");
-  final core_for_mobile_vm_controller=TextEditingController(text: "0");
-  final mips_for_mobile_vm_controller=TextEditingController(text: "0");
-  final ram_for_mobile_vm_controller=TextEditingController(text: "0");
-  final storage_for_mobile_vm_controller=TextEditingController(text: "0");
+  var min_number_of_mobile_devices_controller;
+  var max_number_of_mobile_devices_controller;
+  var mobile_device_counter_size_controller;
+  var core_for_mobile_vm_controller;
+  var mips_for_mobile_vm_controller;
+  var ram_for_mobile_vm_controller;
+  var storage_for_mobile_vm_controller;
+
+  void initState (){
+    getData();
+    super.initState();
+  }
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      min_number_of_mobile_devices_controller = TextEditingController(text: prefs.getString('min_number_of_mobile_devices'));
+      max_number_of_mobile_devices_controller = TextEditingController(text: prefs.getString('max_number_of_mobile_devices'));
+      mobile_device_counter_size_controller = TextEditingController(text: prefs.getString('mobile_device_counter_size'));
+      core_for_mobile_vm_controller = TextEditingController(text: prefs.getString('core_for_mobile_vm'));
+      mips_for_mobile_vm_controller = TextEditingController(text: prefs.getString('mips_for_mobile_vm'));
+      ram_for_mobile_vm_controller = TextEditingController(text: prefs.getString('ram_for_mobile_vm'));
+      storage_for_mobile_vm_controller = TextEditingController(text: prefs.getString('storage_for_mobile_vm'));
+    });
+  }
 
 
   @override
@@ -94,10 +112,6 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               child: TextFormField(
                                 controller: min_number_of_mobile_devices_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('min_number_of_mobile_devices', min_number_of_mobile_devices_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -129,10 +143,6 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               child: TextFormField(
                                 controller: max_number_of_mobile_devices_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('max_number_of_mobile_devices', max_number_of_mobile_devices_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -164,10 +174,6 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               child: TextFormField(
                                 controller:mobile_device_counter_size_controller ,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('mobile_device_counter_size', mobile_device_counter_size_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -220,10 +226,6 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               child: TextFormField(
                                 controller: core_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('core_for_mobile_vm', core_for_mobile_vm_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -257,10 +259,6 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               child: TextFormField(
                                 controller: mips_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('mips_for_mobile_vm', mips_for_mobile_vm_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -294,10 +292,6 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               child: TextFormField(
                                 controller: ram_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('ram_for_mobile_vm', ram_for_mobile_vm_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -331,11 +325,7 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               child: TextFormField(
                                 controller: storage_for_mobile_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('storage_for_mobile_vm', storage_for_mobile_vm_controller.text);
-                                  }
-                                  ),
+                              ),
                             ),
                           )
                         ],
@@ -356,7 +346,6 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -366,9 +355,18 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
                                   });
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
+                                  prefs.setString('min_number_of_mobile_devices', min_number_of_mobile_devices_controller.text);
+                                  prefs.setString('max_number_of_mobile_devices', max_number_of_mobile_devices_controller.text);
+                                  prefs.setString('mobile_device_counter_size', mobile_device_counter_size_controller.text);
+                                  prefs.setString('core_for_mobile_vm', core_for_mobile_vm_controller.text);
+                                  prefs.setString('mips_for_mobile_vm', mips_for_mobile_vm_controller.text);
+                                  prefs.setString('ram_for_mobile_vm', ram_for_mobile_vm_controller.text);
+                                  prefs.setString('storage_for_mobile_vm', storage_for_mobile_vm_controller.text);
                                   //edit data in firebase
                                   //change flag
                                 },
+                                color: _hasbeenpressed?Colors.green : Colors.grey,
+
                               ),
                             ),
                           ),
@@ -417,7 +415,15 @@ class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStat
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
     } else {
-      return Icon(Icons.check, color: Colors.white);
+      setState(() {
+        _hasbeenpressed = true;
+      });
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 

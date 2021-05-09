@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
@@ -13,13 +12,32 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen>with TickerProviderStateMixin {
   int _state = 0;
+ bool _hasbeenpressed = false;
+
   AuthBase authBase = AuthBase();
-final simulation_time_controller=TextEditingController(text: "30");
-final warm_up_period_controller=TextEditingController(text: "3");
-final vm_load_check_interval_controller=TextEditingController(text: "0.1");
-final location_check_interval_controller=TextEditingController(text: "0.1");
-final file_log_enabled_controller=TextEditingController(text: "true");
-final deep_file_log_enabled_controller=TextEditingController(text: "false");
+  var simulation_time_controller;
+  var warm_up_period_controller;
+  var vm_load_check_interval_controller;
+  var location_check_interval_controller;
+  var file_log_enabled_controller;
+  var deep_file_log_enabled_controller;
+
+  void initState (){
+    getData();
+    super.initState();
+  }
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      simulation_time_controller=TextEditingController(text: prefs.getString('simulation_time'));
+      warm_up_period_controller=TextEditingController(text: prefs.getString('warm_up_period'));
+      vm_load_check_interval_controller=TextEditingController(text: prefs.getString('vm_load_check_interval'));
+      location_check_interval_controller=TextEditingController(text: prefs.getString('location_check_interval'));
+      file_log_enabled_controller=TextEditingController(text: prefs.getString('file_log_enabled'));
+      deep_file_log_enabled_controller=TextEditingController(text: prefs.getString('deep_file_log_enabled'));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +59,8 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                   ),
                   child: new IconButton(
                     icon: new Icon(Icons.home_sharp,color: Colors.white,),
-                    onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('graphical');
                     },
                   ),
                 )
@@ -91,12 +110,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               child: TextFormField(
                                 controller: simulation_time_controller,
                                 decoration: textInputDecoration,
-                                onChanged: (text)async {
-                                  SharedPreferences prefs = await SharedPreferences
-                                      .getInstance();
-                                  prefs.setString('simulation_time',
-                                      simulation_time_controller.text);
-                                }
                               ),
                             ),
                           )
@@ -128,10 +141,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               child: TextFormField(
                                 controller: warm_up_period_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('warm_up_period', warm_up_period_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -163,10 +172,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               child: TextFormField(
                                 controller: vm_load_check_interval_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('vm_load_check_interval', vm_load_check_interval_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -199,10 +204,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               child: TextFormField(
                                 controller: location_check_interval_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('location_check_interval_controller', location_check_interval_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -235,10 +236,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               child: TextFormField(
                                 controller: file_log_enabled_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('file_log_enabled', file_log_enabled_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -270,10 +267,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               child: TextFormField(
                                 controller: deep_file_log_enabled_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('deep_file_log_enabled', deep_file_log_enabled_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -295,7 +288,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -305,9 +297,17 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
                                   });
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
+                                  prefs.setString('simulation_time', simulation_time_controller.text);
+                                  prefs.setString('warm_up_period', warm_up_period_controller.text);
+                                  prefs.setString('vm_load_check_interval', vm_load_check_interval_controller.text);
+                                  prefs.setString('location_check_interval', location_check_interval_controller.text);//???
+                                  prefs.setString('file_log_enabled', file_log_enabled_controller.text);
+                                  prefs.setString('deep_file_log_enabled', deep_file_log_enabled_controller.text);
+
                                   //edit data in firebase
                                   //change flag
                                 },
+                                color: _hasbeenpressed?Colors.green :Colors.grey,
                               ),
                             ),
                           ),
@@ -319,7 +319,6 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
               ),
             ),
           )
-
       ),
     );
   }
@@ -335,8 +334,16 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
       return CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
-    } else {
-      return Icon(Icons.check, color: Colors.white);
+    } else  {
+      setState(() {
+        _hasbeenpressed = true;
+      });
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 
@@ -352,4 +359,5 @@ final deep_file_log_enabled_controller=TextEditingController(text: "false");
       // Navigator.of(context).pushNamed('MyFileList');
     });
   }
+
 }

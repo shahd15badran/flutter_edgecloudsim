@@ -17,25 +17,43 @@ class AddAppScreen extends StatefulWidget {
 
 class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixin {
   int _state = 0;
+  bool  _hasbeenpressed=false;
+
   void initState (){
     getData();
     super.initState();
   }
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState((){
-      counter= prefs.getInt('counter');});
-  }
+    setState(() {
+      counter = prefs.getInt('counter');
+    });
 
+    application_name_controller = TextEditingController(text: prefs.getStringList('application_name')[counter - 1]);
+    usage_percentage_controller = TextEditingController(text:prefs.getStringList('usage_percentage')[counter - 1]);
+    prob_cloud_selection_controller = TextEditingController(text:  prefs.getStringList('prob_cloud_selection')[counter - 1]);
+    poisson_interarrival_controller = TextEditingController(text:prefs.getStringList('poisson_interarrival')[counter - 1]);
+    delay_sensitivity_controller = TextEditingController(text: prefs.getStringList('delay_sensitivity')[counter - 1]);
+    active_period_controller = TextEditingController(text: prefs.getStringList('active_period')[counter - 1]);
+
+
+    application_name= prefs.getStringList('application_name');
+    usage_percentage=prefs.getStringList('usage_percentage');
+    prob_cloud_selection=prefs.getStringList('prob_cloud_selection');
+    poisson_interarrival=prefs.getStringList('poisson_interarrival');
+    delay_sensitivity =prefs.getStringList('delay_sensitivity');
+    active_period =prefs.getStringList('active_period');
+
+  }
   AuthBase authBase = AuthBase();
   int counter=1;
-  List <String> application_name=['AUGMENTED','HEALTH','HEAVY_COMP','INFOTAINMENT'];
-  List <String> usage_percentage=['30','20','20','30'];
-  List <String> prob_cloud_selection=['20','20','40','15'];
-  List <String> poisson_interarrival=['5','30','60','7'];
-  List <String> delay_sensitivity =['0','0','0','0'];
-  List <String> active_period =['45','10','60','15'];
-  List <String> idle_period=['15','20','60','45'];
+  List <String> application_name;
+  List <String> usage_percentage;
+  List <String> prob_cloud_selection;
+  List <String> poisson_interarrival;
+  List <String> delay_sensitivity;
+  List <String> active_period;
+
   var application_name_controller;
   var usage_percentage_controller;
   var prob_cloud_selection_controller;
@@ -43,29 +61,12 @@ class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixi
   var delay_sensitivity_controller;
   var active_period_controller;
   var idle_period_controller;
-_AddAppScreenState(){
-  getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      counter = prefs.getInt('counter');
-    });
 
-    application_name_controller = TextEditingController(text:application_name[counter-1]);
-    usage_percentage_controller = TextEditingController(text: usage_percentage[counter-1]);
-    prob_cloud_selection_controller = TextEditingController(text: prob_cloud_selection[counter-1]);
-    poisson_interarrival_controller = TextEditingController(text: poisson_interarrival[counter-1]);
-    delay_sensitivity_controller = TextEditingController(text: delay_sensitivity[counter-1]);
-    active_period_controller = TextEditingController(text: active_period[counter-1]);
-    idle_period_controller=TextEditingController(text: idle_period[counter-1]);
-  }
-  getData();
-}
 
 
   @override
 
   Widget build(BuildContext context) {
-    //final rcvdData = ModalRoute.withName('cont add application').toString();
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -146,8 +147,7 @@ _AddAppScreenState(){
                                   controller: application_name_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('application_name', application_name_controller.text);
+                                    application_name[counter-1] = application_name_controller.text;
                                   }
                               ),
                             ),
@@ -181,8 +181,7 @@ _AddAppScreenState(){
                                   controller: usage_percentage_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('usage_percentage', usage_percentage_controller.text);
+                                    usage_percentage[counter-1]= usage_percentage_controller.text;
                                   }
                               ),
                             ),
@@ -216,8 +215,7 @@ _AddAppScreenState(){
                                   controller: prob_cloud_selection_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('prob_cloud_selection', prob_cloud_selection_controller.text);
+                                    prob_cloud_selection[counter-1]=prob_cloud_selection_controller.text;
                                   }
                               ),
                             ),
@@ -252,8 +250,7 @@ _AddAppScreenState(){
                                   controller: poisson_interarrival_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('poisson_interarrival', poisson_interarrival_controller.text);
+                                    poisson_interarrival[counter-1]=poisson_interarrival_controller.text;
                                   }
                               ),
                             ),
@@ -288,8 +285,7 @@ _AddAppScreenState(){
                                   controller: delay_sensitivity_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('delay_sensitivity', delay_sensitivity_controller.text);
+                                    delay_sensitivity[counter-1]= delay_sensitivity_controller.text;
                                   }
                               ),
                             ),
@@ -323,8 +319,9 @@ _AddAppScreenState(){
                                   controller: active_period_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('active_period', active_period_controller.text);
+                                    active_period[counter-1]=active_period_controller.text;
+                                   // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                   // prefs.setString('active_period'[counter-1], active_period_controller.text);
                                   }
                               ),
                             ),
@@ -347,19 +344,25 @@ _AddAppScreenState(){
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color:  Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setStringList('application_name', application_name);
+                                  prefs.setStringList('usage_percentage', usage_percentage);
+                                  prefs.setStringList('prob_cloud_selection', prob_cloud_selection);
+                                  prefs.setStringList('poisson_interarrival', poisson_interarrival);
+                                  prefs.setStringList('delay_sensitivity', delay_sensitivity);
+                                  prefs.setStringList('active_period', active_period);
                                   setState(() {
                                     if (_state == 0) {
                                       animateButton();
                                     }
                                   });
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
                                   //edit data in firebase
                                   //change flag
                                 },
+                                color: _hasbeenpressed? Colors.green : Colors.grey,
                               ),
                             ),
                           ),
@@ -405,7 +408,15 @@ _AddAppScreenState(){
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
     } else {
-      return Icon(Icons.check, color: Colors.white);
+      setState(() {
+        _hasbeenpressed = true;
+      });
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 

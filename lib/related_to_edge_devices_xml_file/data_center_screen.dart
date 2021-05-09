@@ -13,6 +13,27 @@ class DataCenterScreen extends StatefulWidget {
 
 class _DataCenterScreenState extends State<DataCenterScreen> with TickerProviderStateMixin{
   int _state = 0;
+  bool _hasbeenpressed =false;
+  AuthBase authBase = AuthBase();
+  int counter=1;
+  List <String> costPerBw;
+  List <String> costPerSec;
+  List <String> costPerMem;
+  List <String> costPerStorage;
+  List <String> x_pos;
+  List <String> y_pos;
+  List <String> wlan_id;
+  List <String> attractiveness;
+
+  var costPerBw_controller;
+  var costPerSec_controller;
+  var costPerMem_controller;
+  var costPerStorage_controller;
+  var x_pos_controller;
+  var y_pos_controller;
+  var wlan_id_controller;
+  var attractiveness_controller;
+
   void initState (){
     getData();
     super.initState();
@@ -20,49 +41,28 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState((){
-      counter= prefs.getInt('counter');});
-  }
-
-  AuthBase authBase = AuthBase();
-  int counter=1;
-  List<String>costPerBw=['0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1'];
-  List<String>costPerSec=['3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0','3.0'];
-  List<String>costPerMem=['0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05','0.05'];
-  List<String>costPerStorage=['0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1','0.1'];
-  List<String>x_pos=['1','2','3','4','5','6','7','8','9','10','11','12','13','14'];
-  List<String>y_pos=['1','2','3','4','5','6','7','8','9','10','11','12','13','14'];
-  List<String>wlan_id=['0','1','2','3','4','5','6','7','8','9','10','11','12','13'];
-  List<String>attractiveness=['0','0','1','1','1','1','2','2','2','2','2','2','2','2'];
-
-  var costPerBw_controller;
-  var costPerSec_controller;
-  var costPerMem_controller;
-  var costPerStorage_controller;
-
-  var x_pos_controller;
-  var y_pos_controller;
-  var wlan_id_controller;
-  var attractiveness_controller;
-
-  _DataCenterScreenState(){
-
-  getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState((){
       counter= prefs.getInt('counter');
+      costPerBw=prefs.getStringList('costPerBw');
+      costPerSec=prefs.getStringList('costPerSec');
+      costPerMem=prefs.getStringList('costPerMem');
+      costPerStorage=prefs.get('costPerStorage');
+      x_pos=prefs.get('x_pos');
+      y_pos=prefs.getStringList('y_pos'); print("HHH");
+      wlan_id=prefs.getStringList('wlan_id');
+      attractiveness=prefs.get('attractiveness');
     });
-  costPerBw_controller=TextEditingController(text:costPerBw[counter-1]);
-  costPerSec_controller=TextEditingController(text: costPerSec[counter-1]);
-  costPerMem_controller=TextEditingController(text:costPerMem[counter-1]);
-  costPerStorage_controller=TextEditingController(text:costPerStorage [counter-1]);
 
-  x_pos_controller=TextEditingController(text:x_pos[counter-1]);
-  y_pos_controller=TextEditingController(text:y_pos[counter-1]);
-  wlan_id_controller=TextEditingController(text:wlan_id [counter-1]);
-  attractiveness_controller=TextEditingController(text:attractiveness[counter-1]);
+    costPerBw_controller=TextEditingController(text:costPerBw[counter-1]);
+    costPerSec_controller=TextEditingController(text: costPerSec[counter-1]);
+    costPerMem_controller=TextEditingController(text:costPerMem[counter-1]);
+    costPerStorage_controller=TextEditingController(text:costPerStorage[counter-1]);
+
+    x_pos_controller=TextEditingController(text:x_pos[counter-1]);
+    y_pos_controller=TextEditingController(text:y_pos[counter-1]);
+    wlan_id_controller=TextEditingController(text:wlan_id [counter-1]);
+    attractiveness_controller=TextEditingController(text:attractiveness[counter-1]);
   }
-  getData();
-}
+
 
 @override
   Widget build(BuildContext context) {
@@ -165,8 +165,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller: costPerBw_controller,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('costPerBw', costPerBw_controller.text);
+                                   costPerBw[counter-1]=costPerBw_controller.text;
                                   }
                               ),
                             ),
@@ -201,8 +200,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller:costPerSec_controller ,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('costPerSec', costPerSec_controller.text);
+                                   costPerSec[counter-1]=costPerSec_controller.text;
                                   }
                               ),
                             ),
@@ -237,8 +235,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller:costPerMem_controller ,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('costPerMem', costPerMem_controller.text);
+                                   costPerMem[counter-1]=costPerMem_controller.text;
                                   }
                               ),
                             ),
@@ -273,8 +270,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller:costPerStorage_controller ,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('costPerStorage', costPerStorage_controller.text);
+                                   costPerStorage[counter-1]=costPerStorage_controller.text;
                                   }
                               ),
                             ),
@@ -331,8 +327,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller:x_pos_controller ,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('x_pos', x_pos_controller.text);
+                                   x_pos[counter-1]=x_pos_controller.text;
                                   }
                               ),
                             ),
@@ -367,8 +362,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller:y_pos_controller ,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('y_pos', y_pos_controller.text);
+                                   y_pos[counter-1]=y_pos_controller.text;
                                   }
                               ),
                             ),
@@ -403,8 +397,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller:wlan_id_controller ,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('wlan_id', wlan_id_controller.text);
+                                   wlan_id[counter-1]=wlan_id_controller.text;
                                   }
                               ),
                             ),
@@ -439,8 +432,7 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                                 controller: attractiveness_controller,
                                 decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('attractiveness', attractiveness_controller.text);
+                                    attractiveness[counter-1]=attractiveness_controller.text;
                                   }
                               ),
                             ),
@@ -449,7 +441,6 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                       ),
                     ),
 
-                    ////////////////////////////////////////////
                     Padding(
                       padding: const EdgeInsets.only(
                           bottom: 2
@@ -465,19 +456,27 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
                                   setState(() {
                                     if (_state == 0) {
                                       animateButton();
                                     }
                                   });
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
-                                  //edit data in firebase
-                                  //change flag
+                                  prefs.setStringList('costPerBw', costPerBw);
+                                  prefs.setStringList('costPerSec', costPerSec);
+                                  prefs.setStringList('costPerMem', costPerMem);
+                                  prefs.setStringList('costPerStorage', costPerStorage);
+                                  prefs.setStringList('x_pos', x_pos);
+                                  prefs.setStringList('y_pos', y_pos);
+                                  prefs.setStringList('wlan_id', wlan_id);
+                                  prefs.setStringList('attractiveness', attractiveness);
+
                                 },
+                                color:_hasbeenpressed?Colors.green: Colors.grey,
+
                               ),
                             ),
                           ),
@@ -524,7 +523,15 @@ class _DataCenterScreenState extends State<DataCenterScreen> with TickerProvider
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
     } else {
-      return Icon(Icons.check, color: Colors.white);
+      setState(() {
+        _hasbeenpressed = true;
+      });
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 

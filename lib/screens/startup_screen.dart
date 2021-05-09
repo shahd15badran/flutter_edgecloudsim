@@ -18,7 +18,7 @@ class _StartupScreenState extends State<StartupScreen> {
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //applications
-    List <String> application_name=['AUGMENTED_REALITY','HEALTH_APP','HEAVY_COMP_APP','INFOTAINMENT_APP'];
+    List <String> application_name=['AUGMENTED','HEALTH_APP','HEAVY_COMP_APP','INFOTAINMENT_APP'];
     List <String> usage_percentage=['30','20','20','30'];
     List <String> prob_cloud_selection=['20','20','40','15'];
     List <String> poisson_interarrival=['5','30','60','7'];
@@ -152,7 +152,7 @@ class _StartupScreenState extends State<StartupScreen> {
             Stack(
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.56,
+                  height: MediaQuery.of(context).size.height * 0.54,
                   margin: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Color(0xFF77A5CD),
@@ -197,7 +197,7 @@ class _StartupScreenState extends State<StartupScreen> {
                 Padding(
                   padding: const EdgeInsets.only(
                       right: 120,
-                      bottom: 10
+                     // bottom: 10,
                   ),
                   child: Text('Edit Simulator..',
                     style: TextStyle(
@@ -211,62 +211,108 @@ class _StartupScreenState extends State<StartupScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 60,
-              width: 300,
-              child: RaisedButton(
-                color: Color(0xFF5896CB),
-                onPressed: (){
-                  Navigator.of(context).pushNamed('graphical');
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 50
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 60,
+                    width: 300,
+                    child: RaisedButton(
+                      color: Color(0xFF5896CB),
+                      onPressed: (){
+                        Navigator.of(context).pushNamed('graphical');
 
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.account_tree,color: Colors.white,size: 30),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text('Graphically' ,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20
-                          ),
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 10
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.account_tree,color: Colors.white,size: 30),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: Text('Graphically' ,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 30,
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+
+                      ),
+                      child: IconButton(
+
+                        icon: Icon(Icons.help_center_outlined,color:  Colors.black45,size: 20),
+                        tooltip:'Modify configuration parameters' ,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             //all is for the button
             Text(''),
-            SizedBox(
-              height: 60,
-              width: 300,
-              child: RaisedButton(
-                color: Color(0xFF5896CB),
-                onPressed: (){
-                  Navigator.of(context).pushNamed('manually');
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Row(
-                    children: [
-                      Icon(Icons.wysiwyg_sharp,color: Colors.white,size: 30),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text('Manually  (Advanced)' ,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20
-                          ) ,),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 50
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 60,
+                    width: 300,
+                    child: RaisedButton(
+                      color: Color(0xFF5896CB),
+                      onPressed: (){
+                        Navigator.of(context).pushNamed('manually');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Icon(Icons.wysiwyg_sharp,color: Colors.white,size: 30),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text('Advanced Mode' ,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20
+                                ) ,),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 30,
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+
+                      ),
+                      child: IconButton(
+
+                        icon: Icon(Icons.help_center_outlined,color:  Colors.black45,size: 20),
+                        tooltip:'Edit the configuration files manually' ,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

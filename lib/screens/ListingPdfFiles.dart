@@ -31,7 +31,7 @@ class MyPDFList extends StatefulWidget{
 }
 
 class _MyPDFList extends State<MyPDFList>{
-  var files;
+  List<File> files;
   String specFolder = '';
 
   _MyPDFList(String folder){
@@ -63,23 +63,17 @@ class _MyPDFList extends State<MyPDFList>{
             title:Row(
               children: [
                 Text("Generated PDF files"),
-                RaisedButton(
-                  child: Text("Share"),
-                  onPressed: () async {
-                    print('no files found');
-                    FilePickerResult result = await FilePicker.platform.pickFiles(
-                      allowMultiple: true,
-                      allowedExtensions: ['jpg', 'pdf'],
-                      type: FileType.custom,
-                    );
-                    if (result != null) {
-                      List files = result.paths.map((f) => File(f).path).toList();
-                      Share.shareFiles(files, text: "Multiple Files");
-                    }
-                    else{
-                      print('no files found');
-                    }
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 95
+                  ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.share,color: Colors.white,),
+                    onPressed: () async{
+                      List<String> shareLogs = this.files.map((f) => f.toString().substring(6).replaceAll(RegExp("'"), '')).toList();
+                      Share.shareFiles(shareLogs, text: "Generated PDF Files");
+                    },
+                  ),
                 ),
               ],
             ),
@@ -87,10 +81,10 @@ class _MyPDFList extends State<MyPDFList>{
         ),
         body:files == null? Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Text("Searching Files",style: TextStyle(
+          child: Text("Searching Files...",style: TextStyle(
             fontSize: 30,
             color:  Color(0xFF727578),
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w300,
           ),),
         ):
         ListView.builder(  //if file/folder list is grabbed, then show here
@@ -123,7 +117,23 @@ class ViewPDF extends StatelessWidget {
   Widget build(BuildContext context) {
     return PDFViewerScaffold( //view PDF
         appBar: AppBar(
-          title: Text("Graph"),
+          title: Row(
+            children: [
+              Text("Graph"),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 220
+                ),
+                child: new IconButton(
+                  icon: new Icon(Icons.share,color: Colors.white,),
+                  onPressed: () async{
+                    Share.shareFiles([pathPDF], text: "Generated PDF Files");
+                  },
+                ),
+              ),
+            ],
+          ),
+
           backgroundColor: Color(0x8AAA5555),
         ),
         path: pathPDF

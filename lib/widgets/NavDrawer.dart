@@ -21,7 +21,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.input),
             title: Text('Welcome'),
-            onTap: () => {},
+            onTap: () => {Navigator.of(context).pushNamed('startup')},
           ),
           ListTile(
             leading: Icon(Icons.verified_user),
@@ -35,7 +35,7 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.border_color),
-            title: Text('Feedback'),
+            title: Text('Tutorial'),
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(

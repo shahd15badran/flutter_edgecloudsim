@@ -13,15 +13,30 @@ class GlobalCloudScreen extends StatefulWidget {
 
 class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProviderStateMixin {
   int _state = 0;
-
+bool _hasbeenpressed =false;
   AuthBase authBase = AuthBase();
-  final number_of_host_on_cloud_datacenter_controller=TextEditingController(text: "1");
-  final number_of_vm_on_cloud_host_controller=TextEditingController(text: "4");
-  final core_for_cloud_vm_controller=TextEditingController(text: "4");
-  final mips_for_cloud_vm_controller=TextEditingController(text: "10000");
-  final ram_for_cloud_vm_controller=TextEditingController(text: "32000");
-  final storage_for_cloud_vm_controller=TextEditingController(text: "1000000");
+  var number_of_host_on_cloud_datacenter_controller;
+  var number_of_vm_on_cloud_host_controller;
+  var core_for_cloud_vm_controller;
+  var mips_for_cloud_vm_controller;
+  var ram_for_cloud_vm_controller;
+  var storage_for_cloud_vm_controller;
 
+  void initState (){
+    getData();
+    super.initState();
+  }
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      number_of_host_on_cloud_datacenter_controller=TextEditingController(text: prefs.getString('number_of_host_on_cloud_datacenter'));
+      number_of_vm_on_cloud_host_controller=TextEditingController(text: prefs.getString('number_of_vm_on_cloud_host'));
+      core_for_cloud_vm_controller=TextEditingController(text: prefs.getString('core_for_cloud_vm'));
+      mips_for_cloud_vm_controller=TextEditingController(text: prefs.getString('mips_for_cloud_vm'));
+      ram_for_cloud_vm_controller=TextEditingController(text: prefs.getString('ram_for_cloud_vm'));
+      storage_for_cloud_vm_controller=TextEditingController(text: prefs.getString('storage_for_cloud_vm'));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +109,7 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                               child: TextFormField(
                                 controller: number_of_host_on_cloud_datacenter_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('number_of_host_on_cloud_datacenter', number_of_host_on_cloud_datacenter_controller.text);
-                                  }
+
                               ),
                             ),
                           )
@@ -129,10 +141,6 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                               child: TextFormField(
                                 controller: number_of_vm_on_cloud_host_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('number_of_vm_on_cloud_host', number_of_vm_on_cloud_host_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -164,10 +172,6 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                               child: TextFormField(
                                 controller: core_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('core_for_cloud_vm', core_for_cloud_vm_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -200,10 +204,6 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                               child: TextFormField(
                                 controller: mips_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('mips_for_cloud_vm', mips_for_cloud_vm_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -236,10 +236,6 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                               child: TextFormField(
                                 controller: ram_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('ram_for_cloud_vm', ram_for_cloud_vm_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -271,10 +267,6 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                               child: TextFormField(
                                 controller: storage_for_cloud_vm_controller,
                                 decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('storage_for_cloud_vm', storage_for_cloud_vm_controller.text);
-                                  }
                               ),
                             ),
                           )
@@ -296,7 +288,6 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color: Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   setState(() {
@@ -306,9 +297,18 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
                                   });
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
+                                  prefs.setString('number_of_host_on_cloud_datacenter', number_of_host_on_cloud_datacenter_controller.text);
+                                  prefs.setString('number_of_vm_on_cloud_host', number_of_vm_on_cloud_host_controller.text);
+                                  prefs.setString('core_for_cloud_vm', core_for_cloud_vm_controller.text);
+                                  prefs.setString('mips_for_cloud_vm', mips_for_cloud_vm_controller.text);
+                                  prefs.setString('ram_for_cloud_vm', ram_for_cloud_vm_controller.text);
+                                  prefs.setString('storage_for_cloud_vm', storage_for_cloud_vm_controller.text);
+
                                   //edit data in firebase
                                   //change flag
                                 },
+                                color: _hasbeenpressed?Colors.green :Colors.grey,
+
                               ),
                             ),
                           ),
@@ -337,7 +337,15 @@ class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProvide
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
     } else {
-      return Icon(Icons.check, color: Colors.white);
+      setState(() {
+        _hasbeenpressed = true;
+      });
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 

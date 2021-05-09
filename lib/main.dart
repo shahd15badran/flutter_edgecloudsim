@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home:SimulationScreen(),//DataCenterScreen(),
+      home:StartupScreen(),//DataCenterScreen(),
       routes: {
         'intro': (context) => IntroScreen(),
         'login': (context) => AuthScreen(authType: AuthType.login),
@@ -82,6 +82,7 @@ class MyApp extends StatelessWidget {
         'selected graph':(context)=>SelectedGraph(),
         'matlab screen':(context)=>MatlabScreen(),
         'MyFileList':(context)=>MyFileList(),
+
         //'MyPDFList':(context)=>MyPDFList(),
 
       },

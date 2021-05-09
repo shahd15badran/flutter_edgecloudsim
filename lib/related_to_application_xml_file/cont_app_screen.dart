@@ -15,6 +15,8 @@ class ContAddAppScreen extends StatefulWidget {
 
 class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderStateMixin {
   int _state = 0;
+  bool  _hasbeenpressed=false;
+
   void initState (){
     getData();
     super.initState();
@@ -22,19 +24,41 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState((){
-      counter= prefs.getInt('counter');});
+      counter= prefs.getInt('counter');
+    });
+    idle_period_controller=TextEditingController(text:prefs.getStringList('idle_period')[counter-1]);
+    data_upload_controller=TextEditingController(text:prefs.getStringList('data_upload') [counter-1]);
+    data_download_controller=TextEditingController(text:prefs.getStringList ('data_download')[counter-1]);
+    task_length_controller=TextEditingController(text: prefs.getStringList('task_length')[counter-1]);
+    required_core_controller=TextEditingController(text:prefs.getStringList ('required_core')[counter-1]);
+    vm_utilization_on_edge_controller=TextEditingController(text: prefs.getStringList('vm_utilization_on_edge')[counter-1]);
+    vm_utilization_on_cloud_controller=TextEditingController(text:prefs.getStringList ('vm_utilization_on_cloud')[counter-1]);
+    vm_utilization_on_mobile_controller=TextEditingController(text:prefs.getStringList ('vm_utilization_on_mobile')[counter-1]);
+
+    idle_period = prefs.getStringList('idle_period');
+    data_upload =prefs.getStringList('data_upload');
+    data_download=prefs.getStringList ('data_download');
+    task_length= prefs.getStringList('task_length');
+    required_core=prefs.getStringList ('required_core');
+    vm_utilization_on_edge= prefs.getStringList('vm_utilization_on_edge');
+    vm_utilization_on_cloud=prefs.getStringList ('vm_utilization_on_cloud');
+    vm_utilization_on_mobile=prefs.getStringList ('vm_utilization_on_mobile');
+
+
   }
 
   AuthBase authBase = AuthBase();
   int counter=1;
-  List <String> idle_period=['15','20','60','45'];//60
-  List <String> data_upload=['1500','1250','2500','25'];
-  List <String> data_download=['25','20','250','2000'];
-  List <String> task_length=['2000','400','3000','750'];
-  List <String> required_core=['1','1','1','1'];
-  List <String> vm_utilization_on_edge=['20','5','30','10'];
-  List <String> vm_utilization_on_cloud=['2','0.5','3','1'];
-  List <String> vm_utilization_on_mobile=['0','0','0','1'];
+
+  List <String> idle_period;
+  List <String> data_upload;
+  List <String> data_download;
+  List <String> task_length;
+  List <String> required_core;
+  List <String> vm_utilization_on_edge;
+  List <String> vm_utilization_on_cloud;
+  List <String> vm_utilization_on_mobile;
+
   var idle_period_controller;
   var data_upload_controller;
   var data_download_controller;
@@ -44,24 +68,6 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
   var vm_utilization_on_cloud_controller;
   var vm_utilization_on_mobile_controller;
 
-  _ContAddAppScreenState(){
-
-    getData() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      setState((){
-        counter= prefs.getInt('counter');
-      });
-      idle_period_controller=TextEditingController(text:idle_period[counter-1]);
-      data_upload_controller=TextEditingController(text: data_upload[counter-1]);
-      data_download_controller=TextEditingController(text: data_download[counter-1]);
-      task_length_controller=TextEditingController(text: task_length[counter-1]);
-      required_core_controller=TextEditingController(text: required_core[counter-1]);
-      vm_utilization_on_edge_controller=TextEditingController(text: vm_utilization_on_edge[counter-1]);
-      vm_utilization_on_cloud_controller=TextEditingController(text: vm_utilization_on_cloud[counter-1]);
-      vm_utilization_on_mobile_controller=TextEditingController(text: vm_utilization_on_mobile[counter-1]);
-    }
-    getData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +153,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   decoration: textInputDecoration,
                                   //idle_period_controller.text = idle_period[3];
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('idle_period', idle_period_controller.text);
+                                   idle_period[counter-1]=idle_period_controller.text;
                                   }
                               ),
                             ),
@@ -182,8 +187,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   controller: data_upload_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('data_upload', data_upload_controller.text);
+                                   data_upload[counter-1]=data_upload_controller.text;
                                   }
                               ),
                             ),
@@ -217,8 +221,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   controller: data_download_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('data_download', data_download_controller.text);
+                                   data_download[counter-1]=data_download_controller.text;
                                   }
                               ),
                             ),
@@ -252,8 +255,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   controller: task_length_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('task_length', task_length_controller.text);
+                                   task_length[counter-1]=task_length_controller.text;
                                   }
                               ),
                             ),
@@ -287,8 +289,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   controller: required_core_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('required_core', required_core_controller.text);
+                                   required_core[counter-1]=required_core_controller.text;
                                   }
                               ),
                             ),
@@ -322,8 +323,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   controller: vm_utilization_on_edge_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('vm_utilization_on_edge', vm_utilization_on_edge_controller.text);
+                                   vm_utilization_on_edge[counter-1]=vm_utilization_on_edge_controller.text;
                                   }
                               ),
                             ),
@@ -358,8 +358,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   controller: vm_utilization_on_cloud_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('vm_utilization_on_cloud', vm_utilization_on_cloud_controller.text);
+                                   vm_utilization_on_cloud[counter-1]=vm_utilization_on_cloud_controller.text;
                                   }
 
                               ),
@@ -394,8 +393,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   controller: vm_utilization_on_mobile_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString('vm_utilization_on_mobile', vm_utilization_on_mobile_controller.text);
+                                  vm_utilization_on_mobile[counter-1]=vm_utilization_on_mobile_controller.text;
                                   }
                               ),
                             ),
@@ -417,19 +415,27 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                               height: 30,
                               width: 90,
                               child: new MaterialButton(
-                                color:Colors.grey,
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setStringList('idle_period', idle_period);
+                                  prefs.setStringList('data_upload', data_upload);
+                                  prefs.setStringList('data_download', data_download);
+                                  prefs.setStringList('task_length', task_length);
+                                  prefs.setStringList('required_core', required_core);
+                                  prefs.setStringList('vm_utilization_on_edge', vm_utilization_on_edge);
+                                  prefs.setStringList('vm_utilization_on_cloud', vm_utilization_on_cloud);
+                                  prefs.setStringList('vm_utilization_on_mobile', vm_utilization_on_mobile);
                                   setState(() {
                                     if (_state == 0) {
                                       animateButton();
                                     }
                                   });
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
                                   //edit data in firebase
                                   //change flag
                                 },
+                                color: _hasbeenpressed? Colors.green : Colors.grey,
                               ),
                             ),
                           ),
@@ -510,8 +516,16 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
       return CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
-    } else {
-      return Icon(Icons.check, color: Colors.white);
+    } else  {
+      setState(() {
+        _hasbeenpressed = true;
+      });
+      return new Text('save',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
     }
   }
 

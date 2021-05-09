@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_file_manager/flutter_file_manager.dart';
 import 'package:path_provider_ex/path_provider_ex.dart';
+import 'package:share/share.dart';
 
 //import package files
 
@@ -26,13 +28,12 @@ class MyFileList extends StatefulWidget{
 
 class _MyFileList extends State<MyFileList>{
 
-  var files;
+  List<File> files;
 
   void getFiles() async { //async function to get list of files
     List<StorageInfo> storageInfo = await PathProviderEx.getStorageInfo();
     var root = storageInfo[0].rootDir + "/Documents/Logs"; //storageInfo[1] for SD card, geting the root directory
     var fm = FileManager(root: Directory(root));
-
     files = await fm.filesTree(extensions: ["log"]);
 
     setState(() {
@@ -47,12 +48,26 @@ class _MyFileList extends State<MyFileList>{
 
   @override
   Widget build(BuildContext context) {
-    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
-    if (arguments != null) print(arguments['exampleArgument']);
 
     return Scaffold(
         appBar: AppBar(
-            title:Text("Log files"),
+            title:Row(
+              children: [
+                Text("Log files"),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 190
+                  ),
+                  child: new IconButton(
+                    icon: new Icon(Icons.share,color: Colors.white,),
+                    onPressed: () async{
+                      List<String> shareLogs = this.files.map((f) => f.toString().substring(6).replaceAll(RegExp("'"), '')).toList();
+                      Share.shareFiles(shareLogs, text: "Generated Log Files");
+                      },
+                  ),
+                ),
+              ],
+            ),
             backgroundColor:Color(0xFF77A5CD),
         ),
         body:files == null? Text("Searching Files"):
