@@ -109,19 +109,29 @@ bool _hasbeenpressed =false;
               ),
             ),
             Padding(
-                padding: const EdgeInsets.only(
-                  left: 120,
-                ),
-                child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 40
+                      left: 90
                   ),
                   child: new IconButton(
                     icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    tooltip:'Home Page' ,
                     onPressed: () {   Navigator.of(context).pushNamed('graphical');
                     },
                   ),
-                )
+                ),
+            Padding(
+              padding: const EdgeInsets.only(
+                //  right: 20,
+                  left: 25,
+                  bottom: 15
+              ),
+              child: IconButton(
+                icon: new Icon(Icons.arrow_right_rounded,color: Colors.white,size: 50),
+                tooltip:'back' ,
+
+                onPressed: () {   Navigator.of(context).pushNamed('data center');
+                },
+              ),
             ),
           ],
         ),

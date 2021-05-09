@@ -78,9 +78,8 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
 
   String orchestrator_policies="NEXT_FIT";
 
-  String simulation_scenarios1="SINGLE_TIER";
-  String simulation_scenarios2="TWO_TIER";
-  String simulation_scenarios3="TWO_TIER_WITH_EO";
+  String simulation_scenarios="SINGLE_TIER,TWO_TIER,TWO_TIER_WITH_EO";
+
 
   String attractiveness_L1_mean_waiting_time="500";
   String attractiveness_L2_mean_waiting_time="300";
@@ -128,9 +127,8 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
       if(prefs.getString('storage_for_mobile_vm')!=null) storage_for_mobile_vm=prefs.getString('storage_for_mobile_vm');
 
       if(prefs.getString('orchestrator_policies')!=null)   orchestrator_policies=prefs.getString('orchestrator_policies');
-      if(prefs.getString('simulation_scenarios1')!=null)   simulation_scenarios1=prefs.getString('simulation_scenarios1');
-      if(prefs.getString('simulation_scenarios2')!=null)  simulation_scenarios2=prefs.getString('simulation_scenarios2');
-      if(prefs.getString('simulation_scenarios3')!=null) simulation_scenarios3=prefs.getString('simulation_scenarios3');
+      if(prefs.getString('simulation_scenarios')!=null)   simulation_scenarios=prefs.getString('simulation_scenarios');
+
 
       if(prefs.getString('attractiveness_L1_mean_waiting_time')!=null)   attractiveness_L1_mean_waiting_time=prefs.getString('attractiveness_L1_mean_waiting_time');
       if(prefs.getString('attractiveness_L2_mean_waiting_time')!=null)   attractiveness_L2_mean_waiting_time=prefs.getString('attractiveness_L2_mean_waiting_time');
@@ -312,16 +310,10 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
     arr[23] = storage_for_mobile_vm;
 
     arr[24] = orchestrator_policies;
-    arr[25] = simulation_scenarios1+','+simulation_scenarios2+','+simulation_scenarios3;
+    arr[25] = simulation_scenarios;
     arr[26] = attractiveness_L1_mean_waiting_time;
     arr[27] = attractiveness_L2_mean_waiting_time;
     arr[28] = attractiveness_L3_mean_waiting_time;
-    //arr[29] ="#default config file";
-   // arr[30] ="#all the host on cloud runs on a single datacenter";
-    //arr[31] ="#mobile devices has no processing unit in this scenario";
-    //arr[32]="#use ',' for multiple values";
-   // arr[33]="#use ',' for multiple values";
-   // arr[34]="#mean waiting time in seconds";
     for(int l=0;l<data.length;l++) {
       concatenate += "\n"+data[l]+"="+arr[l];
     }

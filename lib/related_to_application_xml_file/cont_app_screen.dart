@@ -93,36 +93,48 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
             ),
             Padding(
                 padding: const EdgeInsets.only(
-                  left: 120,
+                 left: 100,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 40
-                  ),
+
                   child: new IconButton(
                     icon: new Icon(Icons.home_sharp,color: Colors.white,),
+                    tooltip:'Home Page' ,
+
                     onPressed: () {   Navigator.of(context).pushNamed('graphical');
                     },
                   ),
-                )
+
+                ),
+            Padding(
+              padding: const EdgeInsets.only(
+              //  right: 20,
+                left: 25,
+                bottom: 15
+              ),
+              child: IconButton(
+                icon: new Icon(Icons.arrow_right_rounded,color: Colors.white,size: 50),
+                tooltip:'back' ,
+
+                onPressed: () {   Navigator.of(context).pushNamed('add application');
+                },
+              ),
             ),
           ],
         ),
       ),
       body: Padding(
           padding: const EdgeInsets.only(
-            left: 16.0,
+           // left: 16.0,
             right: 20.0,
             top: 40.0,
           ),
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 30,
                     right: 16,
-                    left: 16
+                    left: 30
                 ),
                 child: Column(
                   children:<Widget> [

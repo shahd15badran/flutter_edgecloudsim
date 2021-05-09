@@ -33,7 +33,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-              //top: 20,
+              top: 20,
               bottom: 15
           ),
           child: SingleChildScrollView(
@@ -531,17 +531,19 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                     Container(
                       child: Row(
                         children: <Widget>[
+                          /////////////////////////
                           Padding(
                             padding: const EdgeInsets.only(
                                 top: 30,
-                                left: 20
+                                left: 2
                             ),
                             child: SizedBox(
                               height: 60,
-                              width: 150,
-                              child: OriginalButton(
-                                text:'Simulation Process',
-                                textColor: Colors.white,
+                              width: 225,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
                                 color: Color(0xFFA33A3A),
                                 onPressed:() async{
                                   final status = await Permission.storage.request();
@@ -549,13 +551,35 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                     Navigator.of(context).pushNamed('simulation');
                                   }
                                 },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 1),
+                                        child: Text('Simulation Process' ,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16
+                                          ) ,),
+                                      ),
+                                      IconButton(
+
+                                          icon: Icon(Icons.help_center_outlined,color:  Colors.white,size: 25),
+                                          tooltip:'Click the icon to send the editable files to the server then run the simulator' ,
+                                        ),
+
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
+                          ////////////////////////////
                           Padding(
                             padding: const EdgeInsets.only(
                               top: 30,
-                              left: 80,
+                             left: 30,
                             ),
                             child: SizedBox(
                               height: 60,

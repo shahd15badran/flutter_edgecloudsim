@@ -11,17 +11,6 @@ class OrchestratorScreen extends StatefulWidget {
   @override
   _OrchestratorScreenState createState() => _OrchestratorScreenState();
 }
-
-class Animal { //
-  final int id;
-  final String name;
-
-  Animal({
-    this.id,
-    this.name,
-  });
-}
-
 class Policy {
   final int id;
   final String name;
@@ -31,10 +20,20 @@ class Policy {
     this.name,
   });
 }
+class scenarios {
+  final int id;
+  final String name;
 
+  scenarios({
+    this.id,
+    this.name,
+  });
+}
+/////////////
 class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProviderStateMixin {
   int _state = 0;
   bool _hasbeenpressed =false;
+  bool _hasbeenpressed2 =false;
   AuthBase authBase = AuthBase();
 
   var orchestrator_policies_controller;
@@ -48,6 +47,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
   void initState (){
     getData();
     _selectedPolicies = _policies;
+    _selectedScenarios = _scenarios;
     super.initState();
   }
   getData() async {
@@ -73,10 +73,20 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
     Policy(id: 7, name: 'FUZZY_BASED'),
     Policy(id: 8, name: 'FUZZY_COMPETITOR'),
   ];
+  static List<scenarios> _scenarios = [ //
+    scenarios(id: 1, name: 'SINGLE_TIER'),
+    scenarios(id: 2, name: 'TWO_TIER'),
+    scenarios(id: 3, name: 'TWO_TIER_WITH_EO'),
+    scenarios(id: 4, name: 'MOBILE_PROCESSING_SCENARIO'),
+  ];
 
   final _items = _policies.map((p) => MultiSelectItem(p, p.name)).toList();
   List<Policy> _selectedPolicies = [];
   final _multiSelectKey = GlobalKey<FormFieldState>();
+  //////////
+  final _items2 = _scenarios.map((s) => MultiSelectItem(s, s.name)).toList();
+  List<scenarios> _selectedScenarios = [];
+  final _multiSelectKey2 = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +121,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
           padding: const EdgeInsets.only(
             left: 16.0,
             right: 10.0,
-           // top: 20.0,
+            top: 70.0,
           ),
           child: SingleChildScrollView(
             child: Container(
@@ -124,128 +134,114 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                 ),
                 child: Column(
                   children:<Widget> [
-                    SizedBox(height: 40),
-                    MultiSelectDialogField(
-                      items: _items,
-                      title: Text("Choose policies"),
-                      selectedColor: Colors.blue,
-                      decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.1),
-                        borderRadius: BorderRadius.all(Radius.circular(40)),
-                        border: Border.all(
-                          color: Colors.blue,
-                          width: 2,
-                        ),
-                      ),
-                      buttonIcon: Icon(
-                        Icons.keyboard_arrow_down_sharp,
-                        color: Colors.blue,
-                      ),
-                      buttonText: Text(
-                        "  orchestrator_policies",
-                        style: TextStyle(
-                          color: Colors.blue[800],
-                          fontSize: 16,
-                        ),
-                      ),
-                      onConfirm: (results) {
-                        _selectedPolicies = results;
-                      },
-                    ),
-
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 20
+                        right: 100
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 100,
-                            child: Text('simulation_scenarios=>',style: TextStyle(
+                          IconButton(
+                            icon: Icon(Icons.announcement_outlined,color:  Colors.black45,size: 25),
+                            tooltip:'You can choose more than one' ,
+                          ),
+                          Text('Edit orchestrator_policies',
+                            style: TextStyle(
+                              color: Color(0xFF072B4B),
                               fontSize: 18,
-                              color:  Color(0xFF345979),
-                              fontWeight: FontWeight.w800,
-                            ),
+                              fontWeight: FontWeight.w600,
+
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 70,
-                            ),
-                            child: SizedBox(
-                              width: 180,
-                              height: 40,
-                              child: TextFormField(
-                                controller: simulation_scenarios1_controller,
-                                decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    //prefs.setString('simulation_scenarios1', simulation_scenarios1_controller.text);
-                                  }
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 20
+                        top: 25,
+                        bottom: 25
+                      ),
+                      child: MultiSelectDialogField(
+                        items: _items,
+                        title: Text("Choose policies"),
+                        selectedColor: Colors.blue,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF77A5CD).withOpacity(0.7),
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          border: Border.all(
+                            color:Color(0xFF77A5CD),
+                            width: 2,
+                          ),
+                        ),
+                        buttonIcon: Icon(
+                          Icons.keyboard_arrow_down_sharp,
+                          color: Colors.blue,
+                        ),
+                        buttonText:
+                        Text("                orchestrator_policies",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 18,
+                          ),
+                        ),
+                        onConfirm: (results) {
+                          _selectedPolicies = results;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 70
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 100,
+                          IconButton(
+                            icon: Icon(Icons.announcement_outlined,color:  Colors.black45,size: 25),
+                            tooltip:'You can choose more than one' ,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 70,
-                            ),
-                            child: SizedBox(
-                              width: 180,
-                              height: 40,
-                              child: TextFormField(
-                                controller: simulation_scenarios2_controller,
-                                decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                   // prefs.setString('simulation_scenarios2', simulation_scenarios2_controller.text);
-                                  }
-                                ),
-                              ),
-                            ),
+                          Text('Edit simulation_scenarios',
+                            style: TextStyle(
+                              color: Color(0xFF072B4B),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+
+                            ),),
                         ],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 20
+                        top: 25,
+                        bottom: 50
                       ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
+                      child: MultiSelectDialogField(
+                        items: _items2,
+                        title: Text("Choose sim scenarios"),
+                        selectedColor: Colors.blue,
+                        decoration: BoxDecoration(
+                          color:Color(0xFF77A5CD).withOpacity(0.7),
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          border: Border.all(
+                            color: Colors.blue,
+                            width: 2,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 70,
-                            ),
-                            child: SizedBox(
-                              width: 180,
-                              height: 40,
-                              child: TextFormField(
-                                  controller: simulation_scenarios3_controller,
-                                  decoration: textInputDecoration,
-                                  onChanged: (text)async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    //prefs.setString('simulation_scenarios3', simulation_scenarios3_controller.text);
-                                  }
-                              ),
-                            ),
-                          )
-                        ],
+                        ),
+                        buttonIcon: Icon(
+                          Icons.keyboard_arrow_down_sharp,
+                          color: Colors.blue,
+                        ),
+                        buttonText: Text(
+                          "                  simulation_scenarios",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 18,
+                          ),
+                        ),
+                        onConfirm: (results) {
+                          _selectedScenarios = results;
+                        },
                       ),
                     ),
+                    ///////////////////////////////////////////////////
                     Padding(
                       padding: const EdgeInsets.only(
                           top: 20,
@@ -381,14 +377,19 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                                   });
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('save_app', 'true');
+
                                   String policies = _selectedPolicies[0].name;
+                                  String scenarios = _selectedScenarios[0].name;
                                   _selectedPolicies.forEach((element) {
                                     policies += "," + element.name ;
                                   });
+                                  //////
+                                  _selectedScenarios.forEach((element) {
+                                    scenarios += "," + element.name ;
+                                  });
+                                  /////////
                                   prefs.setString('orchestrator_policies', policies);
-                                  prefs.setString('simulation_scenarios1', simulation_scenarios1_controller.text);
-                                  prefs.setString('simulation_scenarios2', simulation_scenarios2_controller.text);
-                                  prefs.setString('simulation_scenarios3', simulation_scenarios3_controller.text);
+                                  prefs.setString('simulation_scenarios', scenarios);
                                   prefs.setString('attractiveness_L1_mean_waiting_time', attractiveness_L1_mean_waiting_time_controller.text);
                                   prefs.setString('attractiveness_L2_mean_waiting_time', attractiveness_L2_mean_waiting_time_controller.text);
                                   prefs.setString('attractiveness_L3_mean_waiting_time', attractiveness_L3_mean_waiting_time_controller.text);
@@ -404,7 +405,7 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 10,
+                        top: 30,
                         left: 5,
                       ),
                       child: SizedBox(

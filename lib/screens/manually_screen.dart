@@ -34,7 +34,26 @@ class ManuallyScreen extends StatelessWidget {
                 Center(
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 60),
+                     // SizedBox(height: 60),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 30,
+                          //  bottom: 25,
+                            right:20,
+                          left: 20
+                        ),
+                        child: Text('    EdgeCloudSim uses three config different files, first of all,'
+                          'default_config.properties file, this file basically store the simulation settings, '
+                            'Then we have edge_devices.xml file, this file stores the characteristic of the data center, '
+                            'Last file is applications.xml, characteristic of applications are declared in it.',
+                          style: TextStyle(
+                            color: Color(0xFF11202D),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+
                       Padding(
                         padding: const EdgeInsets.only(
                           top: 30,
@@ -49,23 +68,14 @@ class ManuallyScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            right: 380
-                        ),
-                        child: const Tooltip(
-                          showDuration: Duration(seconds: 3),
-                          message: 'click application.xml to edit the file manually',
-                          textStyle: TextStyle(
-                              fontSize: 15, color: Colors.white, fontWeight: FontWeight.normal),
-                          child: IconButton(
-                            icon: Icon(Icons.help_center_outlined,color:  Color(0xFF345979),size: 20),
-                          ),
-                        ),
-                      ),
+
                       SizedBox(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.only(
+                            bottom: 20,
+                            right: 20,
+                            left: 20
+                          ),
                           child: OriginalButton(
 
                             text: 'applications.xml',
@@ -79,24 +89,15 @@ class ManuallyScreen extends StatelessWidget {
 
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            right: 380
-                        ),
-                        child: const Tooltip(
-                          showDuration: Duration(seconds: 3),
-                          message: 'click default_config.properties to edit the file manually',
-                          textStyle: TextStyle(
-                              fontSize: 15, color: Colors.white, fontWeight: FontWeight.normal),
-                          child: IconButton(
-                            icon: Icon(Icons.help_center_outlined,color:  Color(0xFF345979),size: 20),
-                          ),
-                        ),
-                      ),
+
                       SizedBox(
                         child: Padding(
 
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.only(
+                              bottom: 20,
+                              right: 20,
+                              left: 20
+                          ),
                           child: OriginalButton(
                             text: 'default_config.properties',
                             color: Colors.white,
@@ -109,20 +110,7 @@ class ManuallyScreen extends StatelessWidget {
 
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            right: 380
-                        ),
-                        child: const Tooltip(
-                          showDuration: Duration(seconds: 3),
-                          message: 'click edge_devices.xml to edit the file manually',
-                          textStyle: TextStyle(
-                              fontSize: 15, color: Colors.white, fontWeight: FontWeight.normal),
-                          child: IconButton(
-                            icon: Icon(Icons.help_center_outlined,color:  Color(0xFF345979),size: 20),
-                          ),
-                        ),
-                      ),
+
                       SizedBox(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),

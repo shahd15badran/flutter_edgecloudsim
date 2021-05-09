@@ -88,9 +88,7 @@ class _StartupScreenState extends State<StartupScreen> {
       prefs.setString('storage_for_mobile_vm',"0");
 
       prefs.setString('orchestrator_policies',"NEXT_FIT");
-      prefs.setString('simulation_scenarios1',"SINGLE_TIER");
-      prefs.setString('simulation_scenarios2',"TWO_TIER");
-      prefs.setString('simulation_scenarios3',"TWO_TIER_WITH_EO");
+      prefs.setString('simulation_scenarios',"SINGLE_TIER,TWO_TIER,TWO_TIER_WITH_EO");
 
       prefs.setString('attractiveness_L1_mean_waiting_time',"500");
       prefs.setString('attractiveness_L2_mean_waiting_time',"300");
