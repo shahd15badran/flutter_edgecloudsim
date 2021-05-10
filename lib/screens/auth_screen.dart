@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_edgecloudsim/screens/startup_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -99,19 +98,24 @@ class _LoginState extends State<Login> {
   signOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      preferences.setInt("value", null);
-      preferences.setString("name", null);
-      preferences.setString("email", null);
-      preferences.setString("id", null);
+      preferences.setInt("value",0);
+      preferences.setString("name", "");
+      preferences.setString("email", "");
+      preferences.setString("id", "");
 
       preferences.commit();
       _loginStatus = LoginStatus.notSignIn;
     });
   }
 
+  clearPref() async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
+    clearPref();
     super.initState();
     getPref();
   }
@@ -137,8 +141,6 @@ class _LoginState extends State<Login> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.network(
-                              "https://www.logogenie.net/download/preview/medium/3589659"),
                           SizedBox(
                             height: 40,
                           ),
@@ -286,7 +288,8 @@ class _LoginState extends State<Login> {
         break;
 
       case LoginStatus.signIn:
-        return MainMenu(signOut);
+        return StartupScreen();
+        //return MainMenu(signOut);
 //        return ProfilePage(signOut);
         break;
     }
@@ -375,8 +378,6 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Image.network(
-                          "https://www.logogenie.net/download/preview/medium/3589659"),
                       SizedBox(
                         height: 40,
                       ),
@@ -551,131 +552,4 @@ class _RegisterState extends State<Register> {
   }
 }
 
-class MainMenu extends StatefulWidget {
-  final VoidCallback signOut;
 
-  MainMenu(this.signOut);
-
-  @override
-  _MainMenuState createState() => _MainMenuState();
-}
-
-class _MainMenuState extends State<MainMenu> {
-  signOut() {
-    setState(() {
-      widget.signOut();
-    });
-  }
-
-  int currentIndex = 0;
-  String selectedIndex = 'TAB: 0';
-
-  String email = "", name = "", id = "";
-  TabController tabController;
-
-  getPref() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      id = preferences.getString("id");
-      email = preferences.getString("email");
-      name = preferences.getString("name");
-    });
-    print("id" + id);
-    print("user" + email);
-    print("name" + name);
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getPref();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              signOut();
-            },
-            icon: Icon(Icons.lock_open),
-          )
-        ],
-      ),
-      body: Center(
-        child: Text(
-          "WelCome",
-          style: TextStyle(fontSize: 30.0, color: Colors.blue),
-        ),
-      ),
-      bottomNavigationBar: BottomNavyBar(
-        backgroundColor: Colors.black,
-        iconSize: 30.0,
-//        iconSize: MediaQuery.of(context).size.height * .60,
-        //currentIndex: currentIndex,
-        onItemSelected: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-          selectedIndex = 'TAB: $currentIndex';
-//            print(selectedIndex);
-          reds(selectedIndex);
-        },
-
-        items: [
-          BottomNavyBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-              activeColor: Color(0xFFf7d426)),
-          BottomNavyBarItem(
-              icon: Icon(Icons.view_list),
-              title: Text('List'),
-              activeColor: Color(0xFFf7d426)),
-          BottomNavyBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Profile'),
-              activeColor: Color(0xFFf7d426)),
-        ],
-      ),
-    );
-  }
-
-  //  Action on Bottom Bar Press
-  void reds(selectedIndex) {
-//    print(selectedIndex);
-
-    switch (selectedIndex) {
-      case "TAB: 0":
-        {
-          callToast("Tab 0");
-        }
-        break;
-
-      case "TAB: 1":
-        {
-          callToast("Tab 1");
-        }
-        break;
-
-      case "TAB: 2":
-        {
-          callToast("Tab 2");
-        }
-        break;
-    }
-  }
-
-  callToast(String msg) {
-    Fluttertoast.showToast(
-        msg: "$msg",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
-}

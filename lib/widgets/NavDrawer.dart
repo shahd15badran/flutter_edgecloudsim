@@ -40,8 +40,7 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap:() async {
-            //await authBase.logout();
-            Navigator.of(context).pushReplacementNamed('login');
+            Navigator.of(context).pushReplacementNamed('intro');
              // Navigator.of(context).pop()
             },
           ),

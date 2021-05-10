@@ -4,12 +4,21 @@ import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StartupScreen extends StatefulWidget {
+  //final VoidCallback signOut;
+  //StartupScreen(this.signOut);
+
   @override
   _StartupScreenState createState() => _StartupScreenState();
 }
 
 class _StartupScreenState extends State<StartupScreen> {
 
+  /*
+  signOut() {
+    setState(() {
+      widget.signOut();
+    });
+  }*/
   void initState (){
     getData();
   }

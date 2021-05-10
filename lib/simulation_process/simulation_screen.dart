@@ -56,6 +56,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
   Future<void> _sendConfigPROP() async {
     prefs = await SharedPreferences.getInstance();
     try {
+      print('HEE');
       final String result = await Platform.invokeMethod('getDefaultConfigFile',display_Configs());
     } on PlatformException catch (e) {
       print(e);
@@ -522,7 +523,7 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
     arr[23] = prefs.getString('storage_for_mobile_vm');
 
     arr[24] = prefs.getString('orchestrator_policies');
-    arr[25] = prefs.getString('simulation_scenarios1')+','+prefs.getString('simulation_scenarios2')+','+prefs.getString('simulation_scenarios3');
+    arr[25] = prefs.getString('simulation_scenarios');
     arr[26] = prefs.getString('attractiveness_L1_mean_waiting_time');
     arr[27] = prefs.getString('attractiveness_L2_mean_waiting_time');
     arr[28] = prefs.getString('attractiveness_L3_mean_waiting_time');

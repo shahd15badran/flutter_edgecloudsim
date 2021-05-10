@@ -378,13 +378,13 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
 
                                   String policies = _selectedPolicies[0].name;
                                   String scenarios = _selectedScenarios[0].name;
-                                  _selectedPolicies.forEach((element) {
-                                    policies += "," + element.name ;
-                                  });
+                                  for(int i=1; i<_selectedPolicies.length; i++){
+                                    policies += "," + _selectedPolicies[i].name ;
+                                  };
                                   //////
-                                  _selectedScenarios.forEach((element) {
-                                    scenarios += "," + element.name ;
-                                  });
+                                  for(int i=1; i<_selectedScenarios.length; i++){
+                                    scenarios += "," + _selectedScenarios[i].name ;
+                                  };
                                   /////////
                                   prefs.setString('orchestrator_policies', policies);
                                   prefs.setString('simulation_scenarios', scenarios);
