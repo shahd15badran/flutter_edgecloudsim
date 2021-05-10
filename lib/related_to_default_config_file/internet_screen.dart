@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class _InternetScreenState extends State<InternetScreen> with TickerProviderStateMixin{
   int _state = 0;
 bool _hasbeenpressed =false;
-  AuthBase authBase = AuthBase();
   var wan_propagation_delay_controller;
   var lan_internal_delay_controller;
   var wlan_bandwidth_controller;

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,7 +97,6 @@ class _SimulationScreenState extends State<SimulationScreen> with TickerProvider
     });
   }
 
-  AuthBase authBase = AuthBase();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

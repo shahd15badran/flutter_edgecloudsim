@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 class SelectedGraph extends StatefulWidget {
   @override
   _LogScreenState createState() => _LogScreenState();
 }
 
 class _LogScreenState extends State<SelectedGraph> {
-  AuthBase authBase = AuthBase();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +26,6 @@ class _LogScreenState extends State<SelectedGraph> {
                 minWidth: 20,
                 color: Colors.blue,
                 onPressed: () async {
-                  await authBase.logout();
                   Navigator.of(context).pushReplacementNamed('login');
                 },
                 child:Row(

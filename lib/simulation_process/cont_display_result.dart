@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class ContResultScreen extends StatefulWidget {
@@ -8,7 +7,6 @@ class ContResultScreen extends StatefulWidget {
 }
 
 class _LogScreenState extends State<ContResultScreen> {
-  AuthBase authBase = AuthBase();
 
   List <String> network=['Average Network Delay','Average WAN Delay','Average WLAN Delay'];
   List <String> addpdflist=['ALL_APPS','AUGMENTED_REALITY','HEALTH_APP','HEAVY_COMP_APP','INFOTAINMENT_APP'];
@@ -37,7 +35,6 @@ class _LogScreenState extends State<ContResultScreen> {
                 minWidth: 20,
                 color: Colors.blue,
                 onPressed: () async {
-                  await authBase.logout();
                   Navigator.of(context).pushReplacementNamed('login');
                 },
                 child:Row(

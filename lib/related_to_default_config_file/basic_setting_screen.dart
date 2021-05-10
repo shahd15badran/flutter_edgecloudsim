@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -14,7 +13,6 @@ class _SettingScreenState extends State<SettingScreen>with TickerProviderStateMi
   int _state = 0;
  bool _hasbeenpressed = false;
 
-  AuthBase authBase = AuthBase();
   var simulation_time_controller;
   var warm_up_period_controller;
   var vm_load_check_interval_controller;

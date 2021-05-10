@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -45,7 +44,6 @@ class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixi
     active_period =prefs.getStringList('active_period');
 
   }
-  AuthBase authBase = AuthBase();
   int counter=1;
   List <String> application_name;
   List <String> usage_percentage;

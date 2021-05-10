@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class ResultScreen extends StatefulWidget {
@@ -8,7 +7,6 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _LogScreenState extends State<ResultScreen> {
-  AuthBase authBase = AuthBase();
 
   List <String> function =['plotAvgServiceTime','plotAvgFailedTask','plotAvgProcessingTime','plotAvgServiceTime'];
   List <String> runfun=['In general','On cloud','On edge'];
@@ -37,7 +35,6 @@ class _LogScreenState extends State<ResultScreen> {
                 minWidth: 20,
                 color: Colors.blue,
                 onPressed: () async {
-                  await authBase.logout();
                   Navigator.of(context).pushReplacementNamed('login');
                 },
                 child:Row(

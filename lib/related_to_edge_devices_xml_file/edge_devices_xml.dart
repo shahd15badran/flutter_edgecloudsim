@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
@@ -36,7 +35,6 @@ class _State extends State<EdgeXML>with TickerProviderStateMixin  {
   List<String>ram2=['2000','2000','2000','2000','2000','2000','2000','2000','2000','2000','2000','2000','2000','2000'];
   List<String>storage2=['50000','50000','50000','50000','50000','50000','50000','50000','50000','50000','50000','50000','50000','50000'];
 
-  AuthBase authBase = AuthBase();
   var xml_controller=TextEditingController();
 
   static const Platform =const MethodChannel("com.flutter.epic/epic");
@@ -250,7 +248,6 @@ class _State extends State<EdgeXML>with TickerProviderStateMixin  {
                   minWidth: 20,
                   color: Colors.white,
                   onPressed: () async {
-                    await authBase.logout();
                     Navigator.of(context).pushReplacementNamed('login');
                   },
                   child:Row(

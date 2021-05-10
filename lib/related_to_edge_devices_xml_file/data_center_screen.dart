@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -14,7 +13,6 @@ class DataCenterScreen extends StatefulWidget {
 class _DataCenterScreenState extends State<DataCenterScreen> with TickerProviderStateMixin{
   int _state = 0;
   bool _hasbeenpressed =false;
-  AuthBase authBase = AuthBase();
   int counter=1;
   List <String> costPerBw;
   List <String> costPerSec;

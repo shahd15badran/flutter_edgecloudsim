@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -14,7 +13,6 @@ class GlobalCloudScreen extends StatefulWidget {
 class _GlobalCloudScreenState extends State<GlobalCloudScreen>with TickerProviderStateMixin {
   int _state = 0;
 bool _hasbeenpressed =false;
-  AuthBase authBase = AuthBase();
   var number_of_host_on_cloud_datacenter_controller;
   var number_of_vm_on_cloud_host_controller;
   var core_for_cloud_vm_controller;

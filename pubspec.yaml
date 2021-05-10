@@ -43,6 +43,10 @@ dependencies:
   shared_preferences:
   permission_handler:
   xml:
+  http:
+  fluttertoast:
+  avatar_glow:
+  bottom_navy_bar:
 
 
 

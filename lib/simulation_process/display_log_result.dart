@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class LogScreen extends StatefulWidget {
   @override
@@ -23,7 +22,6 @@ class _LogScreenState extends State<LogScreen> {
       _batteryLevel = batteryLevel;
     });
   }
-  AuthBase authBase = AuthBase();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +43,6 @@ class _LogScreenState extends State<LogScreen> {
                 minWidth: 20,
                 color: Colors.blue,
                 onPressed: () async {
-                  await authBase.logout();
                   Navigator.of(context).pushReplacementNamed('login');
                 },
                 child:Row(

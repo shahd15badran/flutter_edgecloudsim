@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -34,7 +33,6 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
   int _state = 0;
   bool _hasbeenpressed =false;
   bool _hasbeenpressed2 =false;
-  AuthBase authBase = AuthBase();
 
   var orchestrator_policies_controller;
   var simulation_scenarios1_controller;

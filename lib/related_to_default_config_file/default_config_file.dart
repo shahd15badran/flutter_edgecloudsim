@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
@@ -44,7 +43,6 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
   }
   @override
  String concatenate ='';
-  AuthBase authBase = AuthBase();
   var xml_controller=TextEditingController();
   String simulation_time="30";
   String warm_up_period="3";
@@ -158,7 +156,6 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
                   minWidth: 20,
                   color: Colors.white,
                   onPressed: () async {
-                    await authBase.logout();
                     Navigator.of(context).pushReplacementNamed('login');
                   },
                   child:Row(

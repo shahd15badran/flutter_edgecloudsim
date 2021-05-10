@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/constants.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
@@ -14,7 +13,6 @@ class EdgeUserScreen extends StatefulWidget {
 class _EdgeUserScreenState extends State<EdgeUserScreen> with TickerProviderStateMixin {
   int _state = 0;
   bool _hasbeenpressed=false;
-  AuthBase authBase = AuthBase();
   var min_number_of_mobile_devices_controller;
   var max_number_of_mobile_devices_controller;
   var mobile_device_counter_size_controller;

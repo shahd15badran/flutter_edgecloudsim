@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 
 class NavDrawer extends StatelessWidget {
-  AuthBase authBase = AuthBase();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,7 +40,7 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap:() async {
-            await authBase.logout();
+            //await authBase.logout();
             Navigator.of(context).pushReplacementNamed('login');
              // Navigator.of(context).pop()
             },

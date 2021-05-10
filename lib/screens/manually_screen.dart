@@ -1,13 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ManuallyScreen extends StatelessWidget {
-  AuthBase authBase = AuthBase();
 
   @override
   Widget build(BuildContext context) {

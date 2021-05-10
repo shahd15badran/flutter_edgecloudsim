@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/screens/ListingPdfFiles.dart';
-import 'package:flutter_edgecloudsim/services/auth.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 class MatlabScreen extends StatefulWidget {
@@ -64,7 +63,6 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
     super.initState();
   }
 
-  AuthBase authBase = AuthBase();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
