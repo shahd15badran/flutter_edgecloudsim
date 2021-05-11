@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  introduction_screen:
   multi_select_flutter:
   esys_flutter_share: ^1.0.0
   share: ^0.6.5+4
@@ -44,7 +45,8 @@ dependencies:
   permission_handler:
   xml:
   http:
-  fluttertoast:
+  toast: ^0.1.4
+  #fluttertoast:
   avatar_glow:
   bottom_navy_bar:
 

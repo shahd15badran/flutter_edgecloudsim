@@ -13,6 +13,8 @@ import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/data_cente
 import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/edge_devices_xml.dart';
 import 'package:flutter_edgecloudsim/screens/ListingFiles.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
+import 'package:flutter_edgecloudsim/screens/test.dart';
+import 'package:flutter_edgecloudsim/screens/tutorial_screen.dart';
 import 'package:flutter_edgecloudsim/simulation_process/matlab_screen.dart';
 import 'simulation_process/cont_display_result.dart';
 import 'simulation_process/display_log_result.dart';
@@ -81,6 +83,9 @@ class MyApp extends StatelessWidget {
         'selected graph':(context)=>SelectedGraph(),
         'matlab screen':(context)=>MatlabScreen(),
         'MyFileList':(context)=>MyFileList(),
+        'tutorial':(context)=>TutorialScreen(),
+        'test':(context)=>App(),
+
 
       },
     );

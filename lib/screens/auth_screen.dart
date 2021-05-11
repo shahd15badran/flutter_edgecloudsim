@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/screens/startup_screen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -64,12 +67,8 @@ class _LoginState extends State<Login> {
   }
 
   loginToast(String toast) {
-    return Fluttertoast.showToast(
-        msg: toast,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
+    return Toast.show(toast, context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM, backgroundColor: Color(
+        0xFF958B8B),
         textColor: Colors.white);
   }
 
@@ -125,121 +124,158 @@ class _LoginState extends State<Login> {
     switch (_loginStatus) {
       case LoginStatus.notSignIn:
         return Scaffold(
-          backgroundColor: Colors.black,
-          body: Center(
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.all(15.0),
-              children: <Widget>[
-                Center(
+          drawer: NavDrawer(),
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color:Colors.white,
+            ),
+            backgroundColor: Color(0xFF77A5CD),
+          ),
+        //  backgroundColor: Colors.white,
+          body:SingleChildScrollView(
+            child:Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
-//            color: Colors.grey.withAlpha(20),
-                    color: Colors.black,
+
+                   // color:  Color(0xFF77A5CD),
                     child: Form(
                       key: _key,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 40,
-                          ),
-                          SizedBox(
-                            height: 50,
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 30.0),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-
-                          //card for Email TextFormField
-                          Card(
-                            elevation: 6.0,
-                            child: TextFormField(
-                              validator: (e) {
-                                if (e.isEmpty) {
-                                  return "Please Insert Email";
-                                }
-                              },
-                              onSaved: (e) => email = e,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 3),
+                        child: Column(
+                         // mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(),
+                            Hero(
+                              tag: 'logoAnimation',
+                              child: Image.asset(
+                                'assets/images/ECS logo1.jpg',
+                                height: 250,
+                                fit: BoxFit.cover,
                               ),
-                              decoration: InputDecoration(
+                            ),
+                            //card for Email TextFormField
+                            Padding(
+                              padding: const EdgeInsets.only(right: 269,top: 30,bottom: 5),
+                              child: Text('Email Address',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+
+                                ),),
+                            ),
+                             TextFormField(
+                                validator: (e) {
+                                  if (e.isEmpty) {
+                                    return "Please Insert Email";
+                                  }
+                                },
+                                onSaved: (e) => email = e,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled:true,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.blue,width: 1.0)
+                                  ),
+                                    prefixIcon: Padding(
+                                      padding:
+                                      EdgeInsets.only(left: 2, right: 1),
+                                      child:
+                                      Icon(Icons.person, color: Colors.black),
+                                    ),
+                                    contentPadding: EdgeInsets.all(10),
+                                ),
+                              ),
+
+                            // Card for password TextFormField
+                            Padding(
+                              padding: const EdgeInsets.only(right: 299,bottom: 5,
+                              top: 30),
+                              child: Text('Password',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+
+                                ),),
+                            ),
+                             TextFormField(
+                                validator: (e) {
+                                  if (e.isEmpty) {
+                                    return "Password Can't be Empty";
+                                  }
+                                },
+                                obscureText: _secureText,
+                                onSaved: (e) => password = e,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled:true,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.blue,width: 1.0)
+                                  ),
                                   prefixIcon: Padding(
-                                    padding:
-                                    EdgeInsets.only(left: 20, right: 15),
-                                    child:
-                                    Icon(Icons.person, color: Colors.black),
+                                    padding: EdgeInsets.only(left: 2, right: 1),
+                                    child: Icon(Icons.phonelink_lock,
+                                        color: Colors.black),
+                                  ),
+                                  suffixIcon: IconButton(
+                                    onPressed: showHide,
+                                    icon: Icon(_secureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
                                   ),
                                   contentPadding: EdgeInsets.all(18),
-                                  labelText: "Email"),
-                            ),
-                          ),
-
-                          // Card for password TextFormField
-                          Card(
-                            elevation: 6.0,
-                            child: TextFormField(
-                              validator: (e) {
-                                if (e.isEmpty) {
-                                  return "Password Can't be Empty";
-                                }
-                              },
-                              obscureText: _secureText,
-                              onSaved: (e) => password = e,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                              ),
-                              decoration: InputDecoration(
-                                labelText: "Password",
-                                prefixIcon: Padding(
-                                  padding: EdgeInsets.only(left: 20, right: 15),
-                                  child: Icon(Icons.phonelink_lock,
-                                      color: Colors.black),
                                 ),
-                                suffixIcon: IconButton(
-                                  onPressed: showHide,
-                                  icon: Icon(_secureText
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
-                                ),
-                                contentPadding: EdgeInsets.all(18),
                               ),
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: 12,
-                          ),
-
-                          FlatButton(
-                            onPressed: null,
-                            child: Text(
-                              "Forgot Password?",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-
-                          Padding(
-                            padding: EdgeInsets.all(14.0),
-                          ),
-
-                          new Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              SizedBox(
-                                height: 44.0,
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 30
+                                    ),
+                                    child: SizedBox(
+                                     width: 250,
+                                      height: 50,
+                                      child: RaisedButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                          child: Text(
+                                            "Doesn\'t have an acount?",
+                                            style: TextStyle(fontSize: 18.0,),
+                                          ),
+                                          textColor:Color(0xFF3577B1),
+                                          color: Colors.white,
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => Register()),
+                                            );
+                                          })
+                                    ),
+                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: SizedBox(
+                               width: 250,
+                                  height: 50,
                                 child: RaisedButton(
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -249,40 +285,19 @@ class _LoginState extends State<Login> {
                                       style: TextStyle(fontSize: 18.0),
                                     ),
                                     textColor: Colors.white,
-                                    color: Color(0xFFf7d426),
+                                    color:Color(0xFF3577B1),
                                     onPressed: () {
                                       check();
                                     }),
                               ),
-                              SizedBox(
-                                height: 44.0,
-                                child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(15.0)),
-                                    child: Text(
-                                      "GoTo Register",
-                                      style: TextStyle(fontSize: 18.0),
-                                    ),
-                                    textColor: Colors.white,
-                                    color: Color(0xFFf7d426),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Register()),
-                                      );
-                                    }),
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
           ),
         );
         break;
@@ -301,7 +316,9 @@ class Register extends StatefulWidget {
   _RegisterState createState() => _RegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterState extends State<Register>with TickerProviderStateMixin {
+  int _state = 0;
+  bool  _hasbeenpressed=false;
   String name, email, mobile, password;
   final _key = new GlobalKey<FormState>();
 
@@ -351,19 +368,21 @@ class _RegisterState extends State<Register> {
   }
 
   registerToast(String toast) {
-    return Fluttertoast.showToast(
-        msg: toast,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
+    return Toast.show(toast, context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM, backgroundColor: Color(0xFF958B8B),
         textColor: Colors.white);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      drawer: NavDrawer(),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color:Colors.white,
+        ),
+        backgroundColor: Color(0xFF77A5CD),
+      ),
+
       body: Center(
         child: ListView(
           shrinkWrap: true,
@@ -372,7 +391,6 @@ class _RegisterState extends State<Register> {
             Center(
               child: Container(
                 padding: const EdgeInsets.all(8.0),
-                color: Colors.black,
                 child: Form(
                   key: _key,
                   child: Column(
@@ -384,8 +402,11 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         height: 50,
                         child: Text(
-                          "Register",
-                          style: TextStyle(color: Colors.white, fontSize: 30.0),
+                          "Register your account",style: TextStyle(
+                          fontSize: 30,
+                          color: Color(0xFF02101C),
+                          fontWeight: FontWeight.w300,
+                        ),
                         ),
                       ),
                       SizedBox(
@@ -393,9 +414,7 @@ class _RegisterState extends State<Register> {
                       ),
 
                       //card for Fullname TextFormField
-                      Card(
-                        elevation: 6.0,
-                        child: TextFormField(
+                      TextFormField(
                           validator: (e) {
                             if (e.isEmpty) {
                               return "Please insert Full Name";
@@ -408,6 +427,12 @@ class _RegisterState extends State<Register> {
                             fontWeight: FontWeight.w300,
                           ),
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.blue,width: 1.0)
+                              ),
                               prefixIcon: Padding(
                                 padding: EdgeInsets.only(left: 20, right: 15),
                                 child: Icon(Icons.person, color: Colors.black),
@@ -415,12 +440,11 @@ class _RegisterState extends State<Register> {
                               contentPadding: EdgeInsets.all(18),
                               labelText: "Fullname"),
                         ),
-                      ),
+
+                      Text(''),
 
                       //card for Email TextFormField
-                      Card(
-                        elevation: 6.0,
-                        child: TextFormField(
+                       TextFormField(
                           validator: (e) {
                             if (e.isEmpty) {
                               return "Please insert Email";
@@ -433,6 +457,12 @@ class _RegisterState extends State<Register> {
                             fontWeight: FontWeight.w300,
                           ),
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.blue,width: 1.0)
+                              ),
                               prefixIcon: Padding(
                                 padding: EdgeInsets.only(left: 20, right: 15),
                                 child: Icon(Icons.email, color: Colors.black),
@@ -440,12 +470,9 @@ class _RegisterState extends State<Register> {
                               contentPadding: EdgeInsets.all(18),
                               labelText: "Email"),
                         ),
-                      ),
-
+                      Text(''),
                       //card for Mobile TextFormField
-                      Card(
-                        elevation: 6.0,
-                        child: TextFormField(
+                      TextFormField(
                           validator: (e) {
                             if (e.isEmpty) {
                               return "Please insert Mobile Number";
@@ -458,6 +485,12 @@ class _RegisterState extends State<Register> {
                             fontWeight: FontWeight.w300,
                           ),
                           decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue,width: 1.0)
+                            ),
                             prefixIcon: Padding(
                               padding: EdgeInsets.only(left: 20, right: 15),
                               child: Icon(Icons.phone, color: Colors.black),
@@ -467,12 +500,10 @@ class _RegisterState extends State<Register> {
                           ),
                           keyboardType: TextInputType.number,
                         ),
-                      ),
 
                       //card for Password TextFormField
-                      Card(
-                        elevation: 6.0,
-                        child: TextFormField(
+                      Text(''),
+                       TextFormField(
                           obscureText: _secureText,
                           onSaved: (e) => password = e,
                           style: TextStyle(
@@ -481,6 +512,12 @@ class _RegisterState extends State<Register> {
                             fontWeight: FontWeight.w300,
                           ),
                           decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black45,width: 1.0)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.blue,width: 1.0)
+                              ),
                               suffixIcon: IconButton(
                                 onPressed: showHide,
                                 icon: Icon(_secureText
@@ -495,17 +532,15 @@ class _RegisterState extends State<Register> {
                               contentPadding: EdgeInsets.all(18),
                               labelText: "Password"),
                         ),
-                      ),
+
 
                       Padding(
-                        padding: EdgeInsets.all(12.0),
+                        padding: EdgeInsets.all(30.0),
                       ),
 
-                      new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
                           SizedBox(
-                            height: 44.0,
+                            height: 50,
+                            width: 250,
                             child: RaisedButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
@@ -514,32 +549,32 @@ class _RegisterState extends State<Register> {
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                                 textColor: Colors.white,
-                                color: Color(0xFFf7d426),
+                                color:Color(0xFF3577B1),
                                 onPressed: () {
                                   check();
                                 }),
                           ),
-                          SizedBox(
-                            height: 44.0,
-                            child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                child: Text(
-                                  "GoTo Login",
-                                  style: TextStyle(fontSize: 18.0),
-                                ),
-                                textColor: Colors.white,
-                                color: Color(0xFFf7d426),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Login()),
-                                  );
-                                }),
-                          ),
-                        ],
-                      ),
+
+                      /*SizedBox(
+                        height: 50.0,
+                        width: 250,
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            child: Text(
+                              "GoTo Login",
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                            textColor: Colors.white,
+                            color:Color(0xFF3577B1),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Login()),
+                              );
+                            }),
+                      ),*/
                     ],
                   ),
                 ),

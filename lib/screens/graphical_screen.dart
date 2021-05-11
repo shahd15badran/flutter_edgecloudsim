@@ -50,7 +50,6 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
 
                           ),
                           child: IconButton(
-
                             icon: Icon(Icons.help_center_outlined,color:  Colors.black45,size: 25),
                             tooltip:'Click the icon for detailed configuration before you go the simulation process' ,
                           ),

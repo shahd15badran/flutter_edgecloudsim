@@ -34,7 +34,10 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.border_color),
             title: Text('Tutorial'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap:() async {
+              Navigator.of(context).pushReplacementNamed('tutorial');
+              // Navigator.of(context).pop()
+            },
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
