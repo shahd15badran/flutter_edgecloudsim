@@ -13,6 +13,8 @@ import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/data_cente
 import 'package:flutter_edgecloudsim/related_to_edge_devices_xml_file/edge_devices_xml.dart';
 import 'package:flutter_edgecloudsim/screens/ListingFiles.dart';
 import 'package:flutter_edgecloudsim/screens/auth_screen.dart';
+import 'package:flutter_edgecloudsim/screens/edit_password.dart';
+import 'package:flutter_edgecloudsim/screens/profile_screen.dart';
 import 'package:flutter_edgecloudsim/screens/test.dart';
 import 'package:flutter_edgecloudsim/screens/tutorial_screen.dart';
 import 'package:flutter_edgecloudsim/simulation_process/matlab_screen.dart';
@@ -60,9 +62,9 @@ class MyApp extends StatelessWidget {
       routes: {
         'intro': (context) => IntroScreen(),
         'login':(context)=>Login(),
+        'startup':(context) =>StartupScreen(),
         'graphical':(context) =>GraphicalScreen(),
         'manually':(context) => ManuallyScreen() ,
-        'startup':(context) =>StartupScreen(),
         'simulation':(context)=>SimulationScreen(),
         'orchestrator':(context)=>OrchestratorScreen(),
         'internet':(context) =>InternetScreen(),
@@ -84,6 +86,9 @@ class MyApp extends StatelessWidget {
         'matlab screen':(context)=>MatlabScreen(),
         'MyFileList':(context)=>MyFileList(),
         'tutorial':(context)=>TutorialScreen(),
+        'profile':(context)=>ProfileScreen(),
+        'edit password':(context)=>EditPasswprd(),
+
         'test':(context)=>App(),
 
 

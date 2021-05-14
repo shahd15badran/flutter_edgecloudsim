@@ -121,6 +121,7 @@ class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixi
                   children:<Widget> [
                     Padding(
                       padding: const EdgeInsets.only(
+
                           bottom: 20
                       ),
                       child: Row(
@@ -132,6 +133,9 @@ class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixi
                               color: Color(0xFF345979),
                               fontWeight: FontWeight.w800,
                             ),
+                              //decoration: InputDecoration(
+                              //  isDense: true,
+                             // ),
                             ),
                           ),
                           Padding(

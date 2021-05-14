@@ -29,7 +29,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-              top: 20,
+              top: 3,
               bottom: 15
           ),
           child: SingleChildScrollView(
@@ -57,38 +57,41 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                       ),
                     ),
                     Container(
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 70,
-                            ),
-                            child: Text('Global Cloud  ',style: TextStyle(
-                              fontSize: 18,
-                              color:  Color(0xFF345979),
-                              fontWeight: FontWeight.w800,
-                            ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 60,
-                            width: 60,
-                            child: RaisedButton(
-                              color: Color(0xFF554F4F),
-                              onPressed: (){
-                                Navigator.of(context).pushNamed('global cloud');
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25)
+                      child: Padding(
+                        padding: const EdgeInsets.only(top:10),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 70,
                               ),
-                              child:Row(
-                                children:<Widget>[
-                                  Icon(Icons.cloud,color: Colors.yellow,size: 28),
-                                ],
+                              child: Text('Global Cloud  ',style: TextStyle(
+                                fontSize: 18,
+                                color:  Color(0xFF345979),
+                                fontWeight: FontWeight.w800,
+                              ),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 60,
+                              width: 60,
+                              child: RaisedButton(
+                                color: Color(0xFF554F4F),
+                                onPressed: (){
+                                  Navigator.of(context).pushNamed('global cloud');
+                                },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)
+                                ),
+                                child:Row(
+                                  children:<Widget>[
+                                    Icon(Icons.cloud,color: Colors.yellow,size: 28),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
@@ -526,25 +529,21 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                     Container(
                       child: Row(
                         children: <Widget>[
-                          /////////////////////////
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 30,
-                                left: 2
+                                top: 40,
+                                left: 10
                             ),
                             child: SizedBox(
                               height: 60,
-                              width: 225,
+                              width: 222,
                               child: RaisedButton(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 color: Color(0xFFA33A3A),
-                                onPressed:() async{
-                                  final status = await Permission.storage.request();
-                                  if (status.isGranted) {
+                                onPressed:(){
                                     Navigator.of(context).pushNamed('simulation');
-                                  }
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 2),
@@ -559,8 +558,7 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                           ) ,),
                                       ),
                                       IconButton(
-
-                                          icon: Icon(Icons.help_center_outlined,color:  Colors.white,size: 25),
+                                          icon: Icon(Icons.help_center_outlined,color:  Colors.white,size: 19),
                                           tooltip:'Click the icon to send the editable files to the server then run the simulator' ,
                                         ),
 
@@ -570,11 +568,10 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                               ),
                             ),
                           ),
-                          ////////////////////////////
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 30,
-                             left: 30,
+                              top: 40,
+                             left: 20,
                             ),
                             child: SizedBox(
                               height: 60,

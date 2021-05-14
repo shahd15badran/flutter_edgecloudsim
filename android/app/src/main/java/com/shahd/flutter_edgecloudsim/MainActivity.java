@@ -8,6 +8,8 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodCall;
 //import io.flutter.plugins.GeneratedPluginRegistrant;
 
+import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Properties;
 
 import java.io.StringReader;
@@ -47,58 +49,73 @@ public class MainActivity extends FlutterActivity {
 
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
                 if (call.method.equals("getAppXML")){
-                    String arguments= call.arguments();
-                    Document doc = convertStringToDocument( arguments );
+                    List arguments= call.arguments();
+                    Document doc = convertStringToDocument((String) arguments.get(1));
                     String str = convertDocumentToString(doc);
-                    new SendFileToServer("2" +str,false);
+                    String key = (String) arguments.get(0);
+                    new SendFileToServer("2"+key +str,false);
                     result.success(str);
                 }
                 else  if (call.method.equals("getEdgeDeviceXML")){
-                    String arguments= call.arguments();
-                    Document doc = convertStringToDocument( arguments );
+                    List arguments= call.arguments();
+                    Document doc = convertStringToDocument( (String) arguments.get(1));
                     String str = convertDocumentToString(doc);
-                    new SendFileToServer("1" +str,false);
+                    String key = (String) arguments.get(0);
+                    new SendFileToServer("1"+key +str,false);
                     result.success(str);
                 }
                 else if(call.method.equals("getDefaultConfigFile")){
-                   String arguments = call.arguments();
-                    new SendFileToServer("3" +arguments,false);
-                    result.success(arguments);
+                    List arguments = call.arguments();
+                    String key = (String) arguments.get(0);
+                    String str = arguments.get(1).toString();
+                    new SendFileToServer("3"+key +str,false);
+                    result.success(str);
                 }
                 else if(call.method.equals("updateGeneric")){
-                    String arguments = call.arguments();
-                    new SendFileToServer("4" +arguments,false);
-                    result.success(arguments);
+                    List arguments = call.arguments();
+                    String key = (String) arguments.get(0);
+                    String str = arguments.get(1).toString();
+                    new SendFileToServer("4"+key +str,false);
+                    result.success(str);
                 }
-
                 else if(call.method.equals("Start Sim")){
-                    System.out.println("reached Start Sim in MainActivity");
-                    new SendFileToServer("@",true);
+                    String key = call.arguments();
+                    new SendFileToServer("@"+key,true);
                     result.success(SendFileToServer.getSimMsg());
                 }
                 else if (call.method.equals("getMsg")){
                     result.success(SendFileToServer.getSimMsg());
                 }
                 else if(call.method.equals("get log file")){
-                    new GetFileFromServer("*" );
-                    result.success("resultssssssssss"+GetFileFromServer.getfilesnames());//
-                }////
+                    String key = call.arguments();
+                    new GetFileFromServer("*"+key );
+                    result.success("logss"+GetFileFromServer.getfilesnames());//
+                }
                 else if(call.method.equals("pdfs_failed")) {
-                    GetFileFromServer gf = new GetFileFromServer("f");
+                    String key = call.arguments();
+                    new GetFileFromServer("f"+key);
+                    result.success("done");//
                 }
                 else if(call.method.equals("pdfs_network")){
-                    new GetFileFromServer("n");
-
+                    String key = call.arguments();
+                    new GetFileFromServer("n"+key);
+                    result.success("done");//
                 }
                 else if(call.method.equals("pdfs_process")){
-                    new GetFileFromServer("p");
+                    String key = call.arguments();
+                    new GetFileFromServer("p"+key);
+                    result.success("done");//
                 }
                 else if(call.method.equals("pdfs_service")){
-                    new GetFileFromServer("s");
+                    String key = call.arguments();
+                    new GetFileFromServer("s"+key);
+                    result.success("done");//
                 }
                 else if(call.method.equals("pdfs_vm")){
-                    new GetFileFromServer("v");
-                }////
+                    String key = call.arguments();
+                    new GetFileFromServer("v"+key);
+                    result.success("done");//
+                }
             }
         });
     }

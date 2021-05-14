@@ -40,18 +40,19 @@ public class GetFileFromServer {
         String server = "192.168.0.105";
         int port = 1988;
 
+        char dfile = file.charAt(0);
         //Decide destination folder
-        if(file == "*")
+        if(dfile == '*')
             the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Logs");
-        else if(file == "f")
+        else if(dfile == 'f')
             the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/failedTasks");
-        else if(file == "n")
+        else if(dfile == 'n')
             the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/networkDelay");
-        else if(file == "p")
+        else if(dfile == 'p')
             the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/processingTime");
-        else if(file == "s")
+        else if(dfile == 's')
             the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/serviceTime");
-        else if(file == "v")
+        else if(dfile == 'v')
             the_path = new File(Environment.getExternalStorageDirectory() + "/Documents/Pdfs/vmUtilization");
 
         try {
@@ -69,9 +70,13 @@ public class GetFileFromServer {
             DataInputStream dis = new DataInputStream(bis);
             ArrayList<String> ff = new ArrayList<String>();
             int filesCount = dis.readInt();
-            System.out.println("FILES_COUNT = " + filesCount);////////////////////////
+            System.out.println("FILES_COUNT = " + filesCount);/////////
             File[] files = new File[filesCount];
 
+            for(int i =0; i<filesCount; i++){
+                ///
+            }
+            System.out.println(filesCount);
 
             for (int i = 0; i < filesCount; i++) {
                 long fileLength = dis.readLong();

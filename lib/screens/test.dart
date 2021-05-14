@@ -60,7 +60,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       pageColor: Colors.white,
       imagePadding: EdgeInsets.zero,
     );
-
     return IntroductionScreen(
       key: introKey,
       globalBackgroundColor: Colors.white,
@@ -71,17 +70,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             padding: const EdgeInsets.only(top: 16, right: 16),
             child: _buildImage('flutter.png', 100),
           ),
-        ),
-      ),
-      globalFooter: SizedBox(
-        width: double.infinity,
-        height: 60,
-        child: ElevatedButton(
-          child: const Text(
-            'Let\s go right away!',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-          onPressed: () => _onIntroEnd(context),
         ),
       ),
       pages: [

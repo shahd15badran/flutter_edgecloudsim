@@ -25,7 +25,7 @@ class _StartupScreenState extends State<StartupScreen> {
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //applications
-    List <String> application_name=['AUGMENTED','HEALTH_APP','HEAVY_COMP_APP','INFOTAINMENT_APP'];
+    List <String> application_name=['AUGMENTED_REALITY','HEALTH_APP','HEAVY_COMP_APP','INFOTAINMENT_APP'];
     List <String> usage_percentage=['30','20','20','30'];
     List <String> prob_cloud_selection=['20','20','40','15'];
     List <String> poisson_interarrival=['5','30','60','7'];

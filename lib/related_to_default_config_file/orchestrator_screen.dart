@@ -44,44 +44,61 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
 
   void initState (){
     getData();
-    _selectedPolicies = _policies;
+    //_selectedPolicies = _policies;//[Policy(id: 1, name: 'NEXT_FIT')];
     _selectedScenarios = _scenarios;
     super.initState();
   }
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      orchestrator_policies_controller=TextEditingController(text: prefs.getString('orchestrator_policies'));
-      simulation_scenarios1_controller=TextEditingController(text: prefs.getString('simulation_scenarios1'));
-      simulation_scenarios2_controller=TextEditingController(text: prefs.getString('simulation_scenarios2'));
-      simulation_scenarios3_controller=TextEditingController(text: prefs.getString('simulation_scenarios3'));
+      orchestrator_policies_controller=TextEditingController(text: prefs.getString('orchestrator_policies'));//
+      simulation_scenarios1_controller=TextEditingController(text: prefs.getString('simulation_scenarios1'));//
+      simulation_scenarios2_controller=TextEditingController(text: prefs.getString('simulation_scenarios2'));//
+      simulation_scenarios3_controller=TextEditingController(text: prefs.getString('simulation_scenarios3'));//
       attractiveness_L1_mean_waiting_time_controller=TextEditingController(text: prefs.getString('attractiveness_L1_mean_waiting_time'));
       attractiveness_L2_mean_waiting_time_controller=TextEditingController(text: prefs.getString('attractiveness_L2_mean_waiting_time'));
       attractiveness_L3_mean_waiting_time_controller=TextEditingController(text: prefs.getString('attractiveness_L3_mean_waiting_time'));
+      orchPolicies = prefs.getString('orchestrator_policies');
+      simScenarios = prefs.getString('simulation_scenarios');
+
+      _initialPolicies.add(Policy(id: 1, name: orchPolicies));//
+      //print(Policy(id: 1, name: orchPolicies).name);//
+      _selectedPolicies = _initialPolicies;//
+
+      int Policies = ','.allMatches(orchPolicies).length +1; //TODO
+      int Scenarios = ','.allMatches(simScenarios).length +1;
+
     });
   }
 
-  static List<Policy> _policies = [ //
+  static List<Policy> _Initpolicies = [
+    Policy(id: 1, name: 'NEXT_FIT'),
+    Policy(id: 2, name: 'ONLY_EDGE'),
+  ];
+
+  static List<Policy> _policies = [
     Policy(id: 1, name: 'NEXT_FIT'),
     Policy(id: 2, name: 'ONLY_EDGE'),
     Policy(id: 3, name: 'ONLY_MOBILE'),
     Policy(id: 4, name: 'NETWORK_BASED'),
     Policy(id: 5, name: 'HYBRID'),
-    Policy(id: 6, name: 'UTILIZATION_BASED'), //FUZZY_BASED,FUZZY_COMPETITOR
+    Policy(id: 6, name: 'UTILIZATION_BASED'),
     Policy(id: 7, name: 'FUZZY_BASED'),
     Policy(id: 8, name: 'FUZZY_COMPETITOR'),
   ];
-  static List<scenarios> _scenarios = [ //
+  static List<scenarios> _scenarios = [
     scenarios(id: 1, name: 'SINGLE_TIER'),
     scenarios(id: 2, name: 'TWO_TIER'),
     scenarios(id: 3, name: 'TWO_TIER_WITH_EO'),
     scenarios(id: 4, name: 'MOBILE_PROCESSING_SCENARIO'),
   ];
 
+  String orchPolicies;
+  String simScenarios;
   final _items = _policies.map((p) => MultiSelectItem(p, p.name)).toList();
   List<Policy> _selectedPolicies = [];
+  List<Policy> _initialPolicies = [];
   final _multiSelectKey = GlobalKey<FormFieldState>();
-  //////////
   final _items2 = _scenarios.map((s) => MultiSelectItem(s, s.name)).toList();
   List<scenarios> _selectedScenarios = [];
   final _multiSelectKey2 = GlobalKey<FormFieldState>();
@@ -181,10 +198,12 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                             fontSize: 18,
                           ),
                         ),
+
                         onConfirm: (results) {
                           _selectedPolicies = results;
                         },
                       ),
+
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -381,11 +400,11 @@ class _OrchestratorScreenState extends State<OrchestratorScreen>with TickerProvi
                                   for(int i=1; i<_selectedPolicies.length; i++){
                                     policies += "," + _selectedPolicies[i].name ;
                                   };
-                                  //////
                                   for(int i=1; i<_selectedScenarios.length; i++){
                                     scenarios += "," + _selectedScenarios[i].name ;
                                   };
-                                  /////////
+                                  //orchPolicies = policies;
+                                  //simScenarios = scenarios;
                                   prefs.setString('orchestrator_policies', policies);
                                   prefs.setString('simulation_scenarios', scenarios);
                                   prefs.setString('attractiveness_L1_mean_waiting_time', attractiveness_L1_mean_waiting_time_controller.text);

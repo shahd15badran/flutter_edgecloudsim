@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class NavDrawer extends StatelessWidget {
+class NavDrawer extends StatefulWidget {
+  @override
+  _NavDrawerState createState() => _NavDrawerState();
+}
+
+class _NavDrawerState extends State<NavDrawer> {
+
+  String username = '';
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('name');
+    });
+  }
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -9,12 +29,19 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-                color: Color(0xFFC29F9F),), child: null,/*
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                   //image: AssetImage('assets/images/EdgeCloud.png')
-                )
-            ),*/
+                color: Color(0xFFC29F9F),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 90),
+              child: Text('Hey ' +username +'!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+
+                ),),
+            ),
+
           ),
           ListTile(
             leading: Icon(Icons.input),
@@ -24,13 +51,10 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
+            onTap:() async {
+              Navigator.of(context).pushReplacementNamed('profile');
+              // Navigator.of(context).pop()
+            },          ),
           ListTile(
             leading: Icon(Icons.border_color),
             title: Text('Tutorial'),

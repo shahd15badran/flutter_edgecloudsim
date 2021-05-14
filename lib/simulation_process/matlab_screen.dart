@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/screens/ListingPdfFiles.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class MatlabScreen extends StatefulWidget {
   @override
   _SimulationScreenState createState() => _SimulationScreenState();
@@ -112,8 +113,10 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                           animateButton(1);
                         }
                       });
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      String user_id = prefs.getString('user_id');
                       try {
-                        final String result = await Platform.invokeMethod('pdfs_failed');
+                        final String result = await Platform.invokeMethod('pdfs_failed',user_id);
                       } on PlatformException catch (e) {
                         print(e);
                       }
@@ -162,8 +165,10 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                           animateButton(2);
                         }
                       });
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      String user_id = prefs.getString('user_id');
                       try {
-                        final String result = await Platform.invokeMethod('pdfs_network');
+                        final String result = await Platform.invokeMethod('pdfs_network',user_id);
                       } on PlatformException catch (e) {
                         print(e);
                       }
@@ -212,8 +217,10 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                           animateButton(3);
                         }
                       });
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      String user_id = prefs.getString('user_id');
                       try {
-                        final String result = await Platform.invokeMethod('pdfs_process');
+                        final String result = await Platform.invokeMethod('pdfs_process',user_id);
                       } on PlatformException catch (e) {
                         print(e);
                       }
@@ -262,8 +269,10 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                           animateButton(4);
                         }
                       });
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      String user_id = prefs.getString('user_id');
                       try {
-                        final String result = await Platform.invokeMethod('pdfs_service');
+                        final String result = await Platform.invokeMethod('pdfs_service',user_id);
                       } on PlatformException catch (e) {
                         print(e);
                       }
@@ -312,8 +321,10 @@ class _SimulationScreenState extends State<MatlabScreen> with TickerProviderStat
                           animateButton(5);
                         }
                       });
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      String user_id = prefs.getString('user_id');
                       try {
-                        final String result = await Platform.invokeMethod('pdfs_vm');
+                        final String result = await Platform.invokeMethod('pdfs_vm',user_id);
                       } on PlatformException catch (e) {
                         print(e);
                       }

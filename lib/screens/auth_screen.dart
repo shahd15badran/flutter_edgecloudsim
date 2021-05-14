@@ -51,11 +51,14 @@ class _LoginState extends State<Login> {
     String emailAPI = data['email'];
     String nameAPI = data['name'];
     String id = data['id'];
+    String user_id = data['user_id'];
+    String mobile = data['mobile'];
 
     if (value == 1) {
+      print(user_id);
       setState(() {
         _loginStatus = LoginStatus.signIn;
-        savePref(value, emailAPI, nameAPI, id);
+        savePref(value, emailAPI, nameAPI, id, user_id, mobile);
       });
       print(message);
       loginToast(message);
@@ -72,13 +75,15 @@ class _LoginState extends State<Login> {
         textColor: Colors.white);
   }
 
-  savePref(int value, String email, String name, String id) async {
+  savePref(int value, String email, String name, String id, String user_id, String mobile) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       preferences.setInt("value", value);
       preferences.setString("name", name);
+      preferences.setString("mobile", mobile);
       preferences.setString("email", email);
       preferences.setString("id", id);
+      preferences.setString("user_id", user_id);
       preferences.commit();
     });
   }
@@ -124,10 +129,10 @@ class _LoginState extends State<Login> {
     switch (_loginStatus) {
       case LoginStatus.notSignIn:
         return Scaffold(
-          drawer: NavDrawer(),
+         // drawer: NavDrawer(),
           appBar: AppBar(
             iconTheme: IconThemeData(
-              color:Colors.white,
+              color:Color(0xFF77A5CD),
             ),
             backgroundColor: Color(0xFF77A5CD),
           ),
@@ -194,6 +199,7 @@ class _LoginState extends State<Login> {
                                       Icon(Icons.person, color: Colors.black),
                                     ),
                                     contentPadding: EdgeInsets.all(10),
+                                  labelText: 'Enter you email address'
                                 ),
                               ),
 
@@ -243,36 +249,12 @@ class _LoginState extends State<Login> {
                                         : Icons.visibility),
                                   ),
                                   contentPadding: EdgeInsets.all(18),
+                                    labelText: 'Enter your password'
                                 ),
                               ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 30
-                                    ),
-                                    child: SizedBox(
-                                     width: 250,
-                                      height: 50,
-                                      child: RaisedButton(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                          child: Text(
-                                            "Doesn\'t have an acount?",
-                                            style: TextStyle(fontSize: 18.0,),
-                                          ),
-                                          textColor:Color(0xFF3577B1),
-                                          color: Colors.white,
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => Register()),
-                                            );
-                                          })
-                                    ),
-                                  ),
+
                             Padding(
-                              padding: const EdgeInsets.only(top: 20),
+                              padding: const EdgeInsets.only(top: 65),
                               child: SizedBox(
                                width: 250,
                                   height: 50,
@@ -291,7 +273,30 @@ class _LoginState extends State<Login> {
                                     }),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top:10
+                              ),
+                              child: SizedBox(
+                                width: 250,
+                                height: 50,
+                                child: new GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Register()),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 40),
+                                    child: new Text("Doesn\'t have an acount?",
+                                        style: TextStyle(fontSize: 16.0,)),
+                                  ),
+                                ),
 
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -304,8 +309,6 @@ class _LoginState extends State<Login> {
 
       case LoginStatus.signIn:
         return StartupScreen();
-        //return MainMenu(signOut);
-//        return ProfilePage(signOut);
         break;
     }
   }
@@ -320,6 +323,7 @@ class _RegisterState extends State<Register>with TickerProviderStateMixin {
   int _state = 0;
   bool  _hasbeenpressed=false;
   String name, email, mobile, password;
+
   final _key = new GlobalKey<FormState>();
 
   bool _secureText = true;
@@ -346,7 +350,7 @@ class _RegisterState extends State<Register>with TickerProviderStateMixin {
       "email": email,
       "mobile": mobile,
       "password": password,
-      "fcm_token": "test_fcm_token"
+      "fcm_token": "test_fcm_token",
     });
 
     final data = jsonDecode(response.body);
@@ -375,10 +379,10 @@ class _RegisterState extends State<Register>with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(),
+      //drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:Colors.white,
+          color:Color(0xFF77A5CD),
         ),
         backgroundColor: Color(0xFF77A5CD),
       ),
@@ -441,7 +445,7 @@ class _RegisterState extends State<Register>with TickerProviderStateMixin {
                               labelText: "Fullname"),
                         ),
 
-                      Text(''),
+                    Text(''),
 
                       //card for Email TextFormField
                        TextFormField(
@@ -554,6 +558,30 @@ class _RegisterState extends State<Register>with TickerProviderStateMixin {
                                   check();
                                 }),
                           ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10
+                        ),
+                        child: SizedBox(
+                          width: 350,
+                          height: 50,
+                          child: new GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Login()),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 45),
+                              child: new Text("Have already an account? Login here ",
+                                  style: TextStyle(fontSize: 16.0,)),
+                            ),
+                          ),
+
+                        ),
+                      ),
 
                       /*SizedBox(
                         height: 50.0,
