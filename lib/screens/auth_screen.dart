@@ -55,7 +55,9 @@ class _LoginState extends State<Login> {
     String mobile = data['mobile'];
 
     if (value == 1) {
-      print(user_id);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('user_id',user_id);
+      //print(user_id);
       setState(() {
         _loginStatus = LoginStatus.signIn;
         savePref(value, emailAPI, nameAPI, id, user_id, mobile);

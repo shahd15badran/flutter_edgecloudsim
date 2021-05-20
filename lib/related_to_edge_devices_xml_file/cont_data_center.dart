@@ -87,53 +87,41 @@ bool _hasbeenpressed =false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavDrawer(),
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color:Colors.white,
-        ),
-        backgroundColor: Color(0xFF77A5CD),
-        title: Row(
-          children: [
-            Padding(padding: const EdgeInsets.only(
-              // left: 30,
-            ),
-              child: Text('Data Center'+counter.toString(),style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-              ),
-            ),
-            Padding(
+    return new WillPopScope(
+        onWillPop: () {   Navigator.of(context).pushNamed('add application');},
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor:  Color(0xFF77A5CD),
+            title: Row(
+              children: [
+                Padding(
                   padding: const EdgeInsets.only(
-                      left: 90
+                    //left: 80,
                   ),
+                  child: Text('Data Center'+counter.toString(),style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 160,
+                  ),
+
                   child: new IconButton(
                     icon: new Icon(Icons.home_sharp,color: Colors.white,),
                     tooltip:'Home Page' ,
+
                     onPressed: () {   Navigator.of(context).pushNamed('graphical');
                     },
                   ),
-                ),
-            Padding(
-              padding: const EdgeInsets.only(
-                //  right: 20,
-                  left: 25,
-                  bottom: 15
-              ),
-              child: IconButton(
-                icon: new Icon(Icons.arrow_right_rounded,color: Colors.white,size: 50),
-                tooltip:'back' ,
 
-                onPressed: () {   Navigator.of(context).pushNamed('data center');
-                },
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
       body: Padding(
           padding: const EdgeInsets.only(
             left: 16.0,
@@ -560,7 +548,7 @@ bool _hasbeenpressed =false;
                             child: SizedBox(
                               width: 140,
                               height: 40,
-                              child: OriginalButton(
+                              child: counter>1?OriginalButton(
                                 text:'Previous DC',
                                 textColor: Colors.white,
                                 color:Color(0xFF345979),
@@ -575,7 +563,7 @@ bool _hasbeenpressed =false;
                                   //edit data in firebase
                                   //change flag
                                 },
-                              ),
+                              ): Text(''),
                             ),
                           ),
                           Padding(
@@ -607,7 +595,7 @@ bool _hasbeenpressed =false;
           )
 
       ),
-    );
+    ));
   }
   Widget setUpButtonChild() {
     if (_state == 0) {

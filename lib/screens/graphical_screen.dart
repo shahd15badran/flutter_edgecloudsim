@@ -15,7 +15,9 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+      onWillPop: () {   Navigator.of(context).pushNamed('startup');},
+      child: Scaffold(
       backgroundColor: Colors.white,
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -542,7 +544,9 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 color: Color(0xFFA33A3A),
-                                onPressed:(){
+                                onPressed:() async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('manual', 'f');
                                     Navigator.of(context).pushNamed('simulation');
                                 },
                                 child: Padding(
@@ -598,6 +602,6 @@ class _GraphicalScreenState extends State<GraphicalScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

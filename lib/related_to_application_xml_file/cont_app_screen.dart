@@ -46,6 +46,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
 
   }
 
+
   int counter=1;
 
   List <String> idle_period;
@@ -69,12 +70,10 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavDrawer(),
+    return new WillPopScope(
+        onWillPop: () {   Navigator.of(context).pushNamed('add application');},
+        child: Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color:Colors.white,
-        ),
         backgroundColor:  Color(0xFF77A5CD),
         title: Row(
           children: [
@@ -91,7 +90,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
             ),
             Padding(
                 padding: const EdgeInsets.only(
-                 left: 100,
+                 left: 170,
                 ),
 
                   child: new IconButton(
@@ -103,20 +102,6 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                   ),
 
                 ),
-            Padding(
-              padding: const EdgeInsets.only(
-              //  right: 20,
-                left: 25,
-                bottom: 15
-              ),
-              child: IconButton(
-                icon: new Icon(Icons.arrow_right_rounded,color: Colors.white,size: 50),
-                tooltip:'back' ,
-
-                onPressed: () {   Navigator.of(context).pushNamed('add application');
-                },
-              ),
-            ),
           ],
         ),
       ),
@@ -465,7 +450,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                             child: SizedBox(
                               width: 140,
                               height: 40,
-                              child: OriginalButton(
+                              child: counter>1?OriginalButton(
                                 text:'Previous App',
                                 textColor: Colors.white,
                                 color:  Color(0xFF345979),
@@ -480,7 +465,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
                                   //edit data in firebase
                                   //change flag
                                 },
-                              ),
+                              ):Text(''),
                             ),
                           ),
                           Padding(
@@ -512,7 +497,7 @@ class _ContAddAppScreenState extends State<ContAddAppScreen>with TickerProviderS
           )
 
       ),
-    );
+    ));
   }
   Widget setUpButtonChild() {
     if (_state == 0) {

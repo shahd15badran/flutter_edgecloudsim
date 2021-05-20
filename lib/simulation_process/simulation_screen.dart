@@ -55,9 +55,19 @@ class _SimulationScreenState extends State<SimulationScreen>
   Future<void> _sendAppXML() async {
     prefs = await SharedPreferences.getInstance();
     String user_id = prefs.getString('user_id');
+    String manually = prefs.getString('manual');
+
     try {
-      final String result = await Platform.invokeMethod(
-          'getAppXML', [user_id, display_applications()]);
+      if(manually == 'f'){
+        final String result = await Platform.invokeMethod(
+            'getAppXML', [user_id, display_applications()]);
+      }
+      else{
+        String m = prefs.getString('ManuallygetAppXML');
+        final String result = await Platform.invokeMethod(
+            'getAppXML', [user_id, m]);
+      }
+
     } on PlatformException catch (e) {
       print(e);
     }
@@ -66,9 +76,18 @@ class _SimulationScreenState extends State<SimulationScreen>
   Future<void> _sendConfigPROP() async {
     prefs = await SharedPreferences.getInstance();
     String user_id = prefs.getString('user_id');
+    String manually = prefs.getString('manual');
     try {
-      final String result = await Platform.invokeMethod(
-          'getDefaultConfigFile', [user_id, display_Configs()]);
+      if(manually == 'f'){
+        final String result = await Platform.invokeMethod(
+            'getDefaultConfigFile', [user_id, display_Configs()]);
+      }
+      else{
+        String m = prefs.getString('ManuallygetDefaultConfigFile');
+        final String result = await Platform.invokeMethod(
+            'getDefaultConfigFile', [user_id, m]);
+      }
+
     } on PlatformException catch (e) {
       print(e);
     }
@@ -77,9 +96,18 @@ class _SimulationScreenState extends State<SimulationScreen>
   Future<void> _sendEdgeXML() async {
     prefs = await SharedPreferences.getInstance();
     String user_id = prefs.getString('user_id');
+    String manually = prefs.getString('manual');
     try {
-      final String result = await Platform.invokeMethod(
-          'getEdgeDeviceXML', [user_id, display_Edges()]);
+      if(manually == 'f'){
+        final String result = await Platform.invokeMethod(
+            'getEdgeDeviceXML', [user_id, display_Edges()]);
+      }
+      else{
+        String m = prefs.getString('ManuallygetEdgeDeviceXML');
+        final String result = await Platform.invokeMethod(
+            'getEdgeDeviceXML', [user_id, m]);
+      }
+
     } on PlatformException catch (e) {
       print(e);
     }

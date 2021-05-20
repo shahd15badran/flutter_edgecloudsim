@@ -1,15 +1,36 @@
 import 'dart:ui';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:flutter_edgecloudsim/widgets/original_button.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ManuallyScreen extends StatelessWidget {
+class ManuallyScreen extends StatefulWidget {
+
+  @override
+  _ManuallyScreenState createState() => _ManuallyScreenState();
+}
+
+class _ManuallyScreenState extends State<ManuallyScreen> {
+
+  getPref() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String user_id = prefs.getString('user_id');
+  }
+
+  @override
+  void initState() {
+    getPref();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+      onWillPop: () {   Navigator.of(context).pushNamed('startup');},
+      child: Scaffold(
       backgroundColor: Colors.white,
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -136,25 +157,64 @@ class ManuallyScreen extends StatelessWidget {
                 height: 60,
                 width: 350,
                 child: RaisedButton(
-
                   color: Color(0xFF345979),
                   onPressed: () async{
                       final status = await Permission.storage.request();
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
                       if (status.isGranted) {
                         Navigator.of(context).pushNamed('simulation');
+                        prefs.setString('manual', 't');
                       }
                   },
                   child: Text('Go to simulation process' ,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20
-                    ) ,),
+                    ),
+                  ),
                 ),
               ),
             ),
+            Padding( ///////////////////////////////////////////////////////////
+              padding: const EdgeInsets.only(
+                  top: 45
+              ),
+              child: SizedBox(
+                height: 60,
+                width: 350,
+                child: RaisedButton(
+                  color: Color(0xFF345979),
+                  onPressed: () async{
+                    FilePickerResult filePicker = await FilePicker.platform.pickFiles(
+                      type: FileType.custom,
+                      //allowedExtensions: ['jpg', 'pdf', 'doc'],
+                    );
+                    if(filePicker != null) {
+                      PlatformFile file = filePicker.files.first;
+
+                      print(file.name);
+                      //print(file.bytes);
+                      //print(file.size);
+                      //print(file.extension);
+                      //print(file.path);
+                      print(file.readStream);
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
+                  child: Text('Upload' ,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
           ],
         ),
       ),
-    );
+    ));
   }
 }

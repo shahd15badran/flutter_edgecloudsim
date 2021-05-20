@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_edgecloudsim/widgets/NavDrawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -140,9 +141,33 @@ class _StartupScreenState extends State<StartupScreen> {
 
     });
   }
+
+  Future<bool> _onWillPop() async { //
+    return (await showDialog(
+      context: context,
+      builder: (context) =>
+      new AlertDialog(
+        title: new Text('Confirm'),
+        content: new Text('Are you sure you want to exit?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No'),
+          ),
+          TextButton(
+            onPressed: () => SystemNavigator.pop(),//Navigator.of(context).pushNamed('intro'),
+            child: new Text('Yes'),
+          ),
+        ],
+      ),
+    )) ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+        onWillPop: () =>_onWillPop(),
+    child: Scaffold(
       backgroundColor: Colors.white,
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -323,6 +348,7 @@ class _StartupScreenState extends State<StartupScreen> {
           ],
         ),
       ),
+    )
     );
   }
 }

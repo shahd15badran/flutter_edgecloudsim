@@ -29,6 +29,8 @@ class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixi
     });
 
     application_name_controller = TextEditingController(text: prefs.getStringList('application_name')[counter - 1]);
+    if(prefs.getStringList('application_name')[counter - 1] == "AUGMENTED_REALITY")
+      application_name_controller.text = "AUGMENTED";
     usage_percentage_controller = TextEditingController(text:prefs.getStringList('usage_percentage')[counter - 1]);
     prob_cloud_selection_controller = TextEditingController(text:  prefs.getStringList('prob_cloud_selection')[counter - 1]);
     poisson_interarrival_controller = TextEditingController(text:prefs.getStringList('poisson_interarrival')[counter - 1]);
@@ -149,7 +151,10 @@ class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixi
                                   controller: application_name_controller,
                                   decoration: textInputDecoration,
                                   onChanged: (text)async{
-                                    application_name[counter-1] = application_name_controller.text;
+                                    if(application_name_controller.text == "AUGMENTED")
+                                      application_name[counter-1] = "AUGMENTED_REALITY";
+                                    else
+                                      application_name[counter-1] = application_name_controller.text;
                                   }
                               ),
                             ),
@@ -349,6 +354,7 @@ class _AddAppScreenState extends State<AddAppScreen>with TickerProviderStateMixi
                                 child: setUpButtonChild(),
                                 onPressed: ()async{
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
+
                                   prefs.setStringList('application_name', application_name);
                                   prefs.setStringList('usage_percentage', usage_percentage);
                                   prefs.setStringList('prob_cloud_selection', prob_cloud_selection);
