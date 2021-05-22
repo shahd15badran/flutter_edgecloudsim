@@ -77,13 +77,28 @@ class _State extends State<EdgeXML>with TickerProviderStateMixin  {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 230,
+                //left: 80,
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 40
-                ),
+              child: Text('edge_devices.xml',style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
               ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 130,
+              ),
+
+              child: new IconButton(
+                icon: new Icon(Icons.home_sharp,color: Colors.black,),
+                tooltip:'Home Page' ,
+
+                onPressed: () {   Navigator.of(context).pushNamed('manually');
+                },
+              ),
+
             ),
           ],
         ),
@@ -97,7 +112,7 @@ class _State extends State<EdgeXML>with TickerProviderStateMixin  {
                   padding: const EdgeInsets.only(
                   ),
                   child:Container(
-                    height: 495,
+                    height: 650,
                     child: SingleChildScrollView(
                       child: TextField(
                         maxLines: null,
@@ -117,20 +132,20 @@ class _State extends State<EdgeXML>with TickerProviderStateMixin  {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      bottom: 2
+                      bottom: 6
                   ),
                   child: Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
                           top: 10,
-                          left: 150,
+                          left: 110,
                         ),
                         child: SizedBox(
                           height: 30,
-                          width: 90,
+                          width: 190,
                           child: new MaterialButton(
-                            color: Colors.yellow,
+                            color: Color(0xFFD74646),
                             child: setUpButtonChild(),
                             onPressed: ()async{
                               setState(() {

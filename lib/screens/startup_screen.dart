@@ -229,7 +229,7 @@ class _StartupScreenState extends State<StartupScreen> {
                       right: 120,
                      // bottom: 10,
                   ),
-                  child: Text('Edit Simulator..',
+                  child: Text('Edit Simulator in',
                     style: TextStyle(
                       color:Colors.blueGrey,
                       fontSize: 27,
@@ -265,7 +265,7 @@ class _StartupScreenState extends State<StartupScreen> {
                             Icon(Icons.account_tree,color: Colors.white,size: 30),
                             Padding(
                               padding: const EdgeInsets.only(left: 30),
-                              child: Text('Graphically' ,
+                              child: Text('Graphical Mode' ,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20
@@ -311,12 +311,17 @@ class _StartupScreenState extends State<StartupScreen> {
                         Navigator.of(context).pushNamed('manually');
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 10),
                         child: Row(
                           children: [
-                            Icon(Icons.wysiwyg_sharp,color: Colors.white,size: 30),
                             Padding(
-                              padding: const EdgeInsets.only(left: 10),
+                              padding: const EdgeInsets.only(
+                                left: 0.0,
+                              ),
+                              child: Icon(Icons.wysiwyg_sharp,color: Colors.white,size: 30),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30),
                               child: Text('Advanced Mode' ,
                                 style: TextStyle(
                                     color: Colors.white,

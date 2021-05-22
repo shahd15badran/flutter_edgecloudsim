@@ -142,7 +142,7 @@ bool _hasbeenpressed =false;
                       padding: const EdgeInsets.only(
                           left: 8
                       ),
-                      child: Text('this file stores the characteristic of the data center, many data centers are used, each of them has a host and each host utilize some virtual machines..',style: TextStyle(
+                      child: Text('This file stores the characteristic of the data center, many data centers are used, each of them has a host and each host utilize some virtual machines.',style: TextStyle(
                         fontSize: 18,
                         color: Color(0xFF345979),
                         fontWeight: FontWeight.w800,

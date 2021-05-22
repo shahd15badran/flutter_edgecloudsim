@@ -51,24 +51,40 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color:Colors.black,
-        ),
-        backgroundColor: Colors.white,
         title: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 230,
+                //left: 80,
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 40
-                ),
+              child: Text('default_config.properties',style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
               ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 72,
+              ),
+
+              child: new IconButton(
+                icon: new Icon(Icons.home_sharp,color: Colors.black,),
+                tooltip:'Home Page' ,
+
+                onPressed: () {   Navigator.of(context).pushNamed('manually');
+                },
+              ),
+
             ),
           ],
         ),
+        iconTheme: IconThemeData(
+          color:Colors.black,
+        ),
+        backgroundColor: Colors.white,
+
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -79,7 +95,7 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
                   padding: const EdgeInsets.only(
                   ),
                   child:Container(
-                    height: 495,
+                    height: 630,
                     child: SingleChildScrollView(
                       child: TextField(
                         maxLines: null,
@@ -99,20 +115,21 @@ class _State extends State<DefaultConfig>with TickerProviderStateMixin {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      bottom: 2
+                      bottom: 20
                   ),
                   child: Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: 10,
-                          left: 150,
+                          //top: 10,
+                          bottom: 30,
+                          left: 110,
                         ),
                         child: SizedBox(
                           height: 30,
-                          width: 90,
+                          width: 190,
                           child: new MaterialButton(
-                            color: Colors.yellow,
+                            color: Color(0xFFD74646),
                             child: setUpButtonChild(),
                             onPressed: ()async{
                               setState(() {

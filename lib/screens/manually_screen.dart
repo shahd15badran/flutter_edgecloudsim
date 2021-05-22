@@ -34,6 +34,35 @@ class _ManuallyScreenState extends State<ManuallyScreen> {
       backgroundColor: Colors.white,
       drawer: NavDrawer(),
       appBar: AppBar(
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                //left: 80,
+              ),
+              child: Text('Configuration Files',style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 122,
+              ),
+
+              child: new IconButton(
+                icon: new Icon(Icons.home_sharp,color: Colors.black,),
+                tooltip:'Home Page' ,
+
+                onPressed: () {   Navigator.of(context).pushNamed('graphical');
+                },
+              ),
+
+            ),
+          ],
+        ),
         iconTheme: IconThemeData(
           color:Color(0xA3131212),
         ),
@@ -61,10 +90,11 @@ class _ManuallyScreenState extends State<ManuallyScreen> {
                             right:20,
                           left: 20
                         ),
-                        child: Text('    EdgeCloudSim uses three config different files, first of all,'
-                          'default_config.properties file, this file basically store the simulation settings, '
-                            'Then we have edge_devices.xml file, this file stores the characteristic of the data center, '
-                            'Last file is applications.xml, characteristic of applications are declared in it.',
+                        child: Text(
+                            'applications.xml, characteristic of applications are declared in it.\n\n'
+                          'default_config.properties file basically stores the simulation settings.\n\n'
+                            'edge_devices.xml file, stores the characteristic of the data centers.'
+                            ,
                           style: TextStyle(
                             color: Color(0xFF11202D),
                             fontSize: 18,
@@ -175,6 +205,7 @@ class _ManuallyScreenState extends State<ManuallyScreen> {
                 ),
               ),
             ),
+            /*
             Padding( ///////////////////////////////////////////////////////////
               padding: const EdgeInsets.only(
                   top: 45
@@ -210,7 +241,7 @@ class _ManuallyScreenState extends State<ManuallyScreen> {
                   ),
                 ),
               ),
-            ),
+            ),*/
 
           ],
         ),
